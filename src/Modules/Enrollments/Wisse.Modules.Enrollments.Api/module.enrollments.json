@@ -1,0 +1,8 @@
+{
+    "enrollments": {
+        "module": {
+            "name": "Enrollments",
+            "enabled": true
+        }
+    }
+}

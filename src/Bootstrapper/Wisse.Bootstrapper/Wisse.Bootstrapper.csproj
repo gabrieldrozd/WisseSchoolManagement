@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>disable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Modules\Enrollments\Wisse.Modules.Enrollments.Api\Wisse.Modules.Enrollments.Api.csproj" />
+      <ProjectReference Include="..\..\Shared\Wisse.Shared.Infrastructure\Wisse.Shared.Infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>

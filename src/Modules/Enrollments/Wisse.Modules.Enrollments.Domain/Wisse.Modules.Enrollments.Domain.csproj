@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\Common\Wisse.Common.Domain\Wisse.Common.Domain.csproj" />
+      <ProjectReference Include="..\..\..\Shared\Wisse.Shared.Abstractions\Wisse.Shared.Abstractions.csproj" />
+    </ItemGroup>
+
+</Project>

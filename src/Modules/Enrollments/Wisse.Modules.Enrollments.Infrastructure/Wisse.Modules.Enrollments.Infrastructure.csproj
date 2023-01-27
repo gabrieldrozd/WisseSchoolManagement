@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\Wisse.Shared.Infrastructure\Wisse.Shared.Infrastructure.csproj" />
+      <ProjectReference Include="..\Wisse.Modules.Enrollments.Application\Wisse.Modules.Enrollments.Application.csproj" />
+    </ItemGroup>
+
+</Project>
