@@ -1,5 +1,6 @@
 using Wisse.Common.Domain.Primitives;
 using Wisse.Common.Domain.ValueObjects;
+using Wisse.Modules.Enrollments.Domain.Constants;
 using Wisse.Modules.Enrollments.Domain.ValueObjects.Enrollment;
 
 namespace Wisse.Modules.Enrollments.Domain.Entities;
@@ -24,7 +25,7 @@ public class Enrollment : Entity
     public static Enrollment Create(Guid id, DateTime enrollmentDate)
     {
         var date = new Date(enrollmentDate);
-        var status = new EnrollmentStatus(EnrollmentStatus.Pending);
+        var status = EnrollmentStatus.Create(Status.Pending);
 
         return new Enrollment(id, date, status);
     }
