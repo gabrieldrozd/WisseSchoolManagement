@@ -5,6 +5,7 @@ using Wisse.Modules.Enrollments.Domain.ValueObjects.Enrollment;
 
 namespace Wisse.Modules.Enrollments.Domain.Entities;
 
+//TODO: Should be changed to AggregateRoot
 public class Enrollment : Entity
 {
     public Date EnrollmentDate { get; private set; }
