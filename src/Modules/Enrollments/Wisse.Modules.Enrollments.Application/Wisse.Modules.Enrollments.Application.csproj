@@ -10,4 +10,8 @@
       <ProjectReference Include="..\Wisse.Modules.Enrollments.Domain\Wisse.Modules.Enrollments.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Features\Commands" />
+    </ItemGroup>
+
 </Project>
