@@ -32,7 +32,12 @@ public class EducationDetails : ValueObject
 
     public static EducationDetails Create(Education education, string grade)
         => new(education.Name, grade);
-    
+
+    public static EducationDetails FromString(string schoolAndGrade)
+        => new(schoolAndGrade.Split(',')[0], schoolAndGrade.Split(',')[1]);
+
+    public override string ToString() => $"{School},{Grade}";
+
     protected override IEnumerable<object> GetAtomicValues()
     {
         yield return School;

@@ -1,6 +1,9 @@
 namespace Wisse.Common.Domain.Primitives;
 
-internal class AggregateRoot
+public abstract class AggregateRoot : Entity
 {
-    // TODO: Implement this AggregateRoot class based on Milan Ivanovic.
+    protected AggregateRoot(Guid id)
+        : base(id)
+    {
+    }
 }

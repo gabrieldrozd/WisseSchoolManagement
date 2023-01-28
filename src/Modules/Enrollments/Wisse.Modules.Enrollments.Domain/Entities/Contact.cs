@@ -15,6 +15,9 @@ public class Contact : Entity
     public string Street { get; private set; }
     public string HouseNumber { get; private set; }
 
+    public Guid EnrollmentId { get; set; }
+    public Enrollment Enrollment { get; set; }
+
     private Contact(Guid id)
         : base(id)
     {

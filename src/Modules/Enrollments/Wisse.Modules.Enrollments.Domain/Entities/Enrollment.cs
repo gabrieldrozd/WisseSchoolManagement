@@ -5,11 +5,12 @@ using Wisse.Modules.Enrollments.Domain.ValueObjects.Enrollment;
 
 namespace Wisse.Modules.Enrollments.Domain.Entities;
 
-//TODO: Should be changed to AggregateRoot
-public class Enrollment : Entity
+public class Enrollment : AggregateRoot
 {
     public Date EnrollmentDate { get; private set; }
     public EnrollmentStatus EnrollmentStatus { get; private set; }
+    public Applicant Applicant { get; set; }
+    public Contact Contact { get; set; }
 
     private Enrollment(Guid id)
         : base(id)
@@ -27,7 +28,18 @@ public class Enrollment : Entity
     {
         var date = new Date(enrollmentDate);
         var status = EnrollmentStatus.Create(Status.Pending);
-
         return new Enrollment(id, date, status);
+    }
+
+    public Enrollment SetApplicant(Applicant applicant)
+    {
+        Applicant = applicant;
+        return this;
+    }
+
+    public Enrollment SetContact(Contact contact)
+    {
+        Contact = contact;
+        return this;
     }
 }
