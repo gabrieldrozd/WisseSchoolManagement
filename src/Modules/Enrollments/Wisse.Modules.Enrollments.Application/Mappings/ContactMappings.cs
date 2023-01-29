@@ -6,8 +6,7 @@ namespace Wisse.Modules.Enrollments.Application.Mappings;
 public static class ContactMappings
 {
     public static ContactDetailsDto ToContactDetailsDto(this Contact model)
-    {
-        return new ContactDetailsDto
+        => new()
         {
             Email = model.Email.Value,
             Phone = model.Phone.Value,
@@ -18,5 +17,11 @@ public static class ContactMappings
             Street = model.Street,
             HouseNumber = model.HouseNumber
         };
-    }
+
+    public static ContactDto ToContactDto(this Contact model)
+        => new()
+        {
+            Email = model.Email.Value,
+            Phone = model.Phone.Value,
+        };
 }

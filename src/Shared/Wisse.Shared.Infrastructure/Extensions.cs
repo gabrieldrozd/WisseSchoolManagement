@@ -1,14 +1,14 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using ConfApp.Shared.Infrastructure.Api;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Models;
 using Wisse.Shared.Abstractions.Modules;
+using Wisse.Shared.Abstractions.Modules.Api;
 using Wisse.Shared.Infrastructure.Api.Swagger;
 using Wisse.Shared.Infrastructure.Database;
+using Wisse.Shared.Infrastructure.Mediator;
 using Wisse.Shared.Infrastructure.Modules;
 
 [assembly: InternalsVisibleTo("Wisse.Bootstrapper")]
@@ -21,8 +21,8 @@ internal static class Extensions
 
     public static IServiceCollection AddInfrastructure(
         this IServiceCollection services,
-        IEnumerable<Assembly> assemblies,
-        IEnumerable<IModule> modules)
+        IList<Assembly> assemblies,
+        IList<IModule> modules)
     {
         var disabledModules = new List<string>();
         using (var serviceProvider = services.BuildServiceProvider())
@@ -60,6 +60,8 @@ internal static class Extensions
         services
             .AddDatabase()
             .AddDatabaseInitializer();
+
+        services.AddMediator(assemblies);
 
         services.AddControllers()
             .ConfigureApplicationPartManager(manager =>

@@ -1,6 +1,6 @@
 using Wisse.Common.Exceptions;
 
-namespace Wisse.Modules.Enrollments.Domain.Exceptions.ValueObjects.Applicant;
+namespace Wisse.Modules.Enrollments.Domain.Exceptions.ValueObjects.Applicant.EducationDetails;
 
 internal class EmptyEducationDetailsException : DomainException
 {

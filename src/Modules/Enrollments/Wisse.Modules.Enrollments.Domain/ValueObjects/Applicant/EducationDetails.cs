@@ -1,6 +1,6 @@
 using Wisse.Common.Domain.Primitives;
 using Wisse.Modules.Enrollments.Domain.Constants;
-using Wisse.Modules.Enrollments.Domain.Exceptions.ValueObjects.Applicant;
+using Wisse.Modules.Enrollments.Domain.Exceptions.ValueObjects.Applicant.EducationDetails;
 
 namespace Wisse.Modules.Enrollments.Domain.ValueObjects.Applicant;
 

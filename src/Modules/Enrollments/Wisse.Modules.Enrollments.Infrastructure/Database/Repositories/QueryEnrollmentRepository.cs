@@ -25,7 +25,7 @@ internal class QueryEnrollmentRepository : IQueryEnrollmentRepository
         return enrollment;
     }
 
-    public async Task<IReadOnlyList<Enrollment>> BrowseAsync(Pagination pagination)
+    public async Task<PaginatedList<Enrollment>> BrowseAsync(Pagination pagination)
     {
         var enrollments = await _enrollments
             .AddPagination(pagination)
@@ -35,6 +35,6 @@ internal class QueryEnrollmentRepository : IQueryEnrollmentRepository
             .AsNoTracking()
             .ToListAsync();
 
-        return enrollments;
+        return PaginatedList<Enrollment>.Create(pagination, enrollments);
     }
 }

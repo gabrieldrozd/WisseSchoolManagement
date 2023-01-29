@@ -1,7 +1,7 @@
 using Wisse.Common.Exceptions;
 using Wisse.Modules.Enrollments.Domain.Constants;
 
-namespace Wisse.Modules.Enrollments.Domain.Exceptions.ValueObjects.Applicant;
+namespace Wisse.Modules.Enrollments.Domain.Exceptions.ValueObjects.Applicant.EducationDetails;
 
 internal class InvalidSchoolGradeException : DomainException
 {

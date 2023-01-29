@@ -2,7 +2,7 @@ using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 
-namespace ConfApp.Shared.Infrastructure.Api;
+namespace Wisse.Shared.Abstractions.Modules.Api;
 
 public class InternalControllerFeatureProvider : ControllerFeatureProvider
 {

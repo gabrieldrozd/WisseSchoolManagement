@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 using Wisse.Common.Domain.Primitives;
-using Wisse.Modules.Enrollments.Domain.Exceptions.ValueObjects.Contact;
+using Wisse.Modules.Enrollments.Domain.Exceptions.ValueObjects.Contact.Email;
 
 namespace Wisse.Modules.Enrollments.Domain.ValueObjects.Contact;
 

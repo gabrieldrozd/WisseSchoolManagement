@@ -1,4 +1,4 @@
-using Wisse.Modules.Enrollments.Application.DTO.Applicant;
+using Wisse.Modules.Enrollments.Application.DTO.Applicant.Response;
 using Wisse.Modules.Enrollments.Application.DTO.Contact;
 
 namespace Wisse.Modules.Enrollments.Application.DTO.Enrollment;

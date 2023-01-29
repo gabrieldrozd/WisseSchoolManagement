@@ -2,18 +2,36 @@ namespace Wisse.Common.Models;
 
 public class PaginatedList<T> where T : class
 {
-    public PaginatedList(int pageIndex, int pageSize, int count, IReadOnlyList<T> data)
+    private PaginatedList(Pagination pagination, IReadOnlyList<T> data)
     {
-        PageIndex = pageIndex;
-        PageSize = pageSize;
-        Count = count;
+        Pagination = PaginationResponse.Create(pagination.PageIndex, pagination.PageSize, data.Count);
         Data = data;
     }
 
-    public int PageIndex { get; set; }
-    public int PageSize { get; set; }
-    public int Count { get; set; }
-    public bool HasPreviousPage => PageIndex > 1;
-    public bool HasNextPage => PageSize * PageIndex < Count;
+    private PaginatedList(PaginationResponse pagination, IReadOnlyList<T> data)
+    {
+        Pagination = pagination;
+        Data = data;
+    }
+
+    public PaginationResponse Pagination { get; set; }
     public IReadOnlyList<T> Data { get; set; }
+
+    public static PaginatedList<T> Create(Pagination pagination, IEnumerable<T> list)
+    {
+        var enumerable = list as T[] ?? list.ToArray();
+
+        return new PaginatedList<T>(
+            pagination,
+            enumerable.ToList());
+    }
+
+    public static PaginatedList<T> Create(PaginationResponse pagination, IEnumerable<T> list)
+    {
+        var enumerable = list as T[] ?? list.ToArray();
+
+        return new PaginatedList<T>(
+            pagination,
+            enumerable.ToList());
+    }
 }

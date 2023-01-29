@@ -1,4 +1,4 @@
-namespace Wisse.Modules.Enrollments.Application.DTO.Applicant;
+namespace Wisse.Modules.Enrollments.Application.DTO.Applicant.Response;
 
 public class EducationDto
 {
