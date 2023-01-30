@@ -1,4 +1,4 @@
-using Wisse.Common.Types;
+using Wisse.Base.Types;
 
 namespace Wisse.Modules.Enrollments.Domain.Constants;
 

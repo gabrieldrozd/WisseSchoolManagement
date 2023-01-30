@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.0" />
+        <PackageReference Include="Scrutor" Version="4.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Api" />
+      <Folder Include="Domain" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Wisse.Base\Wisse.Base.csproj" />
+    </ItemGroup>
+
+</Project>

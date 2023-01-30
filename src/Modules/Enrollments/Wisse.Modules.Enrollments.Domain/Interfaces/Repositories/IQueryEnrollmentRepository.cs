@@ -1,4 +1,4 @@
-using Wisse.Common.Models;
+using Wisse.Common.Models.Pagination.Core;
 using Wisse.Common.Utilities.Configuration;
 using Wisse.Modules.Enrollments.Domain.Entities;
 

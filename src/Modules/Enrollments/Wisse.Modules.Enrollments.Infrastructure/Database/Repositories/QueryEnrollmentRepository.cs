@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Wisse.Common.Extensions;
-using Wisse.Common.Models;
+using Wisse.Common.Models.Pagination.Core;
 using Wisse.Modules.Enrollments.Domain.Entities;
 using Wisse.Modules.Enrollments.Domain.Interfaces.Repositories;
 

@@ -1,11 +1,10 @@
-using Wisse.Common.Results;
-using Wisse.Common.Results.Errors;
+using Wisse.Base.Results;
 using Wisse.Modules.Enrollments.Application.DTO.Queries.Enrollment;
 using Wisse.Modules.Enrollments.Application.Features.Queries;
 using Wisse.Modules.Enrollments.Application.Mappings;
-using Wisse.Modules.Enrollments.Domain.Errors;
+using Wisse.Modules.Enrollments.Domain.Entities;
 using Wisse.Modules.Enrollments.Domain.Interfaces.Repositories;
-using Wisse.Shared.Abstractions.Mediator.Queries;
+using Wisse.Shared.Abstractions.Messaging.Mediator.Queries;
 
 namespace Wisse.Modules.Enrollments.Infrastructure.Queries;
 
@@ -23,8 +22,7 @@ internal sealed class GetEnrollmentDetailsHandler : IQueryHandler<GetEnrollmentD
         var enrollment = await _repository.GetDetailsAsync(query.EnrollmentId, cancellationToken);
         if (enrollment is null)
         {
-            // return Result.Failure(EnrollmentErrorCode.NotFound);
-            return Result.Failure(EnrollmentErrorCode.NotFound.NotFoundWithId(query.EnrollmentId.ToString()));
+            return Result.NotFound(nameof(Enrollment), query.EnrollmentId);
         }
 
         var mapped = enrollment.ToEnrollmentDetailsDto();

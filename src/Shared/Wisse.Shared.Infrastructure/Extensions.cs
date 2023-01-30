@@ -8,7 +8,7 @@ using Wisse.Shared.Abstractions.Modules;
 using Wisse.Shared.Abstractions.Modules.Api;
 using Wisse.Shared.Infrastructure.Api.Swagger;
 using Wisse.Shared.Infrastructure.Database;
-using Wisse.Shared.Infrastructure.Mediator;
+using Wisse.Shared.Infrastructure.Messaging.Mediator;
 using Wisse.Shared.Infrastructure.Modules;
 
 [assembly: InternalsVisibleTo("Wisse.Bootstrapper")]

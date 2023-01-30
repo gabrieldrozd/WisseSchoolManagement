@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Wisse.Common.Results;
-using Wisse.Common.Results.Errors;
+using Wisse.Base.Results;
 using Wisse.Shared.Abstractions.Database.UnitOfWork;
 
 namespace Wisse.Shared.Infrastructure.Database.UnitOfWork;
@@ -32,6 +31,6 @@ public abstract class BaseUnitOfWork<T> : IUnitOfWork
 
         return commitStatus
             ? Result.Success()
-            : Result.Failure(DatabaseErrorCode.SaveFailure);
+            : Result.Failure(Failure.DatabaseFailure);
     }
 }

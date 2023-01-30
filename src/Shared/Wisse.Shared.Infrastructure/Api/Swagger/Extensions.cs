@@ -10,7 +10,7 @@ internal static class Extensions
     {
         services.AddSwaggerGen(swagger =>
         {
-            swagger.CustomSchemaIds(x => x.FullName);
+            swagger.CustomSchemaIds(x => x.Name);
             swagger.SwaggerDoc("v1", new OpenApiInfo
             {
                 Title = "Wisse API",
@@ -24,11 +24,13 @@ internal static class Extensions
     public static IApplicationBuilder UseSwaggerDocumentation(this IApplicationBuilder app)
     {
         app.UseSwagger();
-        app.UseSwaggerUI(setup =>
+        app.UseSwaggerUI(options =>
         {
-            setup.RoutePrefix = "docs";
-            setup.DocumentTitle = "Wisse API";
-            setup.SwaggerEndpoint("/swagger/v1/swagger.json", "Wisse API");
+            options.RoutePrefix = "docs";
+            options.DocumentTitle = "Wisse API";
+            options.DefaultModelExpandDepth(-1);
+            options.DefaultModelRendering(Swashbuckle.AspNetCore.SwaggerUI.ModelRendering.Model);
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Wisse API");
         });
 
         return app;

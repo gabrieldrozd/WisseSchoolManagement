@@ -13,7 +13,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Common\Wisse.Common.Domain\Wisse.Common.Domain.csproj" />
+      <Folder Include="Messaging" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Wisse.Common\Wisse.Common.csproj" />
     </ItemGroup>
 
 </Project>

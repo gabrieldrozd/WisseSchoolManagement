@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Shared\Common\Wisse.Common.Api\Wisse.Common.Api.csproj" />
         <ProjectReference Include="..\Wisse.Modules.Enrollments.Infrastructure\Wisse.Modules.Enrollments.Infrastructure.csproj" />
     </ItemGroup>
 

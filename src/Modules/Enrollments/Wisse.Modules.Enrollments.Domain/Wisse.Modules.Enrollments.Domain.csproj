@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Shared\Common\Wisse.Common.Domain\Wisse.Common.Domain.csproj" />
       <ProjectReference Include="..\..\..\Shared\Wisse.Shared.Abstractions\Wisse.Shared.Abstractions.csproj" />
     </ItemGroup>
 

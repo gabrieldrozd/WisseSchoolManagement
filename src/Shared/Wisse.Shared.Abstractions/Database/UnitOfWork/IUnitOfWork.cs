@@ -1,4 +1,4 @@
-using Wisse.Common.Results;
+using Wisse.Base.Results;
 
 namespace Wisse.Shared.Abstractions.Database.UnitOfWork;
 

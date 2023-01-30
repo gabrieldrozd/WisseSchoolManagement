@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
-using Wisse.Common.Api.Requests;
-using Wisse.Common.Models;
-using Wisse.Common.Results;
+using Wisse.Base.Results;
+using Wisse.Common.Api.Models;
+using Wisse.Common.Models.Pagination.Core;
 using Wisse.Modules.Enrollments.Api.Controllers.Base;
 using Wisse.Modules.Enrollments.Application.DTO.Queries.Enrollment;
 using Wisse.Modules.Enrollments.Application.Features.Commands;
 using Wisse.Modules.Enrollments.Application.Features.Queries;
-using Wisse.Shared.Abstractions.Mediator.Commands;
-using Wisse.Shared.Abstractions.Mediator.Queries;
+using Wisse.Shared.Abstractions.Messaging.Mediator.Commands;
+using Wisse.Shared.Abstractions.Messaging.Mediator.Queries;
 
 namespace Wisse.Modules.Enrollments.Api.Controllers;
 

@@ -1,10 +1,10 @@
+using Wisse.Base.Results;
 using Wisse.Common.Domain.ValueObjects;
-using Wisse.Common.Results;
 using Wisse.Modules.Enrollments.Application.Mappings;
 using Wisse.Modules.Enrollments.Domain.Entities;
 using Wisse.Modules.Enrollments.Domain.Interfaces.Repositories;
 using Wisse.Modules.Enrollments.Domain.Interfaces.UnitOfWork;
-using Wisse.Shared.Abstractions.Mediator.Commands;
+using Wisse.Shared.Abstractions.Messaging.Mediator.Commands;
 
 namespace Wisse.Modules.Enrollments.Application.Features.Commands.Handlers;
 
