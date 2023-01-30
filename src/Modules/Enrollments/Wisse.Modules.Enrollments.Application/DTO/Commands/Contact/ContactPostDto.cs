@@ -1,7 +1,8 @@
-namespace Wisse.Modules.Enrollments.Application.DTO.Contact;
+namespace Wisse.Modules.Enrollments.Application.DTO.Commands.Contact;
 
-public class ContactDetailsDto
+public class ContactPostDto
 {
+    public Guid Id { get; } = Guid.NewGuid();
     public string Email { get; set; }
     public string Phone { get; set; }
     public string ZipCode { get; set; }

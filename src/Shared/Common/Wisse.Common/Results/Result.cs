@@ -6,20 +6,26 @@ public class Result
 {
     public bool IsSuccess { get; protected init; }
     public bool IsFailure => !IsSuccess;
-    public string Error { get; protected init; }
+    public Error Error { get; protected init; }
+
+    protected Result(bool isSuccess = true, Error error = null)
+    {
+        IsSuccess = isSuccess;
+        Error = error switch
+        {
+            null => Error.None,
+            _ => error
+        };
+    }
+
+
 
     public static Result Success()
-        => new() { IsSuccess = true};
+        => new();
 
     public static Result<T> Success<T>(T value)
         => Result<T>.Success(value);
 
-    public static Result Failure(string error)
-        => new() { IsSuccess = false, Error = error };
-
-    public static Result Failure(ErrorType errorType)
-        => new() { IsSuccess = false, Error = errorType.ToString() };
-
-    public static Result<T> Failure<T>(ErrorType errorType)
-        => Result<T>.Failure(errorType);
+    public static Result Failure(ErrorCode errorCode)
+        => new(false, Error.Create(errorCode));
 }

@@ -1,7 +1,15 @@
-using Wisse.Modules.Enrollments.Domain.Repositories;
+using Wisse.Modules.Enrollments.Domain.Entities;
+using Wisse.Modules.Enrollments.Domain.Interfaces.Repositories;
+using Wisse.Shared.Infrastructure.Database.Repositories;
 
 namespace Wisse.Modules.Enrollments.Infrastructure.Database.Repositories;
 
-internal class CommandEnrollmentRepository : ICommandEnrollmentRepository
+internal class CommandEnrollmentRepository
+    : BaseRepository<Enrollment, EnrollmentsDbContext>,
+      ICommandEnrollmentRepository
 {
+    public CommandEnrollmentRepository(EnrollmentsDbContext context)
+        : base(context)
+    {
+    }
 }

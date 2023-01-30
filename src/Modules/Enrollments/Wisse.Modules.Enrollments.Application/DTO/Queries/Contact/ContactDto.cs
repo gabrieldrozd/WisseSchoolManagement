@@ -1,4 +1,4 @@
-namespace Wisse.Modules.Enrollments.Application.DTO.Contact;
+namespace Wisse.Modules.Enrollments.Application.DTO.Queries.Contact;
 
 public class ContactDto
 {

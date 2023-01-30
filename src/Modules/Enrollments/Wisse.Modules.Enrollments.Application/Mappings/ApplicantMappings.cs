@@ -1,5 +1,6 @@
-using Wisse.Modules.Enrollments.Application.DTO.Applicant.Response;
-using Wisse.Modules.Enrollments.Application.DTO.Enrollment;
+using Wisse.Modules.Enrollments.Application.DTO.Commands.Applicant;
+using Wisse.Modules.Enrollments.Application.DTO.Queries.Applicant;
+using Wisse.Modules.Enrollments.Domain.Definitions;
 using Wisse.Modules.Enrollments.Domain.Entities;
 
 namespace Wisse.Modules.Enrollments.Application.Mappings;
@@ -30,5 +31,17 @@ public static class ApplicantMappings
             FirstName = model.FirstName,
             LastName = model.LastName,
             BirthDate = model.BirthDate.ToDateTime(),
+        };
+
+    public static ApplicantDefinition ToDefinition(this ApplicantPostDto dto)
+        => new()
+        {
+            Id = dto.Id,
+            FirstName = dto.FirstName,
+            LastName = dto.LastName,
+            BirthDate = dto.BirthDate,
+            School = dto.School,
+            Grade = dto.Grade,
+            LevelKey = dto.LevelKey,
         };
 }

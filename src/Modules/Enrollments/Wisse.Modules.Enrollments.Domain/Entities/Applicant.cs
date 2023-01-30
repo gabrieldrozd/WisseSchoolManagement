@@ -1,6 +1,7 @@
 using Wisse.Common.Domain.Primitives;
 using Wisse.Common.Domain.ValueObjects;
 using Wisse.Modules.Enrollments.Domain.Constants;
+using Wisse.Modules.Enrollments.Domain.Definitions;
 using Wisse.Modules.Enrollments.Domain.ValueObjects.Applicant;
 
 namespace Wisse.Modules.Enrollments.Domain.Entities;
@@ -33,13 +34,12 @@ public class Applicant : Entity
         LanguageLevel = languageLevel;
     }
 
-    public static Applicant Create(Guid id, string firstName, string lastName, DateTime birthDate,
-        string school, string grade, string levelKey)
+    public static Applicant Create(ApplicantDefinition definition)
     {
-        var date = new Date(birthDate);
-        var education = EducationDetails.Create(Education.FromName(school), grade);
-        var languageLevel = LanguageLevel.Create(Level.FromKey(levelKey));
+        var date = new Date(definition.BirthDate);
+        var education = EducationDetails.Create(Education.FromName(definition.School), definition.Grade);
+        var languageLevel = LanguageLevel.Create(Level.FromKey(definition.LevelKey));
 
-        return new Applicant(id, firstName, lastName, date, education, languageLevel);
+        return new Applicant(definition.Id, definition.FirstName, definition.LastName, date, education, languageLevel);
     }
 }

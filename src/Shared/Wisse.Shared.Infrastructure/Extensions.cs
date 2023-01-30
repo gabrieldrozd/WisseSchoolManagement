@@ -94,11 +94,27 @@ internal static class Extensions
         return app;
     }
 
+    public static string GetModuleName(this object value)
+        => value?.GetType().GetModuleName() ?? string.Empty;
+
     public static T GetOptions<T>(this IServiceCollection services, string sectionName) where T : new()
     {
         using var serviceProvider = services.BuildServiceProvider();
         var configuration = serviceProvider.GetRequiredService<IConfiguration>();
         return configuration.BindOptions<T>(sectionName);
+    }
+
+    private static string GetModuleName(this Type type)
+    {
+        const string modulePart = "Wisse.Modules.";
+        if (type?.Namespace is null)
+        {
+            return string.Empty;
+        }
+
+        return type.Namespace.StartsWith(modulePart)
+            ? type.Namespace.Split(".")[2].ToLowerInvariant()
+            : string.Empty;
     }
 
     private static T BindOptions<T>(this IConfiguration configuration, string sectionName) where T : new()

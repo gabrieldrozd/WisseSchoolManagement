@@ -1,4 +1,6 @@
-using Wisse.Modules.Enrollments.Application.DTO.Contact;
+using Wisse.Modules.Enrollments.Application.DTO.Commands.Contact;
+using Wisse.Modules.Enrollments.Application.DTO.Queries.Contact;
+using Wisse.Modules.Enrollments.Domain.Definitions;
 using Wisse.Modules.Enrollments.Domain.Entities;
 
 namespace Wisse.Modules.Enrollments.Application.Mappings;
@@ -23,5 +25,19 @@ public static class ContactMappings
         {
             Email = model.Email.Value,
             Phone = model.Phone.Value,
+        };
+
+    public static ContactDefinition ToDefinition(this ContactPostDto dto)
+        => new()
+        {
+            Id = dto.Id,
+            Email = dto.Email,
+            Phone = dto.Phone,
+            ZipCode = dto.ZipCode,
+            ZipCodeCity = dto.ZipCodeCity,
+            State = dto.State,
+            City = dto.City,
+            Street = dto.Street,
+            HouseNumber = dto.HouseNumber
         };
 }

@@ -1,6 +1,7 @@
-using Wisse.Modules.Enrollments.Application.DTO.Contact;
+using Wisse.Modules.Enrollments.Application.DTO.Queries.Applicant;
+using Wisse.Modules.Enrollments.Application.DTO.Queries.Contact;
 
-namespace Wisse.Modules.Enrollments.Application.DTO.Enrollment;
+namespace Wisse.Modules.Enrollments.Application.DTO.Queries.Enrollment;
 
 public class EnrollmentDto
 {

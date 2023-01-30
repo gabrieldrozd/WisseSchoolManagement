@@ -1,4 +1,4 @@
-namespace Wisse.Modules.Enrollments.Application.DTO.Applicant.Response;
+namespace Wisse.Modules.Enrollments.Application.DTO.Queries.Applicant;
 
 public class ApplicantDetailsDto
 {

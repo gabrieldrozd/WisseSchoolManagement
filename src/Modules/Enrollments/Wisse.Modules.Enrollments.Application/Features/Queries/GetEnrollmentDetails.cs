@@ -1,5 +1,5 @@
 using Wisse.Common.Utilities.Messaging.Mediator;
-using Wisse.Modules.Enrollments.Application.DTO.Enrollment;
+using Wisse.Modules.Enrollments.Application.DTO.Queries.Enrollment;
 
 namespace Wisse.Modules.Enrollments.Application.Features.Queries;
 

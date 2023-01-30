@@ -24,11 +24,10 @@ public class Enrollment : AggregateRoot
         EnrollmentStatus = enrollmentStatus;
     }
 
-    public static Enrollment Create(Guid id, DateTime enrollmentDate)
+    public static Enrollment Create(Guid id, Date enrollmentDate)
     {
-        var date = new Date(enrollmentDate);
         var status = EnrollmentStatus.Create(Status.Pending);
-        return new Enrollment(id, date, status);
+        return new Enrollment(id, enrollmentDate, status);
     }
 
     public Enrollment SetApplicant(Applicant applicant)

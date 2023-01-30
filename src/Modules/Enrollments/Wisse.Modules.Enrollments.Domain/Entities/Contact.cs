@@ -1,4 +1,5 @@
 using Wisse.Common.Domain.Primitives;
+using Wisse.Modules.Enrollments.Domain.Definitions;
 using Wisse.Modules.Enrollments.Domain.ValueObjects.Contact;
 
 namespace Wisse.Modules.Enrollments.Domain.Entities;
@@ -37,13 +38,13 @@ public class Contact : Entity
         HouseNumber = houseNumber;
     }
 
-    public static Contact Create(Guid id, string email, string phone, string zipCode, string zipCodeCity,
-        string state, string city, string street, string houseNumber)
+    public static Contact Create(ContactDefinition definition)
     {
-        var emailValue = new Email(email);
-        var phoneValue = new Phone(phone);
-        var zipCodeValue = new ZipCode(zipCode);
+        var emailValue = new Email(definition.Email);
+        var phoneValue = new Phone(definition.Phone);
+        var zipCodeValue = new ZipCode(definition.ZipCode);
 
-        return new Contact(id, emailValue, phoneValue, zipCodeValue, zipCodeCity, state, city, street, houseNumber);
+        return new Contact(definition.Id, emailValue, phoneValue, zipCodeValue, definition.ZipCodeCity,
+            definition.State, definition.City, definition.Street, definition.HouseNumber);
     }
 }
