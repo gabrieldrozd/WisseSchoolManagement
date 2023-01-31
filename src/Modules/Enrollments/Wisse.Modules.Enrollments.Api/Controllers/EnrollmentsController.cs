@@ -1,7 +1,8 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Wisse.Base.Results;
-using Wisse.Common.Api.Models;
-using Wisse.Common.Models.Pagination.Core;
+using Wisse.Common.Controllers;
+using Wisse.Common.Models.Envelope;
+using Wisse.Common.Models.Pagination;
 using Wisse.Modules.Enrollments.Api.Controllers.Base;
 using Wisse.Modules.Enrollments.Application.DTO.Queries.Enrollment;
 using Wisse.Modules.Enrollments.Application.Features.Commands;
@@ -27,29 +28,25 @@ internal class EnrollmentsController : ModuleController
     #region Query
 
     [HttpGet("{enrollmentId:guid}")]
-    public async Task<ActionResult<Result<EnrollmentDetailsDto>>> GetDetails(
+    [ProducesEnvelope(typeof(EnrollmentDetailsDto), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetDetails(
         [FromRoute] Guid enrollmentId,
         CancellationToken cancellationToken = default)
     {
         var query = new GetEnrollmentDetails(enrollmentId);
         var result = await _queryDispatcher.QueryAsync(query, cancellationToken);
-
-        // TODO: Create a custom response type for DataResult<T> and additional information like:
-        // - Errors
-        // - StatusCode
-        // and maybe something else
-        return Ok(result);
+        return BuildEnvelope(result);
     }
 
     [HttpPut("browse")]
-    public async Task<ActionResult<PaginatedList<EnrollmentDto>>> Browse(
+    [ProducesEnvelope(typeof(PaginatedList<EnrollmentDto>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Browse(
         [FromBody] PaginationRequest pagination,
         CancellationToken cancellationToken = default)
     {
         var query = new BrowseEnrollments(pagination.ToPagination());
-        var results = await _queryDispatcher.QueryAsync(query, cancellationToken);
-
-        return Ok(results);
+        var result = await _queryDispatcher.QueryAsync(query, cancellationToken);
+        return BuildEnvelope(result);
     }
 
     #endregion
@@ -57,19 +54,13 @@ internal class EnrollmentsController : ModuleController
     #region Command
 
     [HttpPost]
-    public async Task<ActionResult> Submit(
+    [ProducesEmptyEnvelope(StatusCodes.Status200OK)]
+    public async Task<IActionResult> Submit(
         [FromBody] SubmitEnrollment command,
         CancellationToken cancellationToken = default)
     {
-        await _commandDispatcher.SendAsync(command, cancellationToken);
-
-        // TODO: Create a custom response type for DataResult<T> and additional information like:
-        // - Errors
-        // - StatusCode
-        // and maybe something else
-        // Result is being returned so good idea is to return it as a response
-
-        return CreatedAtAction(nameof(GetDetails), new { enrollmentId = command.Enrollment.Id }, null);
+        var result = await _commandDispatcher.SendAsync(command, cancellationToken);
+        return BuildEnvelope(result);
     }
 
     #endregion

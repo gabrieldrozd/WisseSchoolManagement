@@ -17,12 +17,12 @@ internal sealed class GetEnrollmentDetailsHandler : IQueryHandler<GetEnrollmentD
         _repository = repository;
     }
 
-    public async Task<Result> HandleAsync(GetEnrollmentDetails query, CancellationToken cancellationToken = default)
+    public async Task<Result<EnrollmentDetailsDto>> HandleAsync(GetEnrollmentDetails query, CancellationToken cancellationToken = default)
     {
         var enrollment = await _repository.GetDetailsAsync(query.EnrollmentId, cancellationToken);
         if (enrollment is null)
         {
-            return Result.NotFound(nameof(Enrollment), query.EnrollmentId);
+            return Result.NotFound<EnrollmentDetailsDto>(nameof(Enrollment), query.EnrollmentId);
         }
 
         var mapped = enrollment.ToEnrollmentDetailsDto();

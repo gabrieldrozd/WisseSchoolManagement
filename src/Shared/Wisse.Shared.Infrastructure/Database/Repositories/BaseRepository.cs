@@ -15,6 +15,11 @@ public class BaseRepository<TEntity, TDbContext> : IBaseRepository<TEntity>
         _context = context;
     }
 
+    public Task<int> TotalCountAsync()
+    {
+        return _context.Set<TEntity>().CountAsync();
+    }
+
     public void Insert(TEntity entity)
     {
         _context.Set<TEntity>().Add(entity);

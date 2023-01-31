@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Wisse.Common.Api.Controllers;
+using Wisse.Common.Controllers;
 
 namespace Wisse.Modules.Enrollments.Api.Controllers.Base;
 

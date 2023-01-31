@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Wisse.Common.Extensions;
-using Wisse.Common.Models.Pagination.Core;
+using Wisse.Common.Models.Pagination;
 using Wisse.Modules.Enrollments.Domain.Entities;
 using Wisse.Modules.Enrollments.Domain.Interfaces.Repositories;
 
@@ -19,7 +19,7 @@ internal class QueryEnrollmentRepository : IQueryEnrollmentRepository
         Guid enrollmentId, CancellationToken cancellationToken = default)
     {
         var enrollment = await _enrollments
-            .Where(x => x.Id.Equals(enrollmentId))
+            .Where(x => x.ExternalId.Equals(enrollmentId))
             .AsNoTracking()
             .SingleOrDefaultAsync(cancellationToken);
 
@@ -37,6 +37,8 @@ internal class QueryEnrollmentRepository : IQueryEnrollmentRepository
             .AsNoTracking()
             .ToListAsync(cancellationToken);
 
-        return PaginatedList<Enrollment>.Create(pagination, enrollments);
+        var totalItems = await _enrollments.CountAsync(cancellationToken);
+
+        return PaginatedList<Enrollment>.Create(pagination, enrollments, totalItems);
     }
 }

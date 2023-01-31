@@ -14,6 +14,7 @@ internal class EnrollmentConfiguration : IEntityTypeConfiguration<Enrollment>
     public void Configure(EntityTypeBuilder<Enrollment> builder)
     {
         builder.HasKey(x => x.Id);
+        builder.HasAlternateKey(x => x.ExternalId);
 
         builder.Property(x => x.EnrollmentDate)
             .HasConversion(
@@ -35,6 +36,7 @@ internal class EnrollmentConfiguration : IEntityTypeConfiguration<Enrollment>
             applicant.ToTable(ApplicantConstants.ApplicantTableName);
             applicant.WithOwner(x => x.Enrollment).HasForeignKey(x => x.EnrollmentId);
             applicant.HasKey(x => x.Id);
+            applicant.HasKey(x => x.ExternalId);
 
             applicant.Property(x => x.FirstName)
                 .HasMaxLength(ApplicantConstants.FirstNameMaxLength)
@@ -74,6 +76,7 @@ internal class EnrollmentConfiguration : IEntityTypeConfiguration<Enrollment>
             contact.ToTable(ContactConstants.ContactTableName);
             contact.WithOwner(x => x.Enrollment).HasForeignKey(x => x.EnrollmentId);
             contact.HasKey(x => x.Id);
+            contact.HasKey(x => x.ExternalId);
 
             contact.Property(x => x.Email)
                 .HasConversion(

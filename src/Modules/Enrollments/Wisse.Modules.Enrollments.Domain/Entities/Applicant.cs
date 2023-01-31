@@ -15,17 +15,17 @@ public class Applicant : Entity
     public EducationDetails EducationDetails { get; private set; }
     public LanguageLevel LanguageLevel { get; private set; }
 
-    public Guid EnrollmentId { get; set; }
+    public int EnrollmentId { get; set; }
     public Enrollment Enrollment { get; set; }
 
-    private Applicant(Guid id)
-        : base(id)
+    private Applicant(Guid externalId)
+        : base(externalId)
     {
     }
 
-    private Applicant(Guid id, string firstName, string lastName, Date birthDate,
+    private Applicant(Guid externalId, string firstName, string lastName, Date birthDate,
         EducationDetails educationDetails, LanguageLevel languageLevel)
-        : this(id)
+        : this(externalId)
     {
         FirstName = firstName;
         LastName = lastName;

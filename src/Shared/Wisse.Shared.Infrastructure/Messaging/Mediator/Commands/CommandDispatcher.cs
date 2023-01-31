@@ -1,4 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
+using Wisse.Base.Results;
+using Wisse.Base.Results.Core;
 using Wisse.Common.Messaging.Mediator;
 using Wisse.Shared.Abstractions.Messaging.Mediator.Commands;
 
@@ -13,16 +15,16 @@ internal sealed class CommandDispatcher : ICommandDispatcher
         _serviceProvider = serviceProvider;
     }
 
-    public async Task SendAsync<TCommand>(TCommand command, CancellationToken cancellationToken = default)
+    public async Task<Result> SendAsync<TCommand>(TCommand command, CancellationToken cancellationToken = default)
         where TCommand : class, ICommand
     {
         if (command is null)
         {
-            return;
+            return Result.Failure(Failure.MediatorFailure);
         }
 
         using var scope = _serviceProvider.CreateScope();
         var handler = scope.ServiceProvider.GetRequiredService<ICommandHandler<TCommand>>();
-        await handler.HandleAsync(command, cancellationToken);
+        return await handler.HandleAsync(command, cancellationToken);
     }
 }

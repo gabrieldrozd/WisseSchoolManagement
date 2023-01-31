@@ -1,4 +1,4 @@
-namespace Wisse.Base.Results;
+namespace Wisse.Base.Results.Core;
 
 public record Error(string Code, string Message)
 {
@@ -18,6 +18,13 @@ public record Error(string Code, string Message)
 
     internal static Error DatabaseFailure()
         => Create("DatabaseFailure", "Database failed to process changes.");
+
+    #endregion
+
+    #region Public Errors
+
+    public static Error Unexpected()
+        => Create("Unexpected", "An unexpected error occurred.");
 
     #endregion
 }

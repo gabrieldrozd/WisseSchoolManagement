@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Wisse.Common.Api.Controllers;
+namespace Wisse.Common.Controllers;
 
 public class ProducesDefaultContentTypeAttribute : ProducesAttribute
 {

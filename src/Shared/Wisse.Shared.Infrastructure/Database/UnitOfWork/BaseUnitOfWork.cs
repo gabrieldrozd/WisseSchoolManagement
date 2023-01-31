@@ -23,7 +23,7 @@ public abstract class BaseUnitOfWork<T> : IUnitOfWork
             await _context.SaveChangesAsync(cancellationToken);
             await transaction.CommitAsync(cancellationToken);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             commitStatus = false;
             await transaction.RollbackAsync(cancellationToken);
@@ -31,6 +31,6 @@ public abstract class BaseUnitOfWork<T> : IUnitOfWork
 
         return commitStatus
             ? Result.Success()
-            : Result.Failure(Failure.DatabaseFailure);
+            : Result.DatabaseFailure();
     }
 }

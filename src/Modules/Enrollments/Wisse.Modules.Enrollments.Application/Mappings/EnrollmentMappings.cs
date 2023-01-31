@@ -8,6 +8,7 @@ public static class EnrollmentMappings
     public static EnrollmentDetailsDto ToEnrollmentDetailsDto(this Enrollment model)
         => new()
         {
+            ExternalId = model.ExternalId,
             EnrollmentDate = model.EnrollmentDate.ToDateTime(),
             EnrollmentStatus = model.EnrollmentStatus.Value,
             Applicant = model.Applicant.ToApplicantDetailsDto(),
@@ -17,6 +18,7 @@ public static class EnrollmentMappings
     public static EnrollmentDto ToEnrollmentDto(this Enrollment model)
         => new()
         {
+            ExternalId = model.ExternalId,
             EnrollmentDate = model.EnrollmentDate.ToDateTime(),
             EnrollmentStatus = model.EnrollmentStatus.Value,
             Applicant = model.Applicant.ToApplicantDto(),

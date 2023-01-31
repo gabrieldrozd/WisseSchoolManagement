@@ -1,12 +1,16 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Wisse.Common.Domain.Primitives;
 
 public abstract class Entity : IEquatable<Entity>
 {
-    public Guid Id { get; private init; }
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int Id { get; set; }
+    public Guid ExternalId { get; private init; }
 
-    protected Entity(Guid id)
+    protected Entity(Guid externalId)
     {
-        Id = id;
+        ExternalId = externalId;
     }
 
     public static bool operator ==(Entity left, Entity right)
@@ -31,7 +35,7 @@ public abstract class Entity : IEquatable<Entity>
             return false;
         }
 
-        return Id == other.Id;
+        return ExternalId == other.ExternalId;
     }
 
     public override bool Equals(object obj)
@@ -51,11 +55,11 @@ public abstract class Entity : IEquatable<Entity>
             return false;
         }
 
-        return Id == entity.Id;
+        return ExternalId == entity.ExternalId;
     }
 
     public override int GetHashCode()
     {
-        return Id.GetHashCode();
+        return ExternalId.GetHashCode();
     }
 }

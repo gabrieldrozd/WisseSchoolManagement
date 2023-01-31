@@ -9,4 +9,6 @@ public static class PaginationConstants
     public const int DefaultPageIndex = 1;
     public const int MaxPageIndex = 100;
     public const int MinPageIndex = 1;
+
+    public const bool DefaultOrderByAscending = true;
 }

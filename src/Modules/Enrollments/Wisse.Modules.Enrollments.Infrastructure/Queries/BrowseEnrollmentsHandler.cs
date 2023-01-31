@@ -1,6 +1,6 @@
 using Wisse.Base.Results;
 using Wisse.Common.Extensions;
-using Wisse.Common.Models.Pagination.Core;
+using Wisse.Common.Models.Pagination;
 using Wisse.Modules.Enrollments.Application.DTO.Queries.Enrollment;
 using Wisse.Modules.Enrollments.Application.Features.Queries;
 using Wisse.Modules.Enrollments.Application.Mappings;
@@ -18,7 +18,8 @@ internal sealed class BrowseEnrollmentsHandler : IQueryHandler<BrowseEnrollments
         _repository = repository;
     }
 
-    public async Task<Result> HandleAsync(BrowseEnrollments query, CancellationToken cancellationToken = default)
+    public async Task<Result<PaginatedList<EnrollmentDto>>> HandleAsync(
+        BrowseEnrollments query, CancellationToken cancellationToken = default)
     {
         var enrollments = await _repository.BrowseAsync(query.Pagination, cancellationToken);
         var mapped = enrollments.MapTo(EnrollmentMappings.ToEnrollmentDto);

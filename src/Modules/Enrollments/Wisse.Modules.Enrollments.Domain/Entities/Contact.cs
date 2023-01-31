@@ -16,17 +16,17 @@ public class Contact : Entity
     public string Street { get; private set; }
     public string HouseNumber { get; private set; }
 
-    public Guid EnrollmentId { get; set; }
+    public int EnrollmentId { get; set; }
     public Enrollment Enrollment { get; set; }
 
-    private Contact(Guid id)
-        : base(id)
+    private Contact(Guid externalId)
+        : base(externalId)
     {
     }
 
-    private Contact(Guid id, Email email, Phone phone, ZipCode zipCode, string zipCodeCity,
+    private Contact(Guid externalId, Email email, Phone phone, ZipCode zipCode, string zipCodeCity,
         string state, string city, string street, string houseNumber)
-        : this(id)
+        : this(externalId)
     {
         Email = email;
         Phone = phone;

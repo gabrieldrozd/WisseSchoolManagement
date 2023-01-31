@@ -12,13 +12,13 @@ public class Enrollment : AggregateRoot
     public Applicant Applicant { get; set; }
     public Contact Contact { get; set; }
 
-    private Enrollment(Guid id)
-        : base(id)
+    private Enrollment(Guid externalId)
+        : base(externalId)
     {
     }
 
-    private Enrollment(Guid id, Date enrollmentDate, EnrollmentStatus enrollmentStatus)
-        : this(id)
+    private Enrollment(Guid externalId, Date enrollmentDate, EnrollmentStatus enrollmentStatus)
+        : this(externalId)
     {
         EnrollmentDate = enrollmentDate;
         EnrollmentStatus = enrollmentStatus;

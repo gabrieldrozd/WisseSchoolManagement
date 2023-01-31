@@ -1,4 +1,4 @@
-using Wisse.Common.Models.Pagination.Core;
+using Wisse.Common.Models.Pagination;
 
 namespace Wisse.Common.Extensions;
 
@@ -12,7 +12,7 @@ public static class PaginatedListExtensions
         where TMapped : class
     {
         var pagination = current.Pagination;
-        var mapped = current.Data.MapTo(func, mapNulls);
+        var mapped = current.List.MapTo(func, mapNulls);
 
         return PaginatedList<TMapped>.Create(pagination, mapped);
     }

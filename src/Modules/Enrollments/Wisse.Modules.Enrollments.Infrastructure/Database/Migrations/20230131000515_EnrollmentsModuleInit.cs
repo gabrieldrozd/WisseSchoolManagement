@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -19,13 +20,16 @@ namespace Wisse.Modules.Enrollments.Infrastructure.Database.Migrations
                 schema: "enrollments",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     EnrollmentDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    EnrollmentStatus = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false)
+                    EnrollmentStatus = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    ExternalId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Enrollments", x => x.Id);
+                    table.UniqueConstraint("AK_Enrollments_ExternalId", x => x.ExternalId);
                 });
 
             migrationBuilder.CreateTable(
@@ -33,17 +37,19 @@ namespace Wisse.Modules.Enrollments.Infrastructure.Database.Migrations
                 schema: "enrollments",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    ExternalId = table.Column<Guid>(type: "uuid", nullable: false),
                     FirstName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     BirthDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     EducationDetails = table.Column<string>(type: "character varying(80)", maxLength: 80, nullable: false),
                     LanguageLevel = table.Column<string>(type: "character varying(80)", maxLength: 80, nullable: false),
-                    EnrollmentId = table.Column<Guid>(type: "uuid", nullable: false)
+                    EnrollmentId = table.Column<int>(type: "integer", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Applicants", x => x.Id);
+                    table.PrimaryKey("PK_Applicants", x => x.ExternalId);
                     table.ForeignKey(
                         name: "FK_Applicants_Enrollments_EnrollmentId",
                         column: x => x.EnrollmentId,
@@ -58,7 +64,7 @@ namespace Wisse.Modules.Enrollments.Infrastructure.Database.Migrations
                 schema: "enrollments",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    ExternalId = table.Column<Guid>(type: "uuid", nullable: false),
                     Email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Phone = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     ZipCode = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
@@ -67,11 +73,13 @@ namespace Wisse.Modules.Enrollments.Infrastructure.Database.Migrations
                     City = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     Street = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true),
                     HouseNumber = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
-                    EnrollmentId = table.Column<Guid>(type: "uuid", nullable: false)
+                    EnrollmentId = table.Column<int>(type: "integer", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Contacts", x => x.Id);
+                    table.PrimaryKey("PK_Contacts", x => x.ExternalId);
                     table.ForeignKey(
                         name: "FK_Contacts_Enrollments_EnrollmentId",
                         column: x => x.EnrollmentId,
