@@ -1,23 +1,23 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Wisse.Modules.Enrollments.Application;
-using Wisse.Modules.Enrollments.Domain;
-using Wisse.Modules.Enrollments.Infrastructure;
+using Wisse.Modules.Users.Application;
+using Wisse.Modules.Users.Domain;
+using Wisse.Modules.Users.Infrastructure;
 using Wisse.Shared.Abstractions.Modules;
 using Wisse.Shared.Infrastructure.Api.Settings;
 
-namespace Wisse.Modules.Enrollments.Api;
+namespace Wisse.Modules.Users.Api;
 
-internal class EnrollmentsModule : IModule
+internal class UsersModule : IModule
 {
-    public const string BaseName = ApiSettings.EnrollmentsName;
-    public const string BasePath = ApiGroups.Enrollments;
+    public const string BaseName = ApiSettings.UsersName;
+    public const string BasePath = ApiGroups.Users;
 
     public string Name => BaseName;
     public string Path => BasePath;
     public IEnumerable<string> Policies { get; } = new[]
     {
-        "enrollments"
+        "users"
     };
 
     public void RegisterModule(IServiceCollection services)

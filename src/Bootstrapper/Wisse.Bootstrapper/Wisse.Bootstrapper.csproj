@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Modules\Enrollments\Wisse.Modules.Enrollments.Api\Wisse.Modules.Enrollments.Api.csproj" />
+      <ProjectReference Include="..\..\Modules\Users\Wisse.Modules.Users.Api\Wisse.Modules.Users.Api.csproj" />
       <ProjectReference Include="..\..\Shared\Wisse.Shared.Infrastructure\Wisse.Shared.Infrastructure.csproj" />
     </ItemGroup>
 

@@ -54,7 +54,7 @@ internal static class Extensions
         //     });
         // });
 
-        services.AddSwaggerDocumentation();
+        services.AddSwaggerDocumentation(modules);
         services.AddModuleInfo(modules);
 
         services
@@ -112,9 +112,11 @@ internal static class Extensions
             return string.Empty;
         }
 
-        return type.Namespace.StartsWith(modulePart)
+        var moduleName = type.Namespace.StartsWith(modulePart)
             ? type.Namespace.Split(".")[2].ToLowerInvariant()
             : string.Empty;
+
+        return moduleName;
     }
 
     private static T BindOptions<T>(this IConfiguration configuration, string sectionName) where T : new()

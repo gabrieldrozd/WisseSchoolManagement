@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Wisse.Shared.Abstractions.Modules;
+using Wisse.Shared.Infrastructure.Api.Settings;
 
 namespace Wisse.Shared.Infrastructure.Api.Swagger;
 
@@ -10,11 +12,16 @@ internal static class Extensions
     {
         services.AddSwaggerGen(swagger =>
         {
-            swagger.SwaggerDoc("v1", new OpenApiInfo
+            foreach (var group in ApiGroups.GetNameValueDictionary())
             {
-                Title = "Wisse API",
-                Version = "v1",
-            });
+                swagger.SwaggerDoc(
+                    group.Value,
+                    new OpenApiInfo
+                    {
+                        Title = $"{group.Key}",
+                        Version = group.Value
+                    });
+            }
         });
 
         return services;
@@ -27,7 +34,11 @@ internal static class Extensions
         {
             options.RoutePrefix = "docs";
             options.DocumentTitle = "Wisse API";
-            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Wisse API");
+
+            foreach (var group in ApiGroups.GetNameValueDictionary())
+            {
+                options.SwaggerEndpoint($"/swagger/{group.Value}/swagger.json", $"{group.Key} API");
+            }
         });
 
         return app;
