@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Wisse.Base.Results;
 using Wisse.Common.Extensions;
-using Wisse.Common.Models.Envelope;
 
 namespace Wisse.Common.Controllers;
 

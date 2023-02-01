@@ -13,6 +13,8 @@ internal class EnrollmentsModule : IModule
     public const string BaseName = ApiSettings.EnrollmentsName;
     public const string BasePath = ApiGroups.Enrollments;
 
+    public const string EnrollmentsArea = "Enrollments";
+
     public string Name => BaseName;
     public string Path => BasePath;
     public IEnumerable<string> Policies { get; } = new[]

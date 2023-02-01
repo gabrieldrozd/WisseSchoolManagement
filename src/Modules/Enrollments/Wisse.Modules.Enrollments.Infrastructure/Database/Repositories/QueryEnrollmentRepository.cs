@@ -15,6 +15,16 @@ internal class QueryEnrollmentRepository : IQueryEnrollmentRepository
         _enrollments = context.Enrollments;
     }
 
+    public async Task<Enrollment> GetAsync(
+        Guid enrollmentId, CancellationToken cancellationToken = default)
+    {
+        var enrollment = await _enrollments
+            .Where(x => x.ExternalId.Equals(enrollmentId))
+            .SingleOrDefaultAsync(cancellationToken);
+
+        return enrollment;
+    }
+
     public async Task<Enrollment> GetDetailsAsync(
         Guid enrollmentId, CancellationToken cancellationToken = default)
     {

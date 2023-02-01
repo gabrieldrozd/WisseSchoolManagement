@@ -1,6 +1,6 @@
 using Wisse.Common.Domain.Primitives;
 using Wisse.Common.Domain.ValueObjects;
-using Wisse.Modules.Enrollments.Domain.Constants;
+using Wisse.Modules.Enrollments.Domain.Exceptions.ValueObjects.Enrollment;
 using Wisse.Modules.Enrollments.Domain.ValueObjects.Enrollment;
 
 namespace Wisse.Modules.Enrollments.Domain.Entities;
@@ -26,19 +26,31 @@ public class Enrollment : AggregateRoot
 
     public static Enrollment Create(Guid id, Date enrollmentDate)
     {
-        var status = EnrollmentStatus.Create(Status.Pending);
+        var status = EnrollmentStatus.Pending();
         return new Enrollment(id, enrollmentDate, status);
     }
 
-    public Enrollment SetApplicant(Applicant applicant)
-    {
-        Applicant = applicant;
-        return this;
-    }
+    public void SetApplicant(Applicant applicant)
+        => Applicant = applicant;
 
-    public Enrollment SetContact(Contact contact)
+    public void SetContact(Contact contact)
+        => Contact = contact;
+
+    public void Approve()
+        => ChangeStatus(EnrollmentStatus.Approved(), EnrollmentStatus.Rejected());
+
+    public void Reject()
+        => ChangeStatus(EnrollmentStatus.Rejected(), EnrollmentStatus.Approved());
+
+    private void ChangeStatus(EnrollmentStatus status, EnrollmentStatus invalidStatus)
     {
-        Contact = contact;
-        return this;
+        if (status.Equals(invalidStatus))
+        {
+            throw new InvalidEnrollmentStatusException(ExternalId, status, invalidStatus);
+        }
+
+        EnrollmentStatus = status;
+        // TODO: Add integration event here
+        // AddEvent(new EnrollmentStatusChanged(ExternalId, status));
     }
 }

@@ -22,6 +22,10 @@ public class EnrollmentStatus : ValueObject
     public static EnrollmentStatus Create(Status status)
         => new(status.Name);
 
+    public static EnrollmentStatus Pending() => Create(Status.Pending);
+    public static EnrollmentStatus Approved() => Create(Status.Approved);
+    public static EnrollmentStatus Rejected() => Create(Status.Rejected);
+
     protected override IEnumerable<object> GetAtomicValues()
     {
         yield return Value;

@@ -54,7 +54,7 @@ internal static class Extensions
         //     });
         // });
 
-        services.AddSwaggerDocumentation(modules);
+        services.AddSwaggerDocumentation();
         services.AddModuleInfo(modules);
 
         services
