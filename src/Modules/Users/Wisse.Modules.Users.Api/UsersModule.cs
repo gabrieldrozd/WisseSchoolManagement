@@ -31,4 +31,10 @@ internal class UsersModule : IModule
     public void UseModule(WebApplication app)
     {
     }
+
+    public static class Areas
+    {
+        public const string Auth = "Auth";
+        public const string Users = "Users";
+    }
 }

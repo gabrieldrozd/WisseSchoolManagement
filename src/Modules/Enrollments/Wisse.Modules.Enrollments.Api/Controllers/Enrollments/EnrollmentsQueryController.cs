@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Wisse.Common.Controllers;
+using Wisse.Common.Controllers.Types;
 using Wisse.Common.Models.Pagination;
 using Wisse.Modules.Enrollments.Api.Controllers.Base;
 using Wisse.Modules.Enrollments.Application.DTO.Queries.Enrollment;
@@ -9,9 +10,7 @@ using Wisse.Shared.Abstractions.Messaging.Mediator.Queries;
 
 namespace Wisse.Modules.Enrollments.Api.Controllers.Enrollments;
 
-[Tags($"{EnrollmentsModule.EnrollmentsArea} Queries")]
-[Area(EnrollmentsModule.EnrollmentsArea)]
-[Route(EnrollmentsModule.BasePath)]
+[ControllerConfiguration(ControllerType.Queries, EnrollmentsModule.Areas.Enrollments, EnrollmentsModule.BasePath)]
 internal class EnrollmentsQueryController : ModuleController
 {
     private readonly IQueryDispatcher _queryDispatcher;
