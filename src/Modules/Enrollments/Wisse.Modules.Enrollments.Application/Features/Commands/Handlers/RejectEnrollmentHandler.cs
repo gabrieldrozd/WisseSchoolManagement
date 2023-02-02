@@ -2,7 +2,7 @@ using Wisse.Base.Results;
 using Wisse.Modules.Enrollments.Domain.Entities;
 using Wisse.Modules.Enrollments.Domain.Interfaces.Repositories;
 using Wisse.Modules.Enrollments.Domain.Interfaces.UnitOfWork;
-using Wisse.Shared.Abstractions.Messaging.Mediator.Commands;
+using Wisse.Shared.Abstractions.Communication.Internal.Commands;
 
 namespace Wisse.Modules.Enrollments.Application.Features.Commands.Handlers;
 

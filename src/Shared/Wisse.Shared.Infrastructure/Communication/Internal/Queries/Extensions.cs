@@ -1,8 +1,8 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
-using Wisse.Shared.Abstractions.Messaging.Mediator.Queries;
+using Wisse.Shared.Abstractions.Communication.Internal.Queries;
 
-namespace Wisse.Shared.Infrastructure.Messaging.Mediator.Queries;
+namespace Wisse.Shared.Infrastructure.Communication.Internal.Queries;
 
 internal static class Extensions
 {

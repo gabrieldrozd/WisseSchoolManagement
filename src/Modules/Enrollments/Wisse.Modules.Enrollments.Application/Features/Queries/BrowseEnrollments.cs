@@ -1,4 +1,4 @@
-using Wisse.Common.Messaging.Mediator;
+using Wisse.Common.Communication.Internal;
 using Wisse.Common.Models.Pagination;
 using Wisse.Modules.Enrollments.Application.DTO.Queries.Enrollment;
 

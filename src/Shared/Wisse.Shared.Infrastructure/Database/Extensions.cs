@@ -10,11 +10,13 @@ public static class Extensions
 {
     private const string SectionName = "database";
 
-    internal static IServiceCollection AddDatabase(this IServiceCollection services)
+    internal static IServiceCollection AddDatabaseAndInitializer(this IServiceCollection services)
     {
         var options = services.GetOptions<DatabaseOptions>(SectionName);
         services.AddSingleton(options);
         services.AddSingleton(new UnitOfWorkTypeRegistry());
+
+        services.AddHostedService<DatabaseInitializer>();
 
         return services;
     }
@@ -26,13 +28,6 @@ public static class Extensions
         services.AddDbContext<T>(x => { x.UseNpgsql(options.ConnectionString); });
 
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-
-        return services;
-    }
-
-    public static IServiceCollection AddDatabaseInitializer(this IServiceCollection services)
-    {
-        services.AddHostedService<DatabaseInitializer>();
 
         return services;
     }

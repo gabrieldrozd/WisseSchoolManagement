@@ -4,7 +4,7 @@ using Wisse.Modules.Enrollments.Application.Features.Queries;
 using Wisse.Modules.Enrollments.Application.Mappings;
 using Wisse.Modules.Enrollments.Domain.Entities;
 using Wisse.Modules.Enrollments.Domain.Interfaces.Repositories;
-using Wisse.Shared.Abstractions.Messaging.Mediator.Queries;
+using Wisse.Shared.Abstractions.Communication.Internal.Queries;
 
 namespace Wisse.Modules.Enrollments.Infrastructure.Queries;
 

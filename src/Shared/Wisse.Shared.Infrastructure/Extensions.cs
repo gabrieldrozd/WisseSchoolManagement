@@ -6,9 +6,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Wisse.Shared.Abstractions.Modules;
 using Wisse.Shared.Abstractions.Modules.Api;
-using Wisse.Shared.Infrastructure.Api.Swagger;
+using Wisse.Shared.Infrastructure.Api;
+using Wisse.Shared.Infrastructure.Communication;
+using Wisse.Shared.Infrastructure.Communication.Internal;
 using Wisse.Shared.Infrastructure.Database;
-using Wisse.Shared.Infrastructure.Messaging.Mediator;
 using Wisse.Shared.Infrastructure.Modules;
 
 [assembly: InternalsVisibleTo("Wisse.Bootstrapper")]
@@ -20,9 +21,7 @@ internal static class Extensions
     private const string CorsPolicy = "cors";
 
     public static IServiceCollection AddInfrastructure(
-        this IServiceCollection services,
-        IList<Assembly> assemblies,
-        IList<IModule> modules)
+        this IServiceCollection services, IList<Assembly> assemblies, IList<IModule> modules)
     {
         var disabledModules = new List<string>();
         using (var serviceProvider = services.BuildServiceProvider())
@@ -31,14 +30,10 @@ internal static class Extensions
             foreach (var (key, value) in configuration.AsEnumerable())
             {
                 if (!key.Contains(":module:enabled"))
-                {
                     continue;
-                }
 
                 if (!bool.Parse(value!))
-                {
                     disabledModules.Add(key.Split(":")[0]);
-                }
             }
         }
 
@@ -56,32 +51,10 @@ internal static class Extensions
 
         services.AddSwaggerDocumentation();
         services.AddModuleInfo(modules);
+        services.AddCommunication(assemblies);
 
-        services
-            .AddDatabase()
-            .AddDatabaseInitializer();
-
-        services.AddMediator(assemblies);
-
-        services.AddControllers()
-            .ConfigureApplicationPartManager(manager =>
-            {
-                var removedParts = new List<ApplicationPart>();
-                foreach (var disabledModule in disabledModules)
-                {
-                    var parts = manager.ApplicationParts
-                        .Where(x => x.Name.Contains(disabledModule, StringComparison.InvariantCultureIgnoreCase));
-
-                    removedParts.AddRange(parts);
-                }
-
-                foreach (var part in removedParts)
-                {
-                    manager.ApplicationParts.Remove(part);
-                }
-
-                manager.FeatureProviders.Add(new InternalControllerFeatureProvider());
-            });
+        services.AddDatabaseAndInitializer();
+        services.AddControllersConfiguration(disabledModules);
 
         return services;
     }

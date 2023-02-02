@@ -3,9 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Wisse.Shared.Infrastructure.Api.Settings;
 
-namespace Wisse.Shared.Infrastructure.Api.Swagger;
+namespace Wisse.Shared.Infrastructure.Api;
 
-internal static class Extensions
+internal static class SwaggerExtensions
 {
     public static IServiceCollection AddSwaggerDocumentation(this IServiceCollection services)
     {

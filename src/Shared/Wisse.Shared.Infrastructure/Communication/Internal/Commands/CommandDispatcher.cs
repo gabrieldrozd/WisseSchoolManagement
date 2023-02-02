@@ -1,10 +1,10 @@
 using Microsoft.Extensions.DependencyInjection;
 using Wisse.Base.Results;
 using Wisse.Base.Results.Core;
-using Wisse.Common.Messaging.Mediator;
-using Wisse.Shared.Abstractions.Messaging.Mediator.Commands;
+using Wisse.Common.Communication.Internal;
+using Wisse.Shared.Abstractions.Communication.Internal.Commands;
 
-namespace Wisse.Shared.Infrastructure.Messaging.Mediator.Commands;
+namespace Wisse.Shared.Infrastructure.Communication.Internal.Commands;
 
 internal sealed class CommandDispatcher : ICommandDispatcher
 {

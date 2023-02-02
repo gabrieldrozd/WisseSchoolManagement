@@ -1,7 +1,7 @@
 using Wisse.Base.Results;
-using Wisse.Common.Messaging.Mediator;
+using Wisse.Common.Communication.Internal;
 
-namespace Wisse.Shared.Abstractions.Messaging.Mediator.Queries;
+namespace Wisse.Shared.Abstractions.Communication.Internal.Queries;
 
 public interface IQueryDispatcher
 {
