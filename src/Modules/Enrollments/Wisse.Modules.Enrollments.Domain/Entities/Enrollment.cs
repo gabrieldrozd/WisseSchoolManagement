@@ -37,20 +37,22 @@ public class Enrollment : AggregateRoot
         => Contact = contact;
 
     public void Approve()
-        => ChangeStatus(EnrollmentStatus.Approved(), EnrollmentStatus.Rejected());
-
-    public void Reject()
-        => ChangeStatus(EnrollmentStatus.Rejected(), EnrollmentStatus.Approved());
-
-    private void ChangeStatus(EnrollmentStatus status, EnrollmentStatus invalidStatus)
     {
-        if (status.Equals(invalidStatus))
+        if (EnrollmentStatus.Equals(EnrollmentStatus.Approved()))
         {
-            throw new InvalidEnrollmentStatusException(ExternalId, status, invalidStatus);
+            throw new EnrollmentAlreadyApprovedException(ExternalId);
         }
 
-        EnrollmentStatus = status;
-        // TODO: Add integration event here
-        // AddEvent(new EnrollmentStatusChanged(ExternalId, status));
+        EnrollmentStatus = EnrollmentStatus.Approved();
+    }
+
+    public void Reject()
+    {
+        if (EnrollmentStatus.Equals(EnrollmentStatus.Rejected()))
+        {
+            throw new EnrollmentAlreadyRejectedException(ExternalId);
+        }
+
+        EnrollmentStatus = EnrollmentStatus.Rejected();
     }
 }

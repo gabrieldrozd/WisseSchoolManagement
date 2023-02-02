@@ -1,35 +1,27 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
+using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Wisse.Shared.Abstractions.Modules;
-using Wisse.Shared.Infrastructure.Modules.Models;
+using Wisse.Shared.Infrastructure.Modules.Communication;
+using Wisse.Shared.Infrastructure.Modules.Information;
+using Wisse.Shared.Infrastructure.Modules.Registry;
 
 namespace Wisse.Shared.Infrastructure.Modules;
 
 internal static class Extensions
 {
-    internal static IServiceCollection AddModuleInfo(this IServiceCollection services, IEnumerable<IModule> modules)
+    internal static IServiceCollection AddModulesConfiguration(
+        this IServiceCollection services,
+        IEnumerable<Assembly> assemblies,
+        IEnumerable<IModule> modules)
     {
-        var moduleInfoProvider = new ModuleInfoProvider();
-        var moduleInfo = modules?.Select(x => new ModuleInfo(x.Name, x.Path, x.Policies ?? Enumerable.Empty<string>())) ??
-                         Enumerable.Empty<ModuleInfo>();
+        services.AddModuleInformation(modules);
+        services.AddModuleRegistrations(assemblies);
 
-        moduleInfoProvider.Modules.AddRange(moduleInfo);
-        services.AddSingleton(moduleInfoProvider);
+        services.AddModuleCommunication();
 
         return services;
-    }
-
-    internal static void MapModuleInfo(this IEndpointRouteBuilder endpoint)
-    {
-        endpoint.MapGet("modules", async context =>
-        {
-            var moduleInfoProvider = context.RequestServices.GetRequiredService<ModuleInfoProvider>();
-            await context.Response.WriteAsJsonAsync(moduleInfoProvider.Modules);
-        });
     }
 
     public static IHostBuilder ConfigureModules(this IHostBuilder builder)

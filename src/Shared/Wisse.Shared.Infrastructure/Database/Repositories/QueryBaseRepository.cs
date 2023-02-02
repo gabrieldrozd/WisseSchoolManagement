@@ -4,13 +4,13 @@ using Wisse.Shared.Abstractions.Database.Repositories;
 
 namespace Wisse.Shared.Infrastructure.Database.Repositories;
 
-public class BaseRepository<TEntity, TDbContext> : IBaseRepository<TEntity>
+public class QueryBaseRepository<TEntity, TDbContext> : IQueryBaseRepository<TEntity>
     where TEntity : Entity
     where TDbContext : DbContext
 {
     private readonly TDbContext _context;
 
-    protected BaseRepository(TDbContext context)
+    protected QueryBaseRepository(TDbContext context)
     {
         _context = context;
     }
@@ -18,20 +18,5 @@ public class BaseRepository<TEntity, TDbContext> : IBaseRepository<TEntity>
     public Task<int> TotalCountAsync()
     {
         return _context.Set<TEntity>().CountAsync();
-    }
-
-    public void Insert(TEntity entity)
-    {
-        _context.Set<TEntity>().Add(entity);
-    }
-
-    public void Update(TEntity entity)
-    {
-        _context.Set<TEntity>().Update(entity);
-    }
-
-    public void Remove(TEntity entity)
-    {
-        _context.Set<TEntity>().Remove(entity);
     }
 }

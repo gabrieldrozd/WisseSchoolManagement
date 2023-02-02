@@ -1,4 +1,4 @@
-namespace Wisse.Shared.Infrastructure.Modules.Models;
+namespace Wisse.Shared.Infrastructure.Modules.Information;
 
 internal record ModuleInfoProvider
 {

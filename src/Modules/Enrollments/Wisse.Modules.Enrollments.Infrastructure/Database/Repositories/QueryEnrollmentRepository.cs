@@ -3,20 +3,21 @@ using Wisse.Common.Extensions;
 using Wisse.Common.Models.Pagination;
 using Wisse.Modules.Enrollments.Domain.Entities;
 using Wisse.Modules.Enrollments.Domain.Interfaces.Repositories;
+using Wisse.Shared.Infrastructure.Database.Repositories;
 
 namespace Wisse.Modules.Enrollments.Infrastructure.Database.Repositories;
 
-internal class QueryEnrollmentRepository : IQueryEnrollmentRepository
+internal class QueryEnrollmentRepository : QueryBaseRepository<Enrollment, EnrollmentsDbContext>, IQueryEnrollmentRepository
 {
     private readonly DbSet<Enrollment> _enrollments;
 
     public QueryEnrollmentRepository(EnrollmentsDbContext context)
+        : base(context)
     {
         _enrollments = context.Enrollments;
     }
 
-    public async Task<Enrollment> GetAsync(
-        Guid enrollmentId, CancellationToken cancellationToken = default)
+    public async Task<Enrollment> GetAsync(Guid enrollmentId, CancellationToken cancellationToken = default)
     {
         var enrollment = await _enrollments
             .Where(x => x.ExternalId.Equals(enrollmentId))
@@ -25,8 +26,7 @@ internal class QueryEnrollmentRepository : IQueryEnrollmentRepository
         return enrollment;
     }
 
-    public async Task<Enrollment> GetDetailsAsync(
-        Guid enrollmentId, CancellationToken cancellationToken = default)
+    public async Task<Enrollment> GetDetailsAsync(Guid enrollmentId, CancellationToken cancellationToken = default)
     {
         var enrollment = await _enrollments
             .Where(x => x.ExternalId.Equals(enrollmentId))
@@ -36,8 +36,7 @@ internal class QueryEnrollmentRepository : IQueryEnrollmentRepository
         return enrollment;
     }
 
-    public async Task<PaginatedList<Enrollment>> BrowseAsync(
-        Pagination pagination, CancellationToken cancellationToken = default)
+    public async Task<PaginatedList<Enrollment>> BrowseAsync(Pagination pagination, CancellationToken cancellationToken = default)
     {
         var enrollments = await _enrollments
             .AddPagination(pagination)
@@ -47,7 +46,7 @@ internal class QueryEnrollmentRepository : IQueryEnrollmentRepository
             .AsNoTracking()
             .ToListAsync(cancellationToken);
 
-        var totalItems = await _enrollments.CountAsync(cancellationToken);
+        var totalItems = await TotalCountAsync();
 
         return PaginatedList<Enrollment>.Create(pagination, enrollments, totalItems);
     }

@@ -47,7 +47,7 @@ internal static class Extensions
         // });
 
         services.AddSwaggerDocumentation();
-        services.AddModuleInfo(modules);
+        services.AddModulesConfiguration(assemblies, modules);
         services.AddCommunication(assemblies);
 
         services.AddDatabaseAndInitializer();

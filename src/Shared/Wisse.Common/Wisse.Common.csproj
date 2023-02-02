@@ -17,7 +17,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Communication\External" />
       <Folder Include="Domain" />
     </ItemGroup>
 

@@ -13,11 +13,4 @@ Invalid enrollment status. Valid statuses are:
 """)
     {
     }
-
-    public InvalidEnrollmentStatusException(Guid externalId, EnrollmentStatus status, EnrollmentStatus invalidStatus)
-        : base($"""
-Cannot change status of enrollment with ID: {externalId} from {status} to {invalidStatus}.
-""")
-    {
-    }
 }

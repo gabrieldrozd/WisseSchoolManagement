@@ -1,6 +1,7 @@
 using Wisse.Bootstrapper;
 using Wisse.Shared.Infrastructure;
 using Wisse.Shared.Infrastructure.Modules;
+using Wisse.Shared.Infrastructure.Modules.Information;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.ConfigureModules();
@@ -34,7 +35,7 @@ foreach (var module in modules)
 }
 
 app.MapControllers();
-app.MapModuleInfo();
+app.MapModuleInformation();
 app.MapGet("/", context => context.Response.WriteAsync(
     $"Wisse API is running!\nGo to: {app.Urls.Select(x => x).First()}/docs"));
 
