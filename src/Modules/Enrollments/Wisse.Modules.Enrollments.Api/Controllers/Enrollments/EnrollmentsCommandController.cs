@@ -5,7 +5,6 @@ using Wisse.Common.Controllers.Types;
 using Wisse.Modules.Enrollments.Api.Controllers.Base;
 using Wisse.Modules.Enrollments.Application.Features.Commands;
 using Wisse.Shared.Abstractions.Communication.Internal.Commands;
-using Wisse.Shared.Infrastructure.Api.Settings;
 
 namespace Wisse.Modules.Enrollments.Api.Controllers.Enrollments;
 

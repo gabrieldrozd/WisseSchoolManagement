@@ -1,9 +1,6 @@
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Models;
 using Wisse.Shared.Abstractions.Modules.Api;
-using Wisse.Shared.Infrastructure.Api.Settings;
 
 namespace Wisse.Shared.Infrastructure.Api;
 

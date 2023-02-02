@@ -1,14 +1,11 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Wisse.Shared.Abstractions.Modules;
-using Wisse.Shared.Abstractions.Modules.Api;
 using Wisse.Shared.Infrastructure.Api;
 using Wisse.Shared.Infrastructure.Communication;
-using Wisse.Shared.Infrastructure.Communication.Internal;
 using Wisse.Shared.Infrastructure.Database;
 using Wisse.Shared.Infrastructure.Modules;
 
