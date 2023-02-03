@@ -1,7 +1,7 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Wisse.Common.Communication.External;
-using Wisse.Shared.Abstractions.Communication.External.Notices;
+using Wisse.Shared.Abstractions.Communication.External.Events;
 
 namespace Wisse.Shared.Infrastructure.Modules.Registry;
 
@@ -12,11 +12,11 @@ internal static class Extensions
         var registry = new ModuleRegistry();
 
         var types = assemblies.SelectMany(x => x.GetTypes()).ToArray();
-        var eventTypes = types.Where(x => x.IsClass && typeof(INotice).IsAssignableFrom(x)).ToArray();
+        var eventTypes = types.Where(x => x.IsClass && typeof(IEvent).IsAssignableFrom(x)).ToArray();
 
         services.AddSingleton<IModuleRegistry>(sp =>
         {
-            var eventDispatcher = sp.GetRequiredService<INoticeDispatcher>();
+            var eventDispatcher = sp.GetRequiredService<IEventDispatcher>();
             var eventDispatcherType = eventDispatcher.GetType();
 
             foreach (var type in eventTypes)

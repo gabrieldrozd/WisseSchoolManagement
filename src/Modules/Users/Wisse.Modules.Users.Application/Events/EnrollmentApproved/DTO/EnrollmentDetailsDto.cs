@@ -1,4 +1,4 @@
-namespace Wisse.Modules.Users.Application.Notices.EnrollmentApproved.DTO;
+namespace Wisse.Modules.Users.Application.Events.EnrollmentApproved.DTO;
 
 public class EnrollmentDetailsDto
 {

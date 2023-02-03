@@ -1,6 +1,6 @@
 using Wisse.Base.Results;
+using Wisse.Modules.Enrollments.Application.Events;
 using Wisse.Modules.Enrollments.Application.Mappings;
-using Wisse.Modules.Enrollments.Application.Notices;
 using Wisse.Modules.Enrollments.Domain.Entities;
 using Wisse.Modules.Enrollments.Domain.Interfaces.Repositories;
 using Wisse.Modules.Enrollments.Domain.Interfaces.UnitOfWork;
