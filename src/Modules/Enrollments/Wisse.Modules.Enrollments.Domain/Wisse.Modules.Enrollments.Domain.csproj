@@ -10,8 +10,4 @@
       <ProjectReference Include="..\..\..\Shared\Wisse.Shared.Abstractions\Wisse.Shared.Abstractions.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Exceptions\Entities" />
-    </ItemGroup>
-
 </Project>
