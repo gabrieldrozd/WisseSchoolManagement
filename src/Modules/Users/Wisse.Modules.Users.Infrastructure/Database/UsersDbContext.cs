@@ -8,6 +8,10 @@ namespace Wisse.Modules.Users.Infrastructure.Database;
 
 internal sealed class UsersDbContext : IdentityDbContext<User, Role, Guid>
 {
+    public DbSet<Student> Students { get; set; }
+    public DbSet<Contact> Contacts { get; set; }
+    public DbSet<Teacher> Teachers { get; set; }
+
     public UsersDbContext(DbContextOptions<UsersDbContext> options)
         : base(options)
     {

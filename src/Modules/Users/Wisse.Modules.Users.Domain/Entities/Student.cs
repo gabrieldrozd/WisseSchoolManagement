@@ -18,7 +18,7 @@ public class Student : AggregateRoot
 
     [ForeignKey("Id")]
     public Guid UserId { get; set; }
-    public virtual StudentUser AppUser { get; set; }
+    public virtual StudentUser User { get; set; }
 
     #endregion
 

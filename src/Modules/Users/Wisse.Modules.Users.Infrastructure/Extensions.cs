@@ -1,7 +1,7 @@
 using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using Wisse.Modules.Users.Domain.Entities;
 using Wisse.Modules.Users.Domain.Entities.Users.Base;
 using Wisse.Modules.Users.Infrastructure.Database;
 using Wisse.Shared.Infrastructure.Database;
@@ -28,9 +28,12 @@ internal static class Extensions
         });
 
         builder = new IdentityBuilder(typeof(User), typeof(Role), builder.Services);
-        builder.AddEntityFrameworkStores<UsersDbContext>();
+        builder.AddEntityFrameworkStores<UsersDbContext>().AddDefaultTokenProviders();
         builder.AddSignInManager<SignInManager<User>>();
         builder.AddUserManager<UserManager<User>>();
+
+        services.AddSingleton<ISystemClock, SystemClock>();
+        services.AddDataProtection();
 
         return services;
     }
