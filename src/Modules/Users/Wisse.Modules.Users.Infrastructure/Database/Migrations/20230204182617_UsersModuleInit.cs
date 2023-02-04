@@ -4,6 +4,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Wisse.Modules.Users.Infrastructure.Database.Migrations
 {
     /// <inheritdoc />
@@ -179,7 +181,7 @@ namespace Wisse.Modules.Users.Infrastructure.Database.Migrations
                     PhoneNumber = table.Column<string>(type: "text", nullable: true),
                     FirstName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
                     LastName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
-                    Type = table.Column<string>(type: "text", nullable: false),
+                    UserType = table.Column<string>(type: "text", nullable: false),
                     StudentId = table.Column<int>(type: "integer", nullable: true),
                     TeacherId = table.Column<int>(type: "integer", nullable: true),
                     NormalizedUserName = table.Column<string>(type: "text", nullable: true),
@@ -211,6 +213,17 @@ namespace Wisse.Modules.Users.Infrastructure.Database.Migrations
                         principalTable: "Teachers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                schema: "users",
+                table: "Roles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { new Guid("7f469cda-3a02-4717-a6ba-66f25a5db233"), null, "Teacher", "TEACHER" },
+                    { new Guid("a46f87af-7d20-46d3-a15f-ba98eac258d4"), null, "Admin", "ADMIN" },
+                    { new Guid("c0e08d5c-4cf8-4a85-a350-7714082e5bfe"), null, "Student", "STUDENT" }
                 });
 
             migrationBuilder.CreateIndex(

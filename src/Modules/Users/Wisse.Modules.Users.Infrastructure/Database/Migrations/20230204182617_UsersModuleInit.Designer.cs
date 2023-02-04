@@ -12,7 +12,7 @@ using Wisse.Modules.Users.Infrastructure.Database;
 namespace Wisse.Modules.Users.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(UsersDbContext))]
-    [Migration("20230204093731_UsersModuleInit")]
+    [Migration("20230204182617_UsersModuleInit")]
     partial class UsersModuleInit
     {
         /// <inheritdoc />
@@ -200,6 +200,26 @@ namespace Wisse.Modules.Users.Infrastructure.Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles", "users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("a46f87af-7d20-46d3-a15f-ba98eac258d4"),
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = new Guid("c0e08d5c-4cf8-4a85-a350-7714082e5bfe"),
+                            Name = "Student",
+                            NormalizedName = "STUDENT"
+                        },
+                        new
+                        {
+                            Id = new Guid("7f469cda-3a02-4717-a6ba-66f25a5db233"),
+                            Name = "Teacher",
+                            NormalizedName = "TEACHER"
+                        });
                 });
 
             modelBuilder.Entity("Wisse.Modules.Users.Domain.Entities.Users.Base.User", b =>
@@ -255,18 +275,18 @@ namespace Wisse.Modules.Users.Infrastructure.Database.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
+                    b.Property<string>("UserName")
                         .HasColumnType("text");
 
-                    b.Property<string>("UserName")
+                    b.Property<string>("UserType")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("Users", "users");
 
-                    b.HasDiscriminator<string>("Type").HasValue("User");
+                    b.HasDiscriminator<string>("UserType").HasValue("User");
 
                     b.UseTphMappingStrategy();
                 });

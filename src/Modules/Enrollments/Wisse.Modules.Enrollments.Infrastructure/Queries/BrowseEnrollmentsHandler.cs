@@ -11,17 +11,17 @@ namespace Wisse.Modules.Enrollments.Infrastructure.Queries;
 
 internal sealed class BrowseEnrollmentsHandler : IQueryHandler<BrowseEnrollments, PaginatedList<EnrollmentDto>>
 {
-    private readonly IQueryEnrollmentRepository _repository;
+    private readonly IQueryEnrollmentRepository _queryEnrollmentRepository;
 
-    public BrowseEnrollmentsHandler(IQueryEnrollmentRepository repository)
+    public BrowseEnrollmentsHandler(IQueryEnrollmentRepository queryEnrollmentRepository)
     {
-        _repository = repository;
+        _queryEnrollmentRepository = queryEnrollmentRepository;
     }
 
     public async Task<Result<PaginatedList<EnrollmentDto>>> HandleAsync(
         BrowseEnrollments query, CancellationToken cancellationToken = default)
     {
-        var enrollments = await _repository.BrowseAsync(query.Pagination, cancellationToken);
+        var enrollments = await _queryEnrollmentRepository.BrowseAsync(query.Pagination, cancellationToken);
         var mapped = enrollments.MapTo(EnrollmentMappings.ToEnrollmentDto);
 
         return Result.Success(mapped);

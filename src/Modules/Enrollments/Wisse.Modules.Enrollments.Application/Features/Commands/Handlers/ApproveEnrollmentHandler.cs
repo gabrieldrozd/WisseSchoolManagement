@@ -11,30 +11,30 @@ namespace Wisse.Modules.Enrollments.Application.Features.Commands.Handlers;
 
 internal sealed class ApproveEnrollmentHandler : ICommandHandler<ApproveEnrollment>
 {
-    private readonly IQueryEnrollmentRepository _queryRepository;
-    private readonly ICommandEnrollmentRepository _commandRepository;
+    private readonly IQueryEnrollmentRepository _queryEnrollmentRepository;
+    private readonly ICommandEnrollmentRepository _commandEnrollmentRepository;
     private readonly IEnrollmentsUnitOfWork _unitOfWork;
     private readonly IMessageBroker _messageBroker;
 
     public ApproveEnrollmentHandler(
-        IQueryEnrollmentRepository queryRepository,
-        ICommandEnrollmentRepository commandRepository,
+        IQueryEnrollmentRepository queryEnrollmentRepository,
+        ICommandEnrollmentRepository commandEnrollmentRepository,
         IEnrollmentsUnitOfWork unitOfWork,
         IMessageBroker messageBroker)
     {
-        _queryRepository = queryRepository;
-        _commandRepository = commandRepository;
+        _queryEnrollmentRepository = queryEnrollmentRepository;
+        _commandEnrollmentRepository = commandEnrollmentRepository;
         _unitOfWork = unitOfWork;
         _messageBroker = messageBroker;
     }
 
     public async Task<Result> HandleAsync(ApproveEnrollment command, CancellationToken cancellationToken = default)
     {
-        var enrollment = await _queryRepository.GetDetailsAsync(command.EnrollmentId, cancellationToken);
+        var enrollment = await _queryEnrollmentRepository.GetDetailsAsync(command.EnrollmentId, cancellationToken);
         if (enrollment is null) return Result.NotFound(nameof(Enrollment), command.EnrollmentId);
 
         enrollment.Approve();
-        _commandRepository.Update(enrollment);
+        _commandEnrollmentRepository.Update(enrollment);
         var result = await _unitOfWork.CommitAsync(cancellationToken);
 
         if (result.IsSuccess)

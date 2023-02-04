@@ -22,7 +22,7 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
             .HasMaxLength(UserConstants.LastNameMaxLength);
 
         builder
-            .HasDiscriminator<string>("Type")
+            .HasDiscriminator<string>("UserType")
             .HasValue<AdminUser>(nameof(AdminUser))
             .HasValue<StudentUser>(nameof(StudentUser))
             .HasValue<TeacherUser>(nameof(TeacherUser));

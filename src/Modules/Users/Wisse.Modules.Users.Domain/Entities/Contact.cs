@@ -37,7 +37,7 @@ public class Contact : Entity
     {
         var zipCodeValue = new ZipCode(definition.ZipCode);
 
-        return new Contact(definition.Id, zipCodeValue, definition.ZipCodeCity,
+        return new Contact(Guid.NewGuid(), zipCodeValue, definition.ZipCodeCity,
             definition.State, definition.City, definition.Street, definition.HouseNumber);
     }
 }

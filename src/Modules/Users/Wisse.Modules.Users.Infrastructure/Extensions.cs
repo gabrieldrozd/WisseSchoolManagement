@@ -3,7 +3,11 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Wisse.Modules.Users.Domain.Entities.Users.Base;
+using Wisse.Modules.Users.Domain.Interfaces.Repositories;
+using Wisse.Modules.Users.Domain.Interfaces.UnitOfWork;
 using Wisse.Modules.Users.Infrastructure.Database;
+using Wisse.Modules.Users.Infrastructure.Database.Repositories;
+using Wisse.Modules.Users.Infrastructure.Database.UnitOfWork;
 using Wisse.Shared.Infrastructure.Database;
 
 [assembly: InternalsVisibleTo("Wisse.Modules.Users.Api")]
@@ -15,6 +19,14 @@ internal static class Extensions
     public static IServiceCollection AddInfrastructure(this IServiceCollection services)
     {
         services.AddDatabase<UsersDbContext>();
+
+        services.AddScoped<ICommandStudentRepository, CommandStudentRepository>();
+        services.AddScoped<IQueryStudentRepository, QueryStudentRepository>();
+
+        services.AddScoped<ICommandTeacherRepository, CommandTeacherRepository>();
+        services.AddScoped<IQueryTeacherRepository, QueryTeacherRepository>();
+
+        services.AddUnitOfWork<IUsersUnitOfWork, UsersUnitOfWork>();
 
         var builder = services.AddIdentityCore<User>(options =>
         {

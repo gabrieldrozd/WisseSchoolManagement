@@ -10,16 +10,16 @@ namespace Wisse.Modules.Enrollments.Infrastructure.Queries;
 
 internal sealed class GetEnrollmentDetailsHandler : IQueryHandler<GetEnrollmentDetails, EnrollmentDetailsDto>
 {
-    private readonly IQueryEnrollmentRepository _repository;
+    private readonly IQueryEnrollmentRepository _queryEnrollmentRepository;
 
-    public GetEnrollmentDetailsHandler(IQueryEnrollmentRepository repository)
+    public GetEnrollmentDetailsHandler(IQueryEnrollmentRepository queryEnrollmentRepository)
     {
-        _repository = repository;
+        _queryEnrollmentRepository = queryEnrollmentRepository;
     }
 
     public async Task<Result<EnrollmentDetailsDto>> HandleAsync(GetEnrollmentDetails query, CancellationToken cancellationToken = default)
     {
-        var enrollment = await _repository.GetDetailsAsync(query.EnrollmentId, cancellationToken);
+        var enrollment = await _queryEnrollmentRepository.GetDetailsAsync(query.EnrollmentId, cancellationToken);
         if (enrollment is null) return Result.NotFound<EnrollmentDetailsDto>(nameof(Enrollment), query.EnrollmentId);
 
         var mapped = enrollment.ToEnrollmentDetailsDto();

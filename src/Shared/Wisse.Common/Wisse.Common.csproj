@@ -19,10 +19,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Domain" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\Wisse.Base\Wisse.Base.csproj" />
     </ItemGroup>
 
