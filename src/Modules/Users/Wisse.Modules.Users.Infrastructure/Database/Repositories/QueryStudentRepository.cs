@@ -30,6 +30,9 @@ internal class QueryStudentRepository : QueryBaseRepository<Student, UsersDbCont
     {
         var enrollment = await _students
             .Where(x => x.ExternalId.Equals(studentId))
+            .AddIncludes(
+                x => x.Contact,
+                x => x.User)
             .AsNoTracking()
             .SingleOrDefaultAsync(cancellationToken);
 
@@ -41,7 +44,8 @@ internal class QueryStudentRepository : QueryBaseRepository<Student, UsersDbCont
         var students = await _students
             .AddPagination(pagination)
             .AddIncludes(
-                x => x.Contact)
+                x => x.Contact,
+                x => x.User)
             .AsNoTracking()
             .ToListAsync(cancellationToken);
 
