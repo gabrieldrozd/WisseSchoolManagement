@@ -1,5 +1,5 @@
 namespace Wisse.Common.Communication.Internal;
 
-public interface ICommand : IMessage
+public interface ICommand : ILetter
 {
 }

@@ -1,10 +1,8 @@
 using Wisse.Base.Results;
 using Wisse.Common.Extensions;
 using Wisse.Common.Models.Pagination;
-using Wisse.Contracts.EnrollmentsRequested;
 using Wisse.Modules.Enrollments.Application.DTO.Queries.Enrollment;
 using Wisse.Modules.Enrollments.Application.Features.Queries;
-using Wisse.Modules.Enrollments.Application.Mappings.Contract;
 using Wisse.Modules.Enrollments.Application.Mappings.DTO;
 using Wisse.Modules.Enrollments.Domain.Interfaces.Repositories;
 using Wisse.Shared.Abstractions.Communication.Internal.Queries;
@@ -28,8 +26,6 @@ internal sealed class BrowseEnrollmentsHandler : IQueryHandler<BrowseEnrollments
     {
         var enrollments = await _queryEnrollmentRepository.BrowseAsync(query.Pagination, cancellationToken);
         var mapped = enrollments.MapTo(EnrollmentMappings.ToEnrollmentDto);
-
-        await _messageBus.Publish(new EnrollmentsRequested(mapped.List.First().ToEnrollmentContract()), cancellationToken);
 
         return Result.Success(mapped);
     }

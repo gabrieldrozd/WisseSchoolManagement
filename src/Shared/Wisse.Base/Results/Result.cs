@@ -6,8 +6,11 @@ public class Result
 {
     public Status Status { get; }
     public bool IsSuccess { get; }
-    public bool IsFailure => !IsSuccess;
     public Error Error { get; }
+
+    public Result()
+    {
+    }
 
     private Result(Status status, bool isSuccess = true, Error error = null)
     {

@@ -7,8 +7,12 @@ namespace Wisse.Shared.Infrastructure.Messaging;
 
 public static class Extensions
 {
+    private const string SectionName = "messaging";
+
     public static IServiceCollection AddMessaging(this IServiceCollection services, IList<Assembly> assemblies)
     {
+        var options = services.GetOptions<MessagingOptions>(SectionName);
+
         services.AddMassTransit(x =>
         {
             x.SetKebabCaseEndpointNameFormatter();
@@ -17,10 +21,10 @@ public static class Extensions
 
             x.UsingRabbitMq((context, cfg) =>
             {
-                cfg.Host("localhost", "/", h =>
+                cfg.Host(options.Host, options.VirtualHost, h =>
                 {
-                    h.Username("guest");
-                    h.Password("guest");
+                    h.Username(options.Username);
+                    h.Password(options.Password);
                 });
 
                 cfg.ConfigureEndpoints(context);

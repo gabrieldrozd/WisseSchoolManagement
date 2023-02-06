@@ -12,8 +12,8 @@ public static class ResultExtensions
         return result.Status switch
         {
             Status.Success when result.IsSuccess => new EmptyEnvelope(),
-            Status.Failure when result.IsFailure => new EmptyEnvelope(result.Error),
-            Status.NotFound when result.IsFailure => new EmptyEnvelope(result.Error),
+            Status.Failure when !result.IsSuccess => new EmptyEnvelope(result.Error),
+            Status.NotFound when !result.IsSuccess => new EmptyEnvelope(result.Error),
             _ => new EmptyEnvelope(Error.Unexpected())
         };
     }
@@ -23,8 +23,8 @@ public static class ResultExtensions
         return result.Status switch
         {
             Status.Success when result.IsSuccess => new Envelope<T>(result.Value),
-            Status.Failure when result.IsFailure => new Envelope<T>(result.Error),
-            Status.NotFound when result.IsFailure => new Envelope<T>(result.Error),
+            Status.Failure when !result.IsSuccess => new Envelope<T>(result.Error),
+            Status.NotFound when !result.IsSuccess => new Envelope<T>(result.Error),
             _ => new Envelope<T>(Error.Unexpected())
         };
     }
@@ -34,8 +34,8 @@ public static class ResultExtensions
         return result.Status switch
         {
             Status.Success when result.IsSuccess => StatusCodes.Status200OK,
-            Status.Failure when result.IsFailure => StatusCodes.Status400BadRequest,
-            Status.NotFound when result.IsFailure => StatusCodes.Status404NotFound,
+            Status.Failure when !result.IsSuccess => StatusCodes.Status400BadRequest,
+            Status.NotFound when !result.IsSuccess => StatusCodes.Status404NotFound,
             _ => StatusCodes.Status500InternalServerError
         };
     }

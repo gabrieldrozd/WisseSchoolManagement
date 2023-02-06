@@ -1,16 +1,18 @@
 version: '3'
 
 services:
-    postgres:
+    wisse-postgres:
         image: postgres:latest
-        container_name: wisse
+        container_name: wisse-postgres
+        hostname: wisse-postgres
         restart: unless-stopped
         environment:
             - POSTGRES_HOST_AUTH_METHOD=trust
         ports:
             - "5432:5432"
         volumes:
-            - postgres:/var/lib/postgresql/data
+            - ./.database/postgres:/var/lib/postgresql/data
+            - ./.database/postgres:/var/log/postgresql
         command: -p 5432
 
     wisse-rabbitmq:

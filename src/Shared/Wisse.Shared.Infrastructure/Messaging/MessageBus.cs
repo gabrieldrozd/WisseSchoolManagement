@@ -13,7 +13,14 @@ internal sealed class MessageBus : IMessageBus
         _bus = bus;
     }
 
-    public async Task Publish<TMessage>(TMessage message, CancellationToken cancellationToken = default)
+    public async Task PublishMessage<TMessage>(
+        TMessage message, CancellationToken cancellationToken = default)
         where TMessage : class, IMessage
         => await _bus.Publish(message, cancellationToken);
+
+    public async Task<Response<TResponse>> PublishRequest<TMessage, TResponse>(
+        TMessage message, CancellationToken cancellationToken = default)
+        where TMessage : class, IMessage
+        where TResponse : class
+        => await _bus.Request<TMessage, TResponse>(message, cancellationToken);
 }
