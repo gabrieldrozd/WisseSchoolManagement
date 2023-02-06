@@ -15,6 +15,11 @@ internal static class Extensions
             .AsImplementedInterfaces()
             .WithScopedLifetime());
 
+        services.Scan(scan => scan.FromAssemblies(assemblies)
+            .AddClasses(classes => classes.AssignableTo(typeof(ICommandHandler<,>)))
+            .AsImplementedInterfaces()
+            .WithScopedLifetime());
+
         return services;
     }
 }

@@ -17,7 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Wisse.Common\Wisse.Common.csproj" />
+      <ProjectReference Include="..\Wisse.Contracts\Wisse.Contracts.csproj" />
     </ItemGroup>
 
 </Project>

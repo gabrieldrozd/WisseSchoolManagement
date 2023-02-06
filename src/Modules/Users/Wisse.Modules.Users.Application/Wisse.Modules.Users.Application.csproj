@@ -10,4 +10,9 @@
       <ProjectReference Include="..\Wisse.Modules.Users.Domain\Wisse.Modules.Users.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Features\Students\Queries" />
+      <Folder Include="Features\Users\Queries" />
+    </ItemGroup>
+
 </Project>

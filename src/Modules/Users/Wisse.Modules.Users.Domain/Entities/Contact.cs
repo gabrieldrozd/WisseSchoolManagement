@@ -13,6 +13,9 @@ public class Contact : Entity
     public string Street { get; private set; }
     public string HouseNumber { get; private set; }
 
+    public int StudentId { get; set; }
+    public Student Student { get; set; }
+
     private Contact(Guid externalId)
         : base(externalId)
     {
@@ -34,7 +37,7 @@ public class Contact : Entity
     {
         var zipCodeValue = new ZipCode(definition.ZipCode);
 
-        return new Contact(definition.Id, zipCodeValue, definition.ZipCodeCity,
+        return new Contact(Guid.NewGuid(), zipCodeValue, definition.ZipCodeCity,
             definition.State, definition.City, definition.Street, definition.HouseNumber);
     }
 }

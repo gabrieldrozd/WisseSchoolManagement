@@ -4,7 +4,7 @@ using Wisse.Modules.Users.Domain.Entities.Users;
 
 namespace Wisse.Modules.Users.Domain.Entities;
 
-public class Teacher : Entity // TODO: Test if AggregateRoot works here
+public class Teacher : Entity
 {
     // TODO: Add properties for Teacher.
 
@@ -12,7 +12,7 @@ public class Teacher : Entity // TODO: Test if AggregateRoot works here
 
     [ForeignKey("Id")]
     public Guid UserId { get; set; }
-    public virtual TeacherUser AppUser { get; set; }
+    public virtual TeacherUser User { get; set; }
 
     #endregion
 

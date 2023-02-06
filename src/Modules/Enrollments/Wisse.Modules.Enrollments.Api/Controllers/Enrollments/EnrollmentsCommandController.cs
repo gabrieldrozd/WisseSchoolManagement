@@ -18,6 +18,11 @@ internal class EnrollmentsCommandController : ModuleController
         _commandDispatcher = commandDispatcher;
     }
 
+    /// <summary>
+    /// Command: Submits an enrollment
+    /// </summary>
+    /// <param name="command">Enrollment parameters for creating enrollment</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     [HttpPost]
     [ProducesEmptyEnvelope(StatusCodes.Status200OK)]
     public async Task<IActionResult> Submit(

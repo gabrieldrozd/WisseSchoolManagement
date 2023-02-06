@@ -8,27 +8,27 @@ namespace Wisse.Modules.Enrollments.Application.Features.Commands.Handlers;
 
 internal sealed class RejectEnrollmentHandler : ICommandHandler<RejectEnrollment>
 {
-    private readonly IQueryEnrollmentRepository _queryRepository;
-    private readonly ICommandEnrollmentRepository _commandRepository;
+    private readonly IQueryEnrollmentRepository _queryEnrollmentRepository;
+    private readonly ICommandEnrollmentRepository _commandEnrollmentRepository;
     private readonly IEnrollmentsUnitOfWork _unitOfWork;
 
     public RejectEnrollmentHandler(
-        IQueryEnrollmentRepository queryRepository,
-        ICommandEnrollmentRepository commandRepository,
+        IQueryEnrollmentRepository queryEnrollmentRepository,
+        ICommandEnrollmentRepository commandEnrollmentRepository,
         IEnrollmentsUnitOfWork unitOfWork)
     {
-        _queryRepository = queryRepository;
-        _commandRepository = commandRepository;
+        _queryEnrollmentRepository = queryEnrollmentRepository;
+        _commandEnrollmentRepository = commandEnrollmentRepository;
         _unitOfWork = unitOfWork;
     }
 
     public async Task<Result> HandleAsync(RejectEnrollment command, CancellationToken cancellationToken = default)
     {
-        var enrollment = await _queryRepository.GetAsync(command.EnrollmentId, cancellationToken);
+        var enrollment = await _queryEnrollmentRepository.GetAsync(command.EnrollmentId, cancellationToken);
         if (enrollment is null) return Result.NotFound(nameof(Enrollment), command.EnrollmentId);
 
         enrollment.Reject();
-        _commandRepository.Update(enrollment);
+        _commandEnrollmentRepository.Update(enrollment);
         var result = await _unitOfWork.CommitAsync(cancellationToken);
         
         return result;

@@ -7,8 +7,11 @@ public class Result<T>
     public T Value { get; }
     public Status Status { get; }
     public bool IsSuccess { get; }
-    public bool IsFailure => !IsSuccess;
     public Error Error { get; }
+
+    public Result()
+    {
+    }
 
     private Result(T value, Status status, bool isSuccess = true, Error error = null)
     {

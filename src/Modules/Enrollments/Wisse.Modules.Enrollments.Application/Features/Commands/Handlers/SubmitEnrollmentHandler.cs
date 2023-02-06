@@ -1,6 +1,6 @@
 using Wisse.Base.Results;
 using Wisse.Common.Domain.ValueObjects;
-using Wisse.Modules.Enrollments.Application.Mappings;
+using Wisse.Modules.Enrollments.Application.Mappings.DTO;
 using Wisse.Modules.Enrollments.Domain.Entities;
 using Wisse.Modules.Enrollments.Domain.Interfaces.Repositories;
 using Wisse.Modules.Enrollments.Domain.Interfaces.UnitOfWork;
@@ -10,14 +10,14 @@ namespace Wisse.Modules.Enrollments.Application.Features.Commands.Handlers;
 
 internal sealed class SubmitEnrollmentHandler : ICommandHandler<SubmitEnrollment>
 {
-    private readonly ICommandEnrollmentRepository _repository;
+    private readonly ICommandEnrollmentRepository _commandEnrollmentRepository;
     private readonly IEnrollmentsUnitOfWork _unitOfWork;
 
     public SubmitEnrollmentHandler(
-        ICommandEnrollmentRepository repository,
+        ICommandEnrollmentRepository commandEnrollmentRepository,
         IEnrollmentsUnitOfWork unitOfWork)
     {
-        _repository = repository;
+        _commandEnrollmentRepository = commandEnrollmentRepository;
         _unitOfWork = unitOfWork;
     }
 
@@ -31,7 +31,7 @@ internal sealed class SubmitEnrollmentHandler : ICommandHandler<SubmitEnrollment
         var contact = Contact.Create(command.Enrollment.Contact.ToDefinition());
         enrollment.SetContact(contact);
 
-        _repository.Insert(enrollment);
+        _commandEnrollmentRepository.Insert(enrollment);
         var result = await _unitOfWork.CommitAsync(cancellationToken);
 
         return result;

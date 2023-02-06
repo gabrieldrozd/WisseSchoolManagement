@@ -1,45 +1,45 @@
 using Wisse.Base.Results;
-using Wisse.Modules.Enrollments.Application.Events;
-using Wisse.Modules.Enrollments.Application.Mappings;
+using Wisse.Contracts.Enrollments.Approved;
+using Wisse.Modules.Enrollments.Application.Mappings.Contract;
 using Wisse.Modules.Enrollments.Domain.Entities;
 using Wisse.Modules.Enrollments.Domain.Interfaces.Repositories;
 using Wisse.Modules.Enrollments.Domain.Interfaces.UnitOfWork;
 using Wisse.Shared.Abstractions.Communication.Internal.Commands;
-using Wisse.Shared.Abstractions.Communication.Messaging;
+using Wisse.Shared.Abstractions.Messaging;
 
 namespace Wisse.Modules.Enrollments.Application.Features.Commands.Handlers;
 
 internal sealed class ApproveEnrollmentHandler : ICommandHandler<ApproveEnrollment>
 {
-    private readonly IQueryEnrollmentRepository _queryRepository;
-    private readonly ICommandEnrollmentRepository _commandRepository;
+    private readonly IQueryEnrollmentRepository _queryEnrollmentRepository;
+    private readonly ICommandEnrollmentRepository _commandEnrollmentRepository;
     private readonly IEnrollmentsUnitOfWork _unitOfWork;
-    private readonly IMessageBroker _messageBroker;
+    private readonly IMessageBus _messageBus;
 
     public ApproveEnrollmentHandler(
-        IQueryEnrollmentRepository queryRepository,
-        ICommandEnrollmentRepository commandRepository,
+        IQueryEnrollmentRepository queryEnrollmentRepository,
+        ICommandEnrollmentRepository commandEnrollmentRepository,
         IEnrollmentsUnitOfWork unitOfWork,
-        IMessageBroker messageBroker)
+        IMessageBus messageBus)
     {
-        _queryRepository = queryRepository;
-        _commandRepository = commandRepository;
+        _queryEnrollmentRepository = queryEnrollmentRepository;
+        _commandEnrollmentRepository = commandEnrollmentRepository;
         _unitOfWork = unitOfWork;
-        _messageBroker = messageBroker;
+        _messageBus = messageBus;
     }
 
     public async Task<Result> HandleAsync(ApproveEnrollment command, CancellationToken cancellationToken = default)
     {
-        var enrollment = await _queryRepository.GetDetailsAsync(command.EnrollmentId, cancellationToken);
+        var enrollment = await _queryEnrollmentRepository.GetDetailsAsync(command.EnrollmentId, cancellationToken);
         if (enrollment is null) return Result.NotFound(nameof(Enrollment), command.EnrollmentId);
 
         enrollment.Approve();
-        _commandRepository.Update(enrollment);
+        _commandEnrollmentRepository.Update(enrollment);
         var result = await _unitOfWork.CommitAsync(cancellationToken);
 
         if (result.IsSuccess)
         {
-            await _messageBroker.PublishAsync(new EnrollmentApproved(enrollment.ToEnrollmentDetailsDto()));
+            await _messageBus.PublishMessage(new EnrollmentApproved(enrollment.ToContract()), cancellationToken);
         }
 
         return result;

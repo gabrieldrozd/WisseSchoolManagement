@@ -18,7 +18,7 @@ namespace Wisse.Modules.Users.Infrastructure.Database.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("users")
-                .HasAnnotation("ProductVersion", "7.0.2")
+                .HasAnnotation("ProductVersion", "7.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -124,7 +124,62 @@ namespace Wisse.Modules.Users.Infrastructure.Database.Migrations
                     b.ToTable("UserTokens", "users");
                 });
 
-            modelBuilder.Entity("Wisse.Modules.Users.Domain.Entities.Role", b =>
+            modelBuilder.Entity("Wisse.Modules.Users.Domain.Entities.Student", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTimeOffset>("BirthDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("EducationDetails")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("character varying(80)");
+
+                    b.Property<Guid>("ExternalId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("LanguageLevel")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("character varying(80)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("ExternalId");
+
+                    b.ToTable("Students", "users");
+                });
+
+            modelBuilder.Entity("Wisse.Modules.Users.Domain.Entities.Teacher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid>("ExternalId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("ExternalId");
+
+                    b.ToTable("Teachers", "users");
+                });
+
+            modelBuilder.Entity("Wisse.Modules.Users.Domain.Entities.Users.Base.Role", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -142,9 +197,29 @@ namespace Wisse.Modules.Users.Infrastructure.Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles", "users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("a46f87af-7d20-46d3-a15f-ba98eac258d4"),
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = new Guid("c0e08d5c-4cf8-4a85-a350-7714082e5bfe"),
+                            Name = "Student",
+                            NormalizedName = "STUDENT"
+                        },
+                        new
+                        {
+                            Id = new Guid("7f469cda-3a02-4717-a6ba-66f25a5db233"),
+                            Name = "Teacher",
+                            NormalizedName = "TEACHER"
+                        });
                 });
 
-            modelBuilder.Entity("Wisse.Modules.Users.Domain.Entities.User", b =>
+            modelBuilder.Entity("Wisse.Modules.Users.Domain.Entities.Users.Base.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -161,6 +236,14 @@ namespace Wisse.Modules.Users.Infrastructure.Database.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("FirstName")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("LastName")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
@@ -192,9 +275,139 @@ namespace Wisse.Modules.Users.Infrastructure.Database.Migrations
                     b.Property<string>("UserName")
                         .HasColumnType("text");
 
+                    b.Property<string>("UserType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users", "users");
+
+                    b.HasDiscriminator<string>("UserType").HasValue("User");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("Wisse.Modules.Users.Domain.Entities.Users.AdminUser", b =>
+                {
+                    b.HasBaseType("Wisse.Modules.Users.Domain.Entities.Users.Base.User");
+
+                    b.HasDiscriminator().HasValue("AdminUser");
+                });
+
+            modelBuilder.Entity("Wisse.Modules.Users.Domain.Entities.Users.StudentUser", b =>
+                {
+                    b.HasBaseType("Wisse.Modules.Users.Domain.Entities.Users.Base.User");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("integer");
+
+                    b.HasIndex("StudentId")
+                        .IsUnique();
+
+                    b.HasDiscriminator().HasValue("StudentUser");
+                });
+
+            modelBuilder.Entity("Wisse.Modules.Users.Domain.Entities.Users.TeacherUser", b =>
+                {
+                    b.HasBaseType("Wisse.Modules.Users.Domain.Entities.Users.Base.User");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("integer");
+
+                    b.HasIndex("TeacherId")
+                        .IsUnique();
+
+                    b.HasDiscriminator().HasValue("TeacherUser");
+                });
+
+            modelBuilder.Entity("Wisse.Modules.Users.Domain.Entities.Student", b =>
+                {
+                    b.OwnsOne("Wisse.Modules.Users.Domain.Entities.Contact", "Contact", b1 =>
+                        {
+                            b1.Property<Guid>("ExternalId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("City")
+                                .HasMaxLength(100)
+                                .HasColumnType("character varying(100)");
+
+                            b1.Property<string>("HouseNumber")
+                                .HasMaxLength(50)
+                                .HasColumnType("character varying(50)");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer");
+
+                            NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b1.Property<int>("Id"));
+
+                            b1.Property<string>("State")
+                                .HasMaxLength(100)
+                                .HasColumnType("character varying(100)");
+
+                            b1.Property<string>("Street")
+                                .HasMaxLength(150)
+                                .HasColumnType("character varying(150)");
+
+                            b1.Property<int>("StudentId")
+                                .HasColumnType("integer");
+
+                            b1.Property<string>("ZipCode")
+                                .HasMaxLength(20)
+                                .HasColumnType("character varying(20)");
+
+                            b1.Property<string>("ZipCodeCity")
+                                .HasMaxLength(100)
+                                .HasColumnType("character varying(100)");
+
+                            b1.HasKey("ExternalId");
+
+                            b1.HasIndex("StudentId")
+                                .IsUnique();
+
+                            b1.ToTable("Contacts", "users");
+
+                            b1.WithOwner("Student")
+                                .HasForeignKey("StudentId");
+
+                            b1.Navigation("Student");
+                        });
+
+                    b.Navigation("Contact");
+                });
+
+            modelBuilder.Entity("Wisse.Modules.Users.Domain.Entities.Users.StudentUser", b =>
+                {
+                    b.HasOne("Wisse.Modules.Users.Domain.Entities.Student", "Student")
+                        .WithOne("User")
+                        .HasForeignKey("Wisse.Modules.Users.Domain.Entities.Users.StudentUser", "StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("Wisse.Modules.Users.Domain.Entities.Users.TeacherUser", b =>
+                {
+                    b.HasOne("Wisse.Modules.Users.Domain.Entities.Teacher", "Teacher")
+                        .WithOne("User")
+                        .HasForeignKey("Wisse.Modules.Users.Domain.Entities.Users.TeacherUser", "TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("Wisse.Modules.Users.Domain.Entities.Student", b =>
+                {
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Wisse.Modules.Users.Domain.Entities.Teacher", b =>
+                {
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
