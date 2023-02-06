@@ -7,6 +7,7 @@ using Wisse.Shared.Abstractions.Modules;
 using Wisse.Shared.Infrastructure.Api;
 using Wisse.Shared.Infrastructure.Communication;
 using Wisse.Shared.Infrastructure.Database;
+using Wisse.Shared.Infrastructure.Messaging;
 using Wisse.Shared.Infrastructure.Modules;
 
 [assembly: InternalsVisibleTo("Wisse.Bootstrapper")]
@@ -49,6 +50,7 @@ internal static class Extensions
         services.AddSwaggerDocumentation();
         services.AddModulesConfiguration(assemblies, modules);
         services.AddCommunication(assemblies);
+        services.AddMessaging(assemblies);
 
         services.AddDatabaseAndInitializer();
         services.AddControllersConfiguration(disabledModules);

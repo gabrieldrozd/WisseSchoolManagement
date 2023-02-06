@@ -3,7 +3,7 @@ using Wisse.Modules.Enrollments.Application.DTO.Queries.Applicant;
 using Wisse.Modules.Enrollments.Domain.Definitions;
 using Wisse.Modules.Enrollments.Domain.Entities;
 
-namespace Wisse.Modules.Enrollments.Application.Mappings;
+namespace Wisse.Modules.Enrollments.Application.Mappings.DTO;
 
 public static class ApplicantMappings
 {

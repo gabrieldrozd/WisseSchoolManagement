@@ -42,6 +42,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wisse.Modules.Users.Domain"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wisse.Modules.Users.Infrastructure", "src\Modules\Users\Wisse.Modules.Users.Infrastructure\Wisse.Modules.Users.Infrastructure.csproj", "{855614F3-91C5-449F-84ED-D6038098A29C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wisse.Contracts", "src\Shared\Wisse.Contracts\Wisse.Contracts.csproj", "{9833254F-94FF-4072-8F99-DD7FCBF3FBC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,7 @@ Global
 		{AEAB8AFC-4A27-429D-9CEF-F04A874D747C} = {98E0E6C6-BA17-43BC-A2C0-794D07DED182}
 		{6FD3FB28-5B83-4090-811C-C67CE39D56AD} = {98E0E6C6-BA17-43BC-A2C0-794D07DED182}
 		{855614F3-91C5-449F-84ED-D6038098A29C} = {98E0E6C6-BA17-43BC-A2C0-794D07DED182}
+		{9833254F-94FF-4072-8F99-DD7FCBF3FBC5} = {4AA68D0E-B0F5-4C5D-8FB1-45DA19C1CE97}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{6F66A916-1572-4A35-8D85-9EB7524F80EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -120,5 +123,9 @@ Global
 		{855614F3-91C5-449F-84ED-D6038098A29C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{855614F3-91C5-449F-84ED-D6038098A29C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{855614F3-91C5-449F-84ED-D6038098A29C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9833254F-94FF-4072-8F99-DD7FCBF3FBC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9833254F-94FF-4072-8F99-DD7FCBF3FBC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9833254F-94FF-4072-8F99-DD7FCBF3FBC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9833254F-94FF-4072-8F99-DD7FCBF3FBC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

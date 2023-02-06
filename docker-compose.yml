@@ -13,6 +13,22 @@ services:
             - postgres:/var/lib/postgresql/data
         command: -p 5432
 
+    wisse-rabbitmq:
+        image: rabbitmq:3.11.8-management
+        container_name: wisse-rabbitmq
+        hostname: wisse-rabbitmq
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+        environment:
+            - RABBITMQ_DEFAULT_USER=guest
+            - RABBITMQ_DEFAULT_PASS=guest
+        volumes:
+            - ./.container/rabbitmq:/var/lib/rabbitmq
+            - ./.container/rabbitmq:/var/log/rabbitmq
+
 volumes:
     postgres:
+        driver: local
+    rabbitmq:
         driver: local

@@ -1,6 +1,6 @@
 using Wisse.Base.Results;
 using Wisse.Common.Domain.ValueObjects;
-using Wisse.Modules.Enrollments.Application.Mappings;
+using Wisse.Modules.Enrollments.Application.Mappings.DTO;
 using Wisse.Modules.Enrollments.Domain.Entities;
 using Wisse.Modules.Enrollments.Domain.Interfaces.Repositories;
 using Wisse.Modules.Enrollments.Domain.Interfaces.UnitOfWork;

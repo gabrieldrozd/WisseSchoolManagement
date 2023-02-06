@@ -1,7 +1,7 @@
 using Wisse.Modules.Enrollments.Application.DTO.Queries.Enrollment;
 using Wisse.Modules.Enrollments.Domain.Entities;
 
-namespace Wisse.Modules.Enrollments.Application.Mappings;
+namespace Wisse.Modules.Enrollments.Application.Mappings.DTO;
 
 public static class EnrollmentMappings
 {

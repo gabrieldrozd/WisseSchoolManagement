@@ -1,7 +1,7 @@
 using Wisse.Base.Results;
 using Wisse.Modules.Enrollments.Application.DTO.Queries.Enrollment;
 using Wisse.Modules.Enrollments.Application.Features.Queries;
-using Wisse.Modules.Enrollments.Application.Mappings;
+using Wisse.Modules.Enrollments.Application.Mappings.DTO;
 using Wisse.Modules.Enrollments.Domain.Entities;
 using Wisse.Modules.Enrollments.Domain.Interfaces.Repositories;
 using Wisse.Shared.Abstractions.Communication.Internal.Queries;
