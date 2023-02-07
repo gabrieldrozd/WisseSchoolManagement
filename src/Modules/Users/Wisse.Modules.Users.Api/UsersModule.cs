@@ -37,5 +37,6 @@ internal class UsersModule : IModule
         public const string Auth = "Auth";
         public const string Users = "Users";
         public const string Students = "Students";
+        public const string Teachers = "Teachers";
     }
 }

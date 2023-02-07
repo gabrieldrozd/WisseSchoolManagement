@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using Wisse.Common.Controllers;
 using Wisse.Common.Controllers.Types;
 using Wisse.Modules.Users.Api.Controllers.Base;
@@ -15,12 +14,4 @@ internal class StudentsCommandController : ModuleController
     {
         _commandDispatcher = commandDispatcher;
     }
-
-    [HttpPost]
-    public async Task<IActionResult> Test(CancellationToken cancellationToken = default)
-    {
-        return Ok("test");
-    }
-
-    // TODO: Add basic student operations like update, delete, etc.
 }

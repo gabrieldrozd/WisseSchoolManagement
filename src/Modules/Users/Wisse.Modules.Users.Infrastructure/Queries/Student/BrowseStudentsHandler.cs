@@ -7,7 +7,7 @@ using Wisse.Modules.Users.Application.Mappings;
 using Wisse.Modules.Users.Domain.Interfaces.Repositories;
 using Wisse.Shared.Abstractions.Communication.Internal.Queries;
 
-namespace Wisse.Modules.Users.Infrastructure.Queries;
+namespace Wisse.Modules.Users.Infrastructure.Queries.Student;
 
 internal sealed class BrowseStudentsHandler : IQueryHandler<BrowseStudents, PaginatedList<StudentDto>>
 {
