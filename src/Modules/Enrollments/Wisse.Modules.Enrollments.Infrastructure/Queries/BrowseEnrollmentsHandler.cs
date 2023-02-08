@@ -6,19 +6,16 @@ using Wisse.Modules.Enrollments.Application.Features.Queries;
 using Wisse.Modules.Enrollments.Application.Mappings.DTO;
 using Wisse.Modules.Enrollments.Domain.Interfaces.Repositories;
 using Wisse.Shared.Abstractions.Communication.Internal.Queries;
-using Wisse.Shared.Abstractions.Messaging;
 
 namespace Wisse.Modules.Enrollments.Infrastructure.Queries;
 
 internal sealed class BrowseEnrollmentsHandler : IQueryHandler<BrowseEnrollments, PaginatedList<EnrollmentDto>>
 {
     private readonly IQueryEnrollmentRepository _queryEnrollmentRepository;
-    private readonly IMessageBus _messageBus;
 
-    public BrowseEnrollmentsHandler(IQueryEnrollmentRepository queryEnrollmentRepository, IMessageBus messageBus)
+    public BrowseEnrollmentsHandler(IQueryEnrollmentRepository queryEnrollmentRepository)
     {
         _queryEnrollmentRepository = queryEnrollmentRepository;
-        _messageBus = messageBus;
     }
 
     public async Task<Result<PaginatedList<EnrollmentDto>>> HandleAsync(

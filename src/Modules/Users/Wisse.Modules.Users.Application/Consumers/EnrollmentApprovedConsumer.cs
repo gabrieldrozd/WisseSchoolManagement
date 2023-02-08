@@ -1,5 +1,4 @@
 using MassTransit;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Wisse.Contracts.Enrollments.Approved;
 using Wisse.Modules.Users.Application.Features.Students.Commands;
@@ -7,9 +6,6 @@ using Wisse.Modules.Users.Application.Features.Users.Commands;
 using Wisse.Modules.Users.Application.Mappings;
 using Wisse.Modules.Users.Application.Mappings.Users;
 using Wisse.Modules.Users.Domain.Entities;
-using Wisse.Modules.Users.Domain.Entities.Users;
-using Wisse.Modules.Users.Domain.Entities.Users.Base;
-using Wisse.Modules.Users.Domain.Interfaces.Repositories;
 using Wisse.Modules.Users.Domain.Interfaces.UnitOfWork;
 using Wisse.Shared.Abstractions.Communication.Internal.Commands;
 
