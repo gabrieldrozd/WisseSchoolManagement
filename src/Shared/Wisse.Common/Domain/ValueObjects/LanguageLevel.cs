@@ -1,8 +1,8 @@
+using Wisse.Common.Domain.Constants;
 using Wisse.Common.Domain.Primitives;
-using Wisse.Modules.Enrollments.Domain.Constants;
-using Wisse.Modules.Enrollments.Domain.Exceptions.ValueObjects.Applicant.LanguageLevel;
+using Wisse.Common.Exceptions.ValueObjects;
 
-namespace Wisse.Modules.Enrollments.Domain.ValueObjects.Applicant;
+namespace Wisse.Common.Domain.ValueObjects;
 
 public class LanguageLevel : ValueObject
 {

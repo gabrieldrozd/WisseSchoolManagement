@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Wisse.Common.Domain.ValueObjects;
 using Wisse.Modules.Users.Domain.Entities;
 using Wisse.Modules.Users.Domain.ValueObjects.Contact;
-using Wisse.Modules.Users.Domain.ValueObjects.Student;
 using Wisse.Modules.Users.Infrastructure.Database.Constants;
 
 namespace Wisse.Modules.Users.Infrastructure.Database.Configurations;
@@ -28,7 +27,7 @@ internal class StudentConfiguration : IEntityTypeConfiguration<Student>
             .HasMaxLength(StudentConstants.EducationDetailsMaxLength)
             .IsRequired();
 
-        builder.Property(x => x.LanguageLevel)
+        builder.Property(x => x.Permission)
             .HasConversion(
                 x => x.Key,
                 x => new LanguageLevel(x))

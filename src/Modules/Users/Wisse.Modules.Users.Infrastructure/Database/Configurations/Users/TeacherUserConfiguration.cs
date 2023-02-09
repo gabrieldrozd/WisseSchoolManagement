@@ -11,6 +11,6 @@ internal class TeacherUserConfiguration : IEntityTypeConfiguration<TeacherUser>
         builder
             .HasOne(x => x.Teacher)
             .WithOne(x => x.User)
-            .HasForeignKey<TeacherUser>(x => x.TeacherId);
+            .HasForeignKey<TeacherUser>(x => x.TeacherExternalId);
     }
 }

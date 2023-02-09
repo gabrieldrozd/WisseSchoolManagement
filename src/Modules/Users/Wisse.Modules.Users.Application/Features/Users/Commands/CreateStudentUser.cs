@@ -1,5 +1,4 @@
 using Wisse.Common.Communication.Internal;
-using Wisse.Modules.Users.Domain.Definitions.Users;
 using Wisse.Modules.Users.Domain.Entities;
 
 namespace Wisse.Modules.Users.Application.Features.Users.Commands;

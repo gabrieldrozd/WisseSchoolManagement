@@ -7,7 +7,7 @@ public interface IModule
 {
     string Name { get; }
     string Path { get; }
-    IEnumerable<string> Policies { get; }
+    IEnumerable<string> Permissions { get; }
 
     void RegisterModule(IServiceCollection services);
 

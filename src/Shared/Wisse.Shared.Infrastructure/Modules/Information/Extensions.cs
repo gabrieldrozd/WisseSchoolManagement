@@ -11,7 +11,7 @@ internal static class Extensions
     public static IServiceCollection AddModuleInformation(this IServiceCollection services, IEnumerable<IModule> modules)
     {
         var moduleInfoProvider = new ModuleInfoProvider();
-        var moduleInfo = modules?.Select(x => new ModuleInfo(x.Name, x.Path, x.Policies ?? Enumerable.Empty<string>())) ??
+        var moduleInfo = modules?.Select(x => new ModuleInfo(x.Name, x.Path, x.Permissions ?? Enumerable.Empty<string>())) ??
                          Enumerable.Empty<ModuleInfo>();
 
         moduleInfoProvider.Modules.AddRange(moduleInfo);

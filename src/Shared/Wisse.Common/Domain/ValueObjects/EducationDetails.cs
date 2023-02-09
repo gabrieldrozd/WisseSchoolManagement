@@ -1,8 +1,8 @@
+using Wisse.Common.Domain.Constants;
 using Wisse.Common.Domain.Primitives;
-using Wisse.Modules.Users.Domain.Constants;
-using Wisse.Modules.Users.Domain.Exceptions.ValueObjects.Student.EducationDetails;
+using Wisse.Common.Exceptions.ValueObjects;
 
-namespace Wisse.Modules.Users.Domain.ValueObjects.Student;
+namespace Wisse.Common.Domain.ValueObjects;
 
 public class EducationDetails : ValueObject
 {

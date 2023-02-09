@@ -3,7 +3,7 @@ using Wisse.Common.Domain.Primitives;
 using Wisse.Common.Domain.ValueObjects;
 using Wisse.Modules.Users.Domain.Definitions;
 using Wisse.Modules.Users.Domain.Entities.Users;
-using Wisse.Modules.Users.Domain.ValueObjects.Student;
+using Wisse.Modules.Users.Domain.ValueObjects.User;
 
 namespace Wisse.Modules.Users.Domain.Entities;
 
@@ -11,7 +11,7 @@ public class Student : AggregateRoot
 {
     public Date BirthDate { get; private set; }
     public EducationDetails EducationDetails { get; private set; }
-    public LanguageLevel LanguageLevel { get; private set; }
+    public Permission Permission { get; private set; }
 
     public Contact Contact { get; set; }
 
@@ -27,26 +27,19 @@ public class Student : AggregateRoot
     {
     }
 
-    private Student(Guid externalId, Guid userId, Date birthDate, LanguageLevel languageLevel, EducationDetails educationDetails)
+    private Student(Guid externalId, Guid userId, Date birthDate, Permission permission, EducationDetails educationDetails)
         : base(externalId)
     {
         UserId = userId;
         BirthDate = birthDate;
-        LanguageLevel = languageLevel;
+        Permission = permission;
         EducationDetails = educationDetails;
-    }
-
-    public static Student Create(
-        Guid externalId, Guid userId, DateTime birthDate, LanguageLevel languageLevel, EducationDetails educationDetails)
-    {
-        var date = new Date(birthDate);
-        return new Student(externalId, userId, date, languageLevel, educationDetails);
     }
 
     public static Student Create(Guid externalId, Guid userId, StudentDefinition definition)
     {
         var date = new Date(definition.BirthDate);
-        var languageLevel = new LanguageLevel(definition.LevelKey);
+        var languageLevel = new Permission(definition.LevelKey);
         var education = new EducationDetails(definition.School, definition.Grade);
 
         return new Student(externalId, userId, date, languageLevel, education);

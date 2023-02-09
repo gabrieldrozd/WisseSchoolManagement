@@ -1,6 +1,6 @@
 using Wisse.Base.Types;
 
-namespace Wisse.Modules.Users.Domain.Constants;
+namespace Wisse.Common.Domain.Constants;
 
 public class Education : CollectionEnumeration<Education, string>
 {

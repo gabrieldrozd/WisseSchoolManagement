@@ -1,6 +1,6 @@
 using Wisse.Base.Types;
 
-namespace Wisse.Modules.Users.Domain.Constants;
+namespace Wisse.Common.Domain.Constants;
 
 public class Level : PairEnumeration<Level>
 {
@@ -12,8 +12,8 @@ public class Level : PairEnumeration<Level>
     public static readonly Level C1 = new AdvancedLevel();
     public static readonly Level C2 = new ProficientLevel();
 
-    private Level(int value, string key, string name)
-        : base(value, key, name)
+    private Level(string key, string name)
+        : base(key, name)
     {
     }
 
@@ -40,7 +40,7 @@ public class Level : PairEnumeration<Level>
     private sealed class BeginnerLevel : Level
     {
         public BeginnerLevel()
-            : base(1, "A0", "beginner")
+            : base("A0", "beginner")
         {
         }
     }
@@ -48,7 +48,7 @@ public class Level : PairEnumeration<Level>
     private sealed class ElementaryLevel : Level
     {
         public ElementaryLevel()
-            : base(2, "A1", "elementary")
+            : base("A1", "elementary")
         {
         }
     }
@@ -56,7 +56,7 @@ public class Level : PairEnumeration<Level>
     private sealed class PreIntermediateLevel : Level
     {
         public PreIntermediateLevel()
-            : base(3, "A2", "pre-intermediate")
+            : base("A2", "pre-intermediate")
         {
         }
     }
@@ -64,7 +64,7 @@ public class Level : PairEnumeration<Level>
     private sealed class IntermediateLevel : Level
     {
         public IntermediateLevel()
-            : base(4, "B1", "intermediate")
+            : base("B1", "intermediate")
         {
         }
     }
@@ -72,7 +72,7 @@ public class Level : PairEnumeration<Level>
     private sealed class UpperIntermediateLevel : Level
     {
         public UpperIntermediateLevel()
-            : base(5, "B2", "upper intermediate")
+            : base("B2", "upper intermediate")
         {
         }
     }
@@ -80,7 +80,7 @@ public class Level : PairEnumeration<Level>
     private sealed class AdvancedLevel : Level
     {
         public AdvancedLevel()
-            : base(6, "C1", "advanced")
+            : base("C1", "advanced")
         {
         }
     }
@@ -88,7 +88,7 @@ public class Level : PairEnumeration<Level>
     private sealed class ProficientLevel : Level
     {
         public ProficientLevel()
-            : base(7, "C2", "proficient")
+            : base("C2", "proficient")
         {
         }
     }

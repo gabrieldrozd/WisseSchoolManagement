@@ -1,8 +1,7 @@
+using Wisse.Common.Domain.Constants;
 using Wisse.Common.Domain.Primitives;
 using Wisse.Common.Domain.ValueObjects;
-using Wisse.Modules.Enrollments.Domain.Constants;
 using Wisse.Modules.Enrollments.Domain.Definitions;
-using Wisse.Modules.Enrollments.Domain.ValueObjects.Applicant;
 
 namespace Wisse.Modules.Enrollments.Domain.Entities;
 

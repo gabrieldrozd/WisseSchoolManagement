@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Identity;
 using Wisse.Base.Results;
-using Wisse.Common.Domain.Users;
 using Wisse.Modules.Users.Domain.Entities.Users;
 using Wisse.Modules.Users.Domain.Entities.Users.Base;
 using Wisse.Shared.Abstractions.Communication.Internal.Commands;

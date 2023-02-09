@@ -11,6 +11,6 @@ internal class StudentUserConfiguration : IEntityTypeConfiguration<StudentUser>
         builder
             .HasOne(x => x.Student)
             .WithOne(x => x.User)
-            .HasForeignKey<StudentUser>(x => x.StudentId);
+            .HasForeignKey<StudentUser>(x => x.StudentExternalId);
     }
 }

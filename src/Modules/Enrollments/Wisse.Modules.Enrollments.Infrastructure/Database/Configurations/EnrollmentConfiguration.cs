@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Wisse.Common.Domain.ValueObjects;
 using Wisse.Modules.Enrollments.Domain.Entities;
-using Wisse.Modules.Enrollments.Domain.ValueObjects.Applicant;
 using Wisse.Modules.Enrollments.Domain.ValueObjects.Contact;
 using Wisse.Modules.Enrollments.Domain.ValueObjects.Enrollment;
 using Wisse.Modules.Enrollments.Infrastructure.Database.Constants;

@@ -7,22 +7,13 @@ public abstract class PairEnumeration<TEnum> : IEquatable<PairEnumeration<TEnum>
 {
     private static readonly Dictionary<int, TEnum> Enumerations = CreateEnumerations();
 
-    public int Value { get; protected init; }
     public string Key { get; protected init; }
     public string Name { get; protected init; }
 
-    protected PairEnumeration(int value, string key, string name)
+    protected PairEnumeration(string key, string name)
     {
-        Value = value;
         Key = key;
         Name = name;
-    }
-
-    public static TEnum FromValue(int value)
-    {
-        return Enumerations.TryGetValue(value, out var enumeration)
-            ? enumeration
-            : default;
     }
 
     public static TEnum FromKey(string key)
@@ -42,9 +33,7 @@ public abstract class PairEnumeration<TEnum> : IEquatable<PairEnumeration<TEnum>
             return false;
         }
 
-        return GetType() == other.GetType() &&
-               Value == other.Value &&
-               Key == other.Key;
+        return GetType() == other.GetType() && Key == other.Key;
     }
 
     public override bool Equals(object obj)
@@ -55,7 +44,7 @@ public abstract class PairEnumeration<TEnum> : IEquatable<PairEnumeration<TEnum>
 
     public override int GetHashCode()
     {
-        return Value.GetHashCode();
+        return Key.GetHashCode();
     }
 
     public override string ToString()
@@ -77,6 +66,6 @@ public abstract class PairEnumeration<TEnum> : IEquatable<PairEnumeration<TEnum>
             .Select(fieldInfo =>
                 (TEnum)fieldInfo.GetValue(default));
 
-        return fieldsForType.ToDictionary(x => x!.Value);
+        return fieldsForType.ToDictionary(x => x!.Key.GetHashCode());
     }
 }

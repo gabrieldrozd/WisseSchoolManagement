@@ -12,6 +12,22 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
     public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.HasKey(x => x.Id);
+        builder.HasAlternateKey(x => x.ExternalId);
+
+        builder.Property(x => x.PasswordHash)
+            .IsRequired();
+
+        builder.Property(x => x.Role)
+            .HasConversion(x => x.Value, x => new Role(x))
+            .IsRequired();
+
+        builder.Property(x => x.Email)
+            .HasMaxLength(UserConstants.EmailMaxLength)
+            .IsRequired();
+
+        builder.Property(x => x.PhoneNumber)
+            .HasMaxLength(UserConstants.PhoneNumberMaxLength)
+            .IsRequired();
 
         builder.Property(x => x.FirstName)
             .HasConversion(x => x.Value, x => new FirstName(x))

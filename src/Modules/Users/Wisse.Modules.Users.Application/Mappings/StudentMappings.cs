@@ -23,8 +23,8 @@ public static class StudentMappings
             },
             LanguageLevel = new LanguageLevelDto
             {
-                Key = model.LanguageLevel.Key,
-                Name = model.LanguageLevel.Name
+                Key = model.Permission.Key,
+                Name = model.Permission.Name
             },
             Contact = model.Contact.ToContactDetailsDto()
         };

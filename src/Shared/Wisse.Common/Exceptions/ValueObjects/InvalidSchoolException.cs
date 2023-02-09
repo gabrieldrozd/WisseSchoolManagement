@@ -1,9 +1,8 @@
-using Wisse.Common.Exceptions;
-using Wisse.Modules.Enrollments.Domain.Constants;
+using Wisse.Common.Domain.Constants;
 
-namespace Wisse.Modules.Enrollments.Domain.Exceptions.ValueObjects.Applicant.EducationDetails;
+namespace Wisse.Common.Exceptions.ValueObjects;
 
-internal class InvalidSchoolException : DomainException
+public class InvalidSchoolException : DomainException
 {
     public InvalidSchoolException(string school)
         : base($"""
