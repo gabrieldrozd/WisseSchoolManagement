@@ -8,7 +8,7 @@ internal class TeacherConfiguration : IEntityTypeConfiguration<Teacher>
 {
     public void Configure(EntityTypeBuilder<Teacher> builder)
     {
-        builder.HasKey(x => x.Id);
-        builder.HasAlternateKey(x => x.ExternalId);
+        builder.HasKey(x => x.ExternalId);
+        builder.HasAlternateKey(x => x.Id);
     }
 }

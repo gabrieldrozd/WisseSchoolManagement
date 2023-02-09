@@ -29,5 +29,5 @@ public partial class ZipCode : ValueObject
     }
 
     [GeneratedRegex("^[0-9]{2}[-\\s]*?[0-9]{3}$")]
-    private static partial Regex ZipCodeRegex();
+    private partial Regex ZipCodeRegex();
 }

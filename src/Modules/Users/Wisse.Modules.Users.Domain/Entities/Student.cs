@@ -3,7 +3,6 @@ using Wisse.Common.Domain.Primitives;
 using Wisse.Common.Domain.ValueObjects;
 using Wisse.Modules.Users.Domain.Definitions;
 using Wisse.Modules.Users.Domain.Entities.Users;
-using Wisse.Modules.Users.Domain.ValueObjects.User;
 
 namespace Wisse.Modules.Users.Domain.Entities;
 
@@ -11,14 +10,12 @@ public class Student : AggregateRoot
 {
     public Date BirthDate { get; private set; }
     public EducationDetails EducationDetails { get; private set; }
-    public Permission Permission { get; private set; }
+    public LanguageLevel LanguageLevel { get; private set; }
 
     public Contact Contact { get; set; }
 
     #region Foreign
 
-    [ForeignKey("Id")]
-    public Guid UserId { get; set; }
     public virtual StudentUser User { get; set; }
 
     #endregion
@@ -27,22 +24,21 @@ public class Student : AggregateRoot
     {
     }
 
-    private Student(Guid externalId, Guid userId, Date birthDate, Permission permission, EducationDetails educationDetails)
+    private Student(Guid externalId, Date birthDate, LanguageLevel languageLevel, EducationDetails educationDetails)
         : base(externalId)
     {
-        UserId = userId;
         BirthDate = birthDate;
-        Permission = permission;
+        LanguageLevel = languageLevel;
         EducationDetails = educationDetails;
     }
 
-    public static Student Create(Guid externalId, Guid userId, StudentDefinition definition)
+    public static Student Create(Guid externalId, StudentDefinition definition)
     {
         var date = new Date(definition.BirthDate);
-        var languageLevel = new Permission(definition.LevelKey);
+        var languageLevel = new LanguageLevel(definition.LevelKey);
         var education = new EducationDetails(definition.School, definition.Grade);
 
-        return new Student(externalId, userId, date, languageLevel, education);
+        return new Student(externalId, date, languageLevel, education);
     }
 
     public void SetContact(Contact contact)

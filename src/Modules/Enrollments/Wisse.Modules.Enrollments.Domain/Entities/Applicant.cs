@@ -14,7 +14,7 @@ public class Applicant : Entity
     public EducationDetails EducationDetails { get; private set; }
     public LanguageLevel LanguageLevel { get; private set; }
 
-    public int EnrollmentId { get; set; }
+    public Guid EnrollmentExternalId { get; set; }
     public Enrollment Enrollment { get; set; }
 
     private Applicant(Guid externalId) : base(externalId)

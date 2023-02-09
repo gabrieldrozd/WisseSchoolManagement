@@ -10,9 +10,4 @@
       <ProjectReference Include="..\..\..\Shared\Wisse.Shared.Abstractions\Wisse.Shared.Abstractions.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Exceptions\ValueObjects\Applicant" />
-      <Folder Include="ValueObjects\Applicant" />
-    </ItemGroup>
-
 </Project>

@@ -1,5 +1,4 @@
 using Wisse.Modules.Users.Domain.Definitions;
-using Wisse.Modules.Users.Domain.Entities.Users.Base;
 
 namespace Wisse.Modules.Users.Domain.Entities.Users;
 
@@ -12,13 +11,13 @@ public class TeacherUser : User
     {
     }
 
-    private TeacherUser(Guid userId, string passwordHash, UserDefinition definition)
-        : base(userId, passwordHash, Common.Auth.UserRole.Teacher, definition)
+    private TeacherUser(Guid userId, UserDefinition definition)
+        : base(userId, Common.Auth.UserRole.Teacher, definition)
     {
     }
 
-    public static TeacherUser Create(Guid userId, string passwordHash, UserDefinition definition)
-        => new(userId, passwordHash, definition);
+    public static TeacherUser Create(Guid userId, UserDefinition definition)
+        => new(userId, definition);
 
     public void SetTeacher(Teacher teacher)
         => Teacher = teacher;

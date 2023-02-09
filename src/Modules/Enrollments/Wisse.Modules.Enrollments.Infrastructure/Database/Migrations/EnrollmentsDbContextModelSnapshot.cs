@@ -25,11 +25,9 @@ namespace Wisse.Modules.Enrollments.Infrastructure.Database.Migrations
 
             modelBuilder.Entity("Wisse.Modules.Enrollments.Domain.Entities.Enrollment", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("ExternalId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateTimeOffset>("EnrollmentDate")
                         .HasColumnType("timestamp with time zone");
@@ -39,12 +37,15 @@ namespace Wisse.Modules.Enrollments.Infrastructure.Database.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<Guid>("ExternalId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
 
-                    b.HasKey("Id");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.HasAlternateKey("ExternalId");
+                    b.HasKey("ExternalId");
+
+                    b.HasAlternateKey("Id");
 
                     b.ToTable("Enrollments", "enrollments");
                 });
@@ -53,9 +54,11 @@ namespace Wisse.Modules.Enrollments.Infrastructure.Database.Migrations
                 {
                     b.OwnsOne("Wisse.Modules.Enrollments.Domain.Entities.Applicant", "Applicant", b1 =>
                         {
-                            b1.Property<Guid>("ExternalId")
+                            b1.Property<int>("Id")
                                 .ValueGeneratedOnAdd()
-                                .HasColumnType("uuid");
+                                .HasColumnType("integer");
+
+                            NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b1.Property<int>("Id"));
 
                             b1.Property<DateTimeOffset>("BirthDate")
                                 .HasColumnType("timestamp with time zone");
@@ -65,19 +68,16 @@ namespace Wisse.Modules.Enrollments.Infrastructure.Database.Migrations
                                 .HasMaxLength(80)
                                 .HasColumnType("character varying(80)");
 
-                            b1.Property<int>("EnrollmentId")
-                                .HasColumnType("integer");
+                            b1.Property<Guid>("EnrollmentExternalId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<Guid>("ExternalId")
+                                .HasColumnType("uuid");
 
                             b1.Property<string>("FirstName")
                                 .IsRequired()
                                 .HasMaxLength(50)
                                 .HasColumnType("character varying(50)");
-
-                            b1.Property<int>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("integer");
-
-                            NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b1.Property<int>("Id"));
 
                             b1.Property<string>("LanguageLevel")
                                 .IsRequired()
@@ -89,24 +89,26 @@ namespace Wisse.Modules.Enrollments.Infrastructure.Database.Migrations
                                 .HasMaxLength(50)
                                 .HasColumnType("character varying(50)");
 
-                            b1.HasKey("ExternalId");
+                            b1.HasKey("Id");
 
-                            b1.HasIndex("EnrollmentId")
+                            b1.HasIndex("EnrollmentExternalId")
                                 .IsUnique();
 
                             b1.ToTable("Applicants", "enrollments");
 
                             b1.WithOwner("Enrollment")
-                                .HasForeignKey("EnrollmentId");
+                                .HasForeignKey("EnrollmentExternalId");
 
                             b1.Navigation("Enrollment");
                         });
 
                     b.OwnsOne("Wisse.Modules.Enrollments.Domain.Entities.Contact", "Contact", b1 =>
                         {
-                            b1.Property<Guid>("ExternalId")
+                            b1.Property<int>("Id")
                                 .ValueGeneratedOnAdd()
-                                .HasColumnType("uuid");
+                                .HasColumnType("integer");
+
+                            NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b1.Property<int>("Id"));
 
                             b1.Property<string>("City")
                                 .HasMaxLength(100)
@@ -117,20 +119,17 @@ namespace Wisse.Modules.Enrollments.Infrastructure.Database.Migrations
                                 .HasMaxLength(100)
                                 .HasColumnType("character varying(100)");
 
-                            b1.Property<int>("EnrollmentId")
-                                .HasColumnType("integer");
+                            b1.Property<Guid>("EnrollmentExternalId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<Guid>("ExternalId")
+                                .HasColumnType("uuid");
 
                             b1.Property<string>("HouseNumber")
                                 .HasMaxLength(50)
                                 .HasColumnType("character varying(50)");
 
-                            b1.Property<int>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("integer");
-
-                            NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b1.Property<int>("Id"));
-
-                            b1.Property<string>("Phone")
+                            b1.Property<string>("PhoneNumber")
                                 .IsRequired()
                                 .HasMaxLength(20)
                                 .HasColumnType("character varying(20)");
@@ -151,15 +150,15 @@ namespace Wisse.Modules.Enrollments.Infrastructure.Database.Migrations
                                 .HasMaxLength(100)
                                 .HasColumnType("character varying(100)");
 
-                            b1.HasKey("ExternalId");
+                            b1.HasKey("Id");
 
-                            b1.HasIndex("EnrollmentId")
+                            b1.HasIndex("EnrollmentExternalId")
                                 .IsUnique();
 
                             b1.ToTable("Contacts", "enrollments");
 
                             b1.WithOwner("Enrollment")
-                                .HasForeignKey("EnrollmentId");
+                                .HasForeignKey("EnrollmentExternalId");
 
                             b1.Navigation("Enrollment");
                         });

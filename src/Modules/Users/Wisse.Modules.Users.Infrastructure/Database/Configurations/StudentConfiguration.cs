@@ -11,8 +11,8 @@ internal class StudentConfiguration : IEntityTypeConfiguration<Student>
 {
     public void Configure(EntityTypeBuilder<Student> builder)
     {
-        builder.HasKey(x => x.Id);
-        builder.HasAlternateKey(x => x.ExternalId);
+        builder.HasKey(x => x.ExternalId);
+        builder.HasAlternateKey(x => x.Id);
 
         builder.Property(x => x.BirthDate)
             .HasConversion(
@@ -27,7 +27,7 @@ internal class StudentConfiguration : IEntityTypeConfiguration<Student>
             .HasMaxLength(StudentConstants.EducationDetailsMaxLength)
             .IsRequired();
 
-        builder.Property(x => x.Permission)
+        builder.Property(x => x.LanguageLevel)
             .HasConversion(
                 x => x.Key,
                 x => new LanguageLevel(x))
@@ -39,9 +39,9 @@ internal class StudentConfiguration : IEntityTypeConfiguration<Student>
         builder.OwnsOne(x => x.Contact, contact =>
         {
             contact.ToTable(ContactConstants.ContactTableName);
-            contact.WithOwner(x => x.Student).HasForeignKey(x => x.StudentId);
-            contact.HasKey(x => x.Id);
+            contact.WithOwner(x => x.Student).HasForeignKey(x => x.StudentExternalId);
             contact.HasKey(x => x.ExternalId);
+            contact.HasKey(x => x.Id);
 
             contact.Property(x => x.ZipCode)
                 .HasConversion(

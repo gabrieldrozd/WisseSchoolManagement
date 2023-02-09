@@ -13,7 +13,7 @@ public class Contact : Entity
     public string Street { get; private set; }
     public string HouseNumber { get; private set; }
 
-    public int StudentId { get; set; }
+    public Guid StudentExternalId { get; set; }
     public Student Student { get; set; }
 
     private Contact(Guid externalId)

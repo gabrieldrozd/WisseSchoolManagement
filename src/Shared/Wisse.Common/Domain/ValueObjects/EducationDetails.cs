@@ -1,6 +1,6 @@
 using Wisse.Common.Domain.Constants;
 using Wisse.Common.Domain.Primitives;
-using Wisse.Common.Exceptions.ValueObjects;
+using Wisse.Common.Exceptions.ValueObjects.EducationDetails;
 
 namespace Wisse.Common.Domain.ValueObjects;
 

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Wisse.Modules.Users.Domain.Entities;
-using Wisse.Modules.Users.Domain.Entities.Users.Base;
+using Wisse.Modules.Users.Domain.Entities.Users;
 
 namespace Wisse.Modules.Users.Infrastructure.Database;
 

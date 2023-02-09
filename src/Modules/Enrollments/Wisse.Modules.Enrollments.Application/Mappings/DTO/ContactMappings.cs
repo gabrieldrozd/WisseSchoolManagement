@@ -11,7 +11,7 @@ public static class ContactMappings
         => new()
         {
             Email = model.Email.Value,
-            Phone = model.Phone.Value,
+            Phone = model.PhoneNumber.Value,
             ZipCode = model.ZipCode.Value,
             ZipCodeCity = model.ZipCodeCity,
             State = model.State,
@@ -24,7 +24,7 @@ public static class ContactMappings
         => new()
         {
             Email = model.Email.Value,
-            Phone = model.Phone.Value,
+            Phone = model.PhoneNumber.Value,
         };
 
     public static ContactDefinition ToDefinition(this ContactPostDto dto)

@@ -11,8 +11,8 @@ public static class TeacherMappings
             ExternalId = model.ExternalId,
             FirstName = model.User.FirstName.Value,
             LastName = model.User.LastName.Value,
-            Email = model.User.Email,
-            PhoneNumber = model.User.PhoneNumber
+            Email = model.User.Email.Value,
+            PhoneNumber = model.User.PhoneNumber.Value
         };
 
     public static TeacherDto ToTeacherDto(this Teacher model)
@@ -21,8 +21,8 @@ public static class TeacherMappings
             ExternalId = model.ExternalId,
             FirstName = model.User.FirstName.Value,
             LastName = model.User.LastName.Value,
-            Email = model.User.Email,
-            PhoneNumber = model.User.PhoneNumber
+            Email = model.User.Email.Value,
+            PhoneNumber = model.User.PhoneNumber.Value
         };
 
     // public static StudentDefinition ToDefinition(this ApplicantDetailsContract model)
