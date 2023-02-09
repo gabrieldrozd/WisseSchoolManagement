@@ -1,23 +1,24 @@
-using Wisse.Modules.Users.Domain.Entities.Users.Base;
+using Wisse.Modules.Users.Domain.Definitions;
 
 namespace Wisse.Modules.Users.Domain.Entities.Users;
 
 public class TeacherUser : User
 {
-    public int TeacherId { get; }
+    public Guid TeacherExternalId { get; }
     public virtual Teacher Teacher { get; set; }
 
-    private TeacherUser()
+    private TeacherUser() : base(Guid.NewGuid())
     {
     }
 
-    private TeacherUser(int teacherId, Guid userId, string email, string userName, string phoneNumber, string firstName, string lastName)
-        : base(userId, email, userName, phoneNumber, firstName, lastName)
+    private TeacherUser(Guid userId, UserDefinition definition)
+        : base(userId, Common.Auth.UserRole.Teacher, definition)
     {
-        TeacherId = teacherId;
     }
 
-    public static TeacherUser Create(
-        int teacherId, Guid userId, string email, string userName, string phoneNumber, string firstName, string lastName)
-        => new(teacherId, userId, email, userName, phoneNumber, firstName, lastName);
+    public static TeacherUser Create(Guid userId, UserDefinition definition)
+        => new(userId, definition);
+
+    public void SetTeacher(Teacher teacher)
+        => Teacher = teacher;
 }

@@ -13,8 +13,8 @@ public static class StudentMappings
             ExternalId = model.ExternalId,
             FirstName = model.User.FirstName.Value,
             LastName = model.User.LastName.Value,
-            Email = model.User.Email,
-            PhoneNumber = model.User.PhoneNumber,
+            Email = model.User.Email.Value,
+            PhoneNumber = model.User.PhoneNumber.Value,
             BirthDate = model.BirthDate.ToDateTime(),
             Education = new EducationDto
             {
@@ -35,8 +35,8 @@ public static class StudentMappings
             ExternalId = model.ExternalId,
             FirstName = model.User.FirstName.Value,
             LastName = model.User.LastName.Value,
-            Email = model.User.Email,
-            PhoneNumber = model.User.PhoneNumber,
+            Email = model.User.Email.Value,
+            PhoneNumber = model.User.PhoneNumber.Value,
             BirthDate = model.BirthDate.ToDateTime()
         };
 

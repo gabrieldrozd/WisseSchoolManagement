@@ -16,12 +16,13 @@ public abstract class BaseUnitOfWork<T> : IUnitOfWork
 
     public async Task<Result> CommitAsync(CancellationToken cancellationToken = default)
     {
-        var commitStatus = true;
+        bool commitStatus;
         await using var transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
         try
         {
             await _context.SaveChangesAsync(cancellationToken);
             await transaction.CommitAsync(cancellationToken);
+            commitStatus = true;
         }
         catch (Exception)
         {

@@ -15,7 +15,7 @@ internal class EnrollmentsModule : IModule
 
     public string Name => BaseName;
     public string Path => BasePath;
-    public IEnumerable<string> Policies { get; } = new[]
+    public IEnumerable<string> Permissions { get; } = new[]
     {
         "enrollments"
     };

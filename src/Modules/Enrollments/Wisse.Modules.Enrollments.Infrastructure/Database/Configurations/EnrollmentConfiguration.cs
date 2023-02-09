@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Wisse.Common.Domain.ValueObjects;
 using Wisse.Modules.Enrollments.Domain.Entities;
-using Wisse.Modules.Enrollments.Domain.ValueObjects.Applicant;
 using Wisse.Modules.Enrollments.Domain.ValueObjects.Contact;
 using Wisse.Modules.Enrollments.Domain.ValueObjects.Enrollment;
 using Wisse.Modules.Enrollments.Infrastructure.Database.Constants;
@@ -13,8 +12,8 @@ internal class EnrollmentConfiguration : IEntityTypeConfiguration<Enrollment>
 {
     public void Configure(EntityTypeBuilder<Enrollment> builder)
     {
-        builder.HasKey(x => x.Id);
-        builder.HasAlternateKey(x => x.ExternalId);
+        builder.HasKey(x => x.ExternalId);
+        builder.HasAlternateKey(x => x.Id);
 
         builder.Property(x => x.EnrollmentDate)
             .HasConversion(
@@ -34,9 +33,9 @@ internal class EnrollmentConfiguration : IEntityTypeConfiguration<Enrollment>
         builder.OwnsOne(x => x.Applicant, applicant =>
         {
             applicant.ToTable(ApplicantConstants.ApplicantTableName);
-            applicant.WithOwner(x => x.Enrollment).HasForeignKey(x => x.EnrollmentId);
-            applicant.HasKey(x => x.Id);
+            applicant.WithOwner(x => x.Enrollment).HasForeignKey(x => x.EnrollmentExternalId);
             applicant.HasKey(x => x.ExternalId);
+            applicant.HasKey(x => x.Id);
 
             applicant.Property(x => x.FirstName)
                 .HasMaxLength(ApplicantConstants.FirstNameMaxLength)
@@ -74,9 +73,9 @@ internal class EnrollmentConfiguration : IEntityTypeConfiguration<Enrollment>
         builder.OwnsOne(x => x.Contact, contact =>
         {
             contact.ToTable(ContactConstants.ContactTableName);
-            contact.WithOwner(x => x.Enrollment).HasForeignKey(x => x.EnrollmentId);
-            contact.HasKey(x => x.Id);
+            contact.WithOwner(x => x.Enrollment).HasForeignKey(x => x.EnrollmentExternalId);
             contact.HasKey(x => x.ExternalId);
+            contact.HasKey(x => x.Id);
 
             contact.Property(x => x.Email)
                 .HasConversion(
@@ -85,10 +84,10 @@ internal class EnrollmentConfiguration : IEntityTypeConfiguration<Enrollment>
                 .HasMaxLength(ContactConstants.EmailMaxLength)
                 .IsRequired();
 
-            contact.Property(x => x.Phone)
+            contact.Property(x => x.PhoneNumber)
                 .HasConversion(
                     x => x.Value,
-                    x => new Phone(x))
+                    x => new PhoneNumber(x))
                 .HasMaxLength(ContactConstants.PhoneMaxLength)
                 .IsRequired();
 

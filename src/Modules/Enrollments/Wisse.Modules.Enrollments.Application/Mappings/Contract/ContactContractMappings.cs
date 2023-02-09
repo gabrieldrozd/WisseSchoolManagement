@@ -9,7 +9,7 @@ public static class ContactContractMappings
         => new()
         {
             Email = model.Email.Value,
-            Phone = model.Phone.Value,
+            PhoneNumber = model.PhoneNumber.Value,
             ZipCode = model.ZipCode.Value,
             ZipCodeCity = model.ZipCodeCity,
             State = model.State,

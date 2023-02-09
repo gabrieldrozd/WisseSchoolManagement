@@ -20,7 +20,7 @@ internal sealed class CommandDispatcher : ICommandDispatcher
     {
         if (command is null)
         {
-            return Result.Failure(Failure.MediatorFailure);
+            return Result.Failure(Failure.Mediator);
         }
 
         using var scope = _serviceProvider.CreateScope();
@@ -34,7 +34,7 @@ internal sealed class CommandDispatcher : ICommandDispatcher
     {
         if (command is null)
         {
-            return Result.Failure<TResult>(Failure.MediatorFailure);
+            return Result.Failure<TResult>(Failure.Mediator);
         }
 
         using var scope = _serviceProvider.CreateScope();

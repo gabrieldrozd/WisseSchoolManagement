@@ -1,4 +1,5 @@
 using Wisse.Common.Domain.Primitives;
+using Wisse.Common.Domain.ValueObjects;
 using Wisse.Modules.Enrollments.Domain.Definitions;
 using Wisse.Modules.Enrollments.Domain.ValueObjects.Contact;
 
@@ -7,7 +8,7 @@ namespace Wisse.Modules.Enrollments.Domain.Entities;
 public class Contact : Entity
 {
     public Email Email { get; private set; }
-    public Phone Phone { get; private set; }
+    public PhoneNumber PhoneNumber { get; private set; }
 
     public ZipCode ZipCode { get; private set; }
     public string ZipCodeCity { get; private set; }
@@ -16,7 +17,7 @@ public class Contact : Entity
     public string Street { get; private set; }
     public string HouseNumber { get; private set; }
 
-    public int EnrollmentId { get; set; }
+    public Guid EnrollmentExternalId { get; set; }
     public Enrollment Enrollment { get; set; }
 
     private Contact(Guid externalId)
@@ -24,12 +25,12 @@ public class Contact : Entity
     {
     }
 
-    private Contact(Guid externalId, Email email, Phone phone, ZipCode zipCode, string zipCodeCity,
+    private Contact(Guid externalId, Email email, PhoneNumber phoneNumber, ZipCode zipCode, string zipCodeCity,
         string state, string city, string street, string houseNumber)
         : this(externalId)
     {
         Email = email;
-        Phone = phone;
+        PhoneNumber = phoneNumber;
         ZipCode = zipCode;
         ZipCodeCity = zipCodeCity;
         State = state;
@@ -41,7 +42,7 @@ public class Contact : Entity
     public static Contact Create(ContactDefinition definition)
     {
         var emailValue = new Email(definition.Email);
-        var phoneValue = new Phone(definition.Phone);
+        var phoneValue = new PhoneNumber(definition.PhoneNumber);
         var zipCodeValue = new ZipCode(definition.ZipCode);
 
         return new Contact(definition.Id, emailValue, phoneValue, zipCodeValue, definition.ZipCodeCity,

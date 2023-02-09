@@ -1,8 +1,7 @@
+using Wisse.Common.Domain.Constants;
 using Wisse.Common.Domain.Primitives;
 using Wisse.Common.Domain.ValueObjects;
-using Wisse.Modules.Enrollments.Domain.Constants;
 using Wisse.Modules.Enrollments.Domain.Definitions;
-using Wisse.Modules.Enrollments.Domain.ValueObjects.Applicant;
 
 namespace Wisse.Modules.Enrollments.Domain.Entities;
 
@@ -15,7 +14,7 @@ public class Applicant : Entity
     public EducationDetails EducationDetails { get; private set; }
     public LanguageLevel LanguageLevel { get; private set; }
 
-    public int EnrollmentId { get; set; }
+    public Guid EnrollmentExternalId { get; set; }
     public Enrollment Enrollment { get; set; }
 
     private Applicant(Guid externalId) : base(externalId)
