@@ -9,7 +9,7 @@ public static class UserMappings
         => new()
         {
             Email = model.Contact.Email,
-            PhoneNumber = model.Contact.Phone,
+            PhoneNumber = model.Contact.PhoneNumber,
             FirstName = model.Applicant.FirstName,
             LastName = model.Applicant.LastName
         };

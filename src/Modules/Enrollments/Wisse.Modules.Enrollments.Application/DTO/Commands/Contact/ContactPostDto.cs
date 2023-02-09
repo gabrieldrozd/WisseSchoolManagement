@@ -4,7 +4,7 @@ public class ContactPostDto
 {
     public Guid Id { get; } = Guid.NewGuid();
     public string Email { get; set; }
-    public string Phone { get; set; }
+    public string PhoneNumber { get; set; }
     public string ZipCode { get; set; }
     public string ZipCodeCity { get; set; }
     public string State { get; set; }

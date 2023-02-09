@@ -42,7 +42,7 @@ public class Contact : Entity
     public static Contact Create(ContactDefinition definition)
     {
         var emailValue = new Email(definition.Email);
-        var phoneValue = new PhoneNumber(definition.Phone);
+        var phoneValue = new PhoneNumber(definition.PhoneNumber);
         var zipCodeValue = new ZipCode(definition.ZipCode);
 
         return new Contact(definition.Id, emailValue, phoneValue, zipCodeValue, definition.ZipCodeCity,

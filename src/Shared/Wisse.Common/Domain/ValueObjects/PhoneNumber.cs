@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 using Wisse.Common.Domain.Primitives;
-using Wisse.Common.Exceptions.ValueObjects.Phone;
+using Wisse.Common.Exceptions.ValueObjects.PhoneNumber;
 
 namespace Wisse.Common.Domain.ValueObjects;
 
@@ -12,12 +12,12 @@ public partial class PhoneNumber : ValueObject
     {
         if (string.IsNullOrWhiteSpace(value))
         {
-            throw new EmptyPhoneException();
+            throw new EmptyPhoneNumberException();
         }
 
         if (!PhoneRegex().IsMatch(value))
         {
-            throw new InvalidPhoneException();
+            throw new InvalidPhoneNumberException();
         }
 
         Value = value;
