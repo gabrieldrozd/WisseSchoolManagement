@@ -7,6 +7,7 @@ public class Failure : ErrorEnumeration<Failure>
     public static readonly Failure Database = new DatabaseFail();
     public static readonly Failure Mediator = new MediatorFail();
     public static readonly Failure EmailInUse = new EmailInUseFail();
+    public static readonly Failure InvalidPassword = new InvalidPasswordFail();
 
     private Failure(string code, string message) : base(code, message)
     {
@@ -29,6 +30,13 @@ public class Failure : ErrorEnumeration<Failure>
     private sealed class EmailInUseFail : Failure
     {
         public EmailInUseFail() : base("EmailInUseFailure", "Email is already in use.")
+        {
+        }
+    }
+
+    private sealed class InvalidPasswordFail : Failure
+    {
+        public InvalidPasswordFail() : base("InvalidPassword", "Wrong password.")
         {
         }
     }

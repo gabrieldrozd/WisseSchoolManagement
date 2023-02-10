@@ -15,7 +15,7 @@ public partial class PhoneNumber : ValueObject
             throw new EmptyPhoneNumberException();
         }
 
-        if (!PhoneRegex().IsMatch(value))
+        if (!IsPhoneNumberValid(value))
         {
             throw new InvalidPhoneNumberException();
         }
@@ -28,7 +28,9 @@ public partial class PhoneNumber : ValueObject
         yield return Value;
     }
 
-    [GeneratedRegex(
-        "(?:(?:(?:\\+|00)?48)|(?:\\(\\+?48\\)))?(?:1[2-8]|2[2-69]|3[2-49]|4[1-8]|5[0-9]|6[0-35-9]|[7-8][1-9]|9[145])\\d{7}")]
-    private partial Regex PhoneRegex();
+    private static bool IsPhoneNumberValid(string phoneNumber)
+    {
+        var regex = new Regex(@"^(?:\+?48)?(?:[ -]?[0-9]){9}$");
+        return regex.IsMatch(phoneNumber);
+    }
 }

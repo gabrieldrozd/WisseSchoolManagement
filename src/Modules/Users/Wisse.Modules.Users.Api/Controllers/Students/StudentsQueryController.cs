@@ -11,7 +11,7 @@ using Wisse.Shared.Abstractions.Communication.Internal.Queries;
 namespace Wisse.Modules.Users.Api.Controllers.Students;
 
 [ControllerConfiguration(ControllerType.Queries, UsersModule.Areas.Students, UsersModule.BasePath + "/students")]
-internal class StudentsQueryController : ModuleController
+internal sealed class StudentsQueryController : ModuleController
 {
     private readonly IQueryDispatcher _queryDispatcher;
 

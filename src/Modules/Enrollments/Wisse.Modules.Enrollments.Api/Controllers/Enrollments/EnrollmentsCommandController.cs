@@ -9,7 +9,7 @@ using Wisse.Shared.Abstractions.Communication.Internal.Commands;
 namespace Wisse.Modules.Enrollments.Api.Controllers.Enrollments;
 
 [ControllerConfiguration(ControllerType.Commands, EnrollmentsModule.Areas.Enrollments, EnrollmentsModule.BasePath)]
-internal class EnrollmentsCommandController : ModuleController
+internal sealed class EnrollmentsCommandController : ModuleController
 {
     private readonly ICommandDispatcher _commandDispatcher;
 
