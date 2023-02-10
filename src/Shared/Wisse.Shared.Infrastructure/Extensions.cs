@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Wisse.Shared.Abstractions.Modules;
 using Wisse.Shared.Infrastructure.Api;
+using Wisse.Shared.Infrastructure.Caching;
 using Wisse.Shared.Infrastructure.Communication;
 using Wisse.Shared.Infrastructure.Database;
 using Wisse.Shared.Infrastructure.Messaging;
@@ -51,6 +52,7 @@ internal static class Extensions
         services.AddModulesConfiguration(assemblies, modules);
         services.AddCommunication(assemblies);
         services.AddMessaging(assemblies);
+        services.AddCaching();
 
         services.AddDatabaseAndInitializer();
         services.AddControllersConfiguration(disabledModules);

@@ -1,5 +1,6 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using Wisse.Shared.Abstractions.Caching;
 using Wisse.Shared.Abstractions.Communication.Internal.Queries;
 
 namespace Wisse.Shared.Infrastructure.Communication.Internal.Queries;

@@ -1,4 +1,3 @@
-using System.Linq.Expressions;
 using Wisse.Modules.Users.Domain.Entities.Users;
 using Wisse.Shared.Abstractions.Database.Repositories;
 

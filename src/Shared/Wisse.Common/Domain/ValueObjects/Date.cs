@@ -22,6 +22,8 @@ public sealed class Date : ValueObject
 
     public Date AddMonths(int months) => new(Value.AddMonths(months));
 
+    public Date AddMinutes(int minutes) => Value.AddMinutes(minutes);
+
     public static implicit operator DateTimeOffset(Date date)
         => date.Value;
 

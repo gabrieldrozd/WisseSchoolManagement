@@ -1,9 +1,15 @@
+using Newtonsoft.Json;
+
 namespace Wisse.Common.Models.Pagination;
 
 public class PaginatedList<T> where T : class
 {
     public PaginationInfo Pagination { get; set; }
     public IReadOnlyList<T> List { get; set; }
+
+    private PaginatedList()
+    {
+    }
 
     private PaginatedList(Pagination pagination, IReadOnlyList<T> list, int totalItems)
     {

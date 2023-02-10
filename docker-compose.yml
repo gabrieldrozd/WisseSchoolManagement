@@ -29,8 +29,20 @@ services:
             - ./.container/rabbitmq:/var/lib/rabbitmq
             - ./.container/rabbitmq:/var/log/rabbitmq
 
+    wisse-redis:
+        image: redis:latest
+        container_name: wisse-redis
+        hostname: wisse-redis
+        ports:
+            - "6379:6379"
+        volumes:
+            - ./.container/redis:/data
+            - ./.container/redis:/var/log/redis
+
 volumes:
     postgres:
         driver: local
     rabbitmq:
+        driver: local
+    redis:
         driver: local
