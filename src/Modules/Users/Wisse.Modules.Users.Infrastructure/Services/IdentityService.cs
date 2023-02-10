@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Identity;
+using Wisse.Base.Results;
+using Wisse.Base.Results.Core;
 using Wisse.Modules.Users.Domain.Entities.Users;
 using Wisse.Modules.Users.Domain.Interfaces.Services;
 
@@ -13,10 +15,23 @@ internal sealed class IdentityService : IIdentityService
         _passwordHasher = passwordHasher;
     }
 
-    public string GenerateHashedPassword(User user)
+    public void GenerateHashedPassword(User user)
     {
         var password = $"Wisse{Guid.NewGuid().ToString()[..4]}@";
-        var passwordHash = _passwordHasher.HashPassword(user, password);
-        return passwordHash;
+        user.SetPasswordHash(_passwordHasher.HashPassword(user, password));
+    }
+
+    public Result Login(User user, string password)
+    {
+        var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, password);
+        if (result == PasswordVerificationResult.Failed)
+        {
+            return Result.Failure(Failure.InvalidPassword);
+        }
+
+        // TODO: Token generation in here
+        // For now we just return a success
+
+        return Result.Success();
     }
 }

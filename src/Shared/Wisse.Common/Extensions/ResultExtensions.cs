@@ -14,6 +14,7 @@ public static class ResultExtensions
             Status.Success when result.IsSuccess => new EmptyEnvelope(),
             Status.Failure when !result.IsSuccess => new EmptyEnvelope(result.Error),
             Status.NotFound when !result.IsSuccess => new EmptyEnvelope(result.Error),
+            Status.Unauthorized when !result.IsSuccess => new EmptyEnvelope(result.Error),
             _ => new EmptyEnvelope(Error.Unexpected())
         };
     }
@@ -25,6 +26,7 @@ public static class ResultExtensions
             Status.Success when result.IsSuccess => new Envelope<T>(result.Value),
             Status.Failure when !result.IsSuccess => new Envelope<T>(result.Error),
             Status.NotFound when !result.IsSuccess => new Envelope<T>(result.Error),
+            Status.Unauthorized when !result.IsSuccess => new Envelope<T>(result.Error),
             _ => new Envelope<T>(Error.Unexpected())
         };
     }
@@ -36,6 +38,7 @@ public static class ResultExtensions
             Status.Success when result.IsSuccess => StatusCodes.Status200OK,
             Status.Failure when !result.IsSuccess => StatusCodes.Status400BadRequest,
             Status.NotFound when !result.IsSuccess => StatusCodes.Status404NotFound,
+            Status.Unauthorized when !result.IsSuccess => StatusCodes.Status401Unauthorized,
             _ => StatusCodes.Status500InternalServerError
         };
     }

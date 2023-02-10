@@ -10,6 +10,7 @@ namespace Wisse.Common.Controllers;
 public abstract class BaseController : ControllerBase
 {
     [ProducesEmptyEnvelope(StatusCodes.Status400BadRequest)]
+    [ProducesEmptyEnvelope(StatusCodes.Status401Unauthorized)]
     [ProducesEmptyEnvelope(StatusCodes.Status404NotFound)]
     [ProducesEmptyEnvelope(StatusCodes.Status500InternalServerError)]
     protected IActionResult BuildEnvelope(Result result)
@@ -21,6 +22,7 @@ public abstract class BaseController : ControllerBase
     }
 
     [ProducesEmptyEnvelope(StatusCodes.Status400BadRequest)]
+    [ProducesEmptyEnvelope(StatusCodes.Status401Unauthorized)]
     [ProducesEmptyEnvelope(StatusCodes.Status404NotFound)]
     [ProducesEmptyEnvelope(StatusCodes.Status500InternalServerError)]
     protected IActionResult BuildEnvelope<T>(Result<T> result)

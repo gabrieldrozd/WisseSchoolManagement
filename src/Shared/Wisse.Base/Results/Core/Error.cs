@@ -19,6 +19,9 @@ public record Error(string Code, string Message)
     internal static Error DatabaseFailure()
         => Create("DatabaseFailure", "Database failed to process changes.");
 
+    internal static Error Unauthorized()
+        => Create("Unauthorized", "Invalid credentials. Email or password is incorrect.");
+
     #endregion
 
     #region Public Errors

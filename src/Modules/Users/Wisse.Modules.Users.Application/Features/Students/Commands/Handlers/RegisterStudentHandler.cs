@@ -9,7 +9,7 @@ using Wisse.Shared.Abstractions.Communication.Internal.Commands;
 
 namespace Wisse.Modules.Users.Application.Features.Students.Commands.Handlers;
 
-internal class RegisterStudentHandler : ICommandHandler<RegisterStudent>
+internal sealed class RegisterStudentHandler : ICommandHandler<RegisterStudent>
 {
     private readonly IQueryUserRepository _queryUserRepository;
     private readonly ICommandUserRepository _commandUserRepository;
@@ -33,14 +33,14 @@ internal class RegisterStudentHandler : ICommandHandler<RegisterStudent>
 
     public async Task<Result> HandleAsync(RegisterStudent command, CancellationToken cancellationToken = default)
     {
-        if (await _queryUserRepository.IsEmailInUseAsync(command.UserDefinition.Email))
+        var isEmailInUse = await _queryUserRepository.IsEmailInUseAsync(command.UserDefinition.Email);
+        if (isEmailInUse)
         {
             return Result.Failure(Failure.EmailInUse);
         }
 
         var studentUser = StudentUser.Create(command.UserId, command.StudentId, command.UserDefinition);
-        var passwordHash = _identityService.GenerateHashedPassword(studentUser);
-        studentUser.SetPasswordHash(passwordHash);
+        _identityService.GenerateHashedPassword(studentUser);
 
         var student = Student.Create(command.StudentId, command.StudentDefinition);
         var contact = Contact.Create(command.ContactDefinition);

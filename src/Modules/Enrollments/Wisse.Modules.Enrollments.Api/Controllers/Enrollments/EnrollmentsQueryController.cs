@@ -11,7 +11,7 @@ using Wisse.Shared.Abstractions.Communication.Internal.Queries;
 namespace Wisse.Modules.Enrollments.Api.Controllers.Enrollments;
 
 [ControllerConfiguration(ControllerType.Queries, EnrollmentsModule.Areas.Enrollments, EnrollmentsModule.BasePath)]
-internal class EnrollmentsQueryController : ModuleController
+internal sealed class EnrollmentsQueryController : ModuleController
 {
     private readonly IQueryDispatcher _queryDispatcher;
 

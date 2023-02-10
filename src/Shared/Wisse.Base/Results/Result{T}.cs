@@ -51,6 +51,9 @@ public class Result<T>
     public static Result<T> DatabaseFailure()
         => new(Status.Failure, false, Error.DatabaseFailure());
 
+    public static Result<T> Unauthorized()
+        => new(Status.Unauthorized, false, Error.Unauthorized());
+
     #endregion
 
     #region Operators

@@ -15,12 +15,12 @@ public partial class Email : ValueObject
             throw new EmptyEmailException();
         }
 
-        if (!EmailRegex().IsMatch(value))
+        if (!IsEmailValid(value))
         {
             throw new InvalidEmailFormatException(value);
         }
 
-        Value = value;
+        Value = value.ToLowerInvariant();
     }
 
     public static implicit operator string(Email email)
@@ -29,11 +29,17 @@ public partial class Email : ValueObject
     public static implicit operator Email(string email)
         => new(email);
 
+    public bool Equals(string otherEmail)
+        => Value == otherEmail;
+
     protected override IEnumerable<object> GetAtomicValues()
     {
         yield return Value;
     }
 
-    [GeneratedRegex("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")]
-    private partial Regex EmailRegex();
+    private static bool IsEmailValid(string email)
+    {
+        var regex = new Regex(@"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
+        return regex.IsMatch(email);
+    }
 }

@@ -6,7 +6,7 @@ using Wisse.Shared.Abstractions.Communication.Internal.Commands;
 namespace Wisse.Modules.Users.Api.Controllers.Students;
 
 [ControllerConfiguration(ControllerType.Commands, UsersModule.Areas.Students, UsersModule.BasePath + "/students")]
-internal class StudentsCommandController : ModuleController
+internal sealed class StudentsCommandController : ModuleController
 {
     private readonly ICommandDispatcher _commandDispatcher;
 

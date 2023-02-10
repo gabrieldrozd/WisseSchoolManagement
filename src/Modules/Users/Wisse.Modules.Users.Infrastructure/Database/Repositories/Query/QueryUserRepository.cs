@@ -1,4 +1,6 @@
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using Wisse.Common.Domain.ValueObjects;
 using Wisse.Modules.Users.Domain.Entities.Users;
 using Wisse.Modules.Users.Domain.Interfaces.Repositories;
 using Wisse.Shared.Infrastructure.Database.Repositories;
@@ -16,4 +18,7 @@ internal class QueryUserRepository : QueryBaseRepository<User, UsersDbContext>, 
 
     public Task<bool> IsEmailInUseAsync(string email)
         => _users.AnyAsync(u => u.Email.Equals(email));
+
+    public Task<User> GetByEmailAsync(string email)
+        => _users.Where(x => x.Email == new Email(email)).AsNoTracking().SingleOrDefaultAsync();
 }
