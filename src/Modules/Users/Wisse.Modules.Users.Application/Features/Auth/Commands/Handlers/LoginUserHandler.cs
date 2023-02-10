@@ -1,5 +1,4 @@
 using Wisse.Base.Results;
-using Wisse.Modules.Users.Domain.Entities.Users;
 using Wisse.Modules.Users.Domain.Interfaces.Repositories;
 using Wisse.Modules.Users.Domain.Interfaces.Services;
 using Wisse.Shared.Abstractions.Communication.Internal.Commands;

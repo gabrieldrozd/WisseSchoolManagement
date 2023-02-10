@@ -1,4 +1,3 @@
-using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Wisse.Common.Domain.ValueObjects;
 using Wisse.Modules.Users.Domain.Entities.Users;

@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace Wisse.Common.Models.Pagination;
 
 public class PaginationInfo
@@ -8,6 +10,10 @@ public class PaginationInfo
     public int Count { get; }
     public bool HasPreviousPage => PageIndex > 1;
     public bool HasNextPage => PageSize * PageIndex < TotalItems;
+
+    private PaginationInfo()
+    {
+    }
 
     private PaginationInfo(int pageIndex, int pageSize, int totalItems, int count)
     {

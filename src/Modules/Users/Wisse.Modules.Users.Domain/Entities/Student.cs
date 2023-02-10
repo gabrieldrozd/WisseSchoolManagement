@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using Wisse.Common.Domain.Primitives;
 using Wisse.Common.Domain.ValueObjects;
 using Wisse.Modules.Users.Domain.Definitions;
