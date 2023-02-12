@@ -8,5 +8,5 @@ public interface IIdentityService
 {
     void GenerateHashedPassword(User user);
 
-    Result<AuthResult> Login(User user, string password);
+    Result<AccessToken> Login(User user, string password);
 }

@@ -9,13 +9,13 @@ using Wisse.Shared.Abstractions.Utilities;
 
 namespace Wisse.Shared.Infrastructure.Auth;
 
-internal sealed class AuthManager : IAuthManager
+internal sealed class TokenProvider : ITokenProvider
 {
     private readonly SigningCredentials _signingCredentials;
     private readonly AuthOptions _options;
     private readonly IClock _clock;
 
-    public AuthManager(AuthOptions options, IClock clock)
+    public TokenProvider(AuthOptions options, IClock clock)
     {
         _signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.IssuerSigningKey)),
@@ -25,7 +25,7 @@ internal sealed class AuthManager : IAuthManager
         _clock = clock;
     }
 
-    public string CreateToken(Guid userId, Email email, Role role, List<Permission> permissions)
+    public AccessToken CreateToken(Guid userId, Email email, Role role, List<Permission> permissions)
     {
         var current = new Date(_clock.Current());
         var expires = new Date(_clock.Current().AddMinutes(_options.ExpiryInMinutes));
@@ -51,6 +51,16 @@ internal sealed class AuthManager : IAuthManager
             signingCredentials: _signingCredentials);
 
         var tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
-        return tokenValue;
+        var accessToken = new AccessToken
+        {
+            Token = tokenValue,
+            Expires = expires.ToUnixSeconds(),
+            UserId = userId,
+            Email = email.Value,
+            Role = role.Value,
+            Permissions = permissions.Select(x => x.Key).ToArray(),
+        };
+
+        return accessToken;
     }
 }

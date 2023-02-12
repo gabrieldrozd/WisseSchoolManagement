@@ -7,7 +7,7 @@ using Wisse.Shared.Abstractions.Communication.Internal.Commands;
 
 namespace Wisse.Modules.Users.Application.Features.Auth.Commands.Handlers;
 
-internal sealed class LoginUserHandler : ICommandHandler<LoginUser, AuthResult>
+internal sealed class LoginUserHandler : ICommandHandler<LoginUser, AccessToken>
 {
     private readonly IQueryUserRepository _queryUserRepository;
     private readonly IIdentityService _identityService;
@@ -20,18 +20,18 @@ internal sealed class LoginUserHandler : ICommandHandler<LoginUser, AuthResult>
         _identityService = identityService;
     }
 
-    public async Task<Result<AuthResult>> HandleAsync(LoginUser command, CancellationToken cancellationToken = default)
+    public async Task<Result<AccessToken>> HandleAsync(LoginUser command, CancellationToken cancellationToken = default)
     {
         var user = await _queryUserRepository.GetByEmailAsync(command.Email);
         if (user is null)
         {
-            return Result.Failure<AuthResult>(Failure.InvalidCredentials);
+            return Result.Failure<AccessToken>(Failure.InvalidCredentials);
         }
 
         var loginResult = _identityService.Login(user, command.Password);
 
         return loginResult.IsSuccess
             ? loginResult
-            : Result.Unauthorized<AuthResult>();
+            : Result.Unauthorized<AccessToken>();
     }
 }

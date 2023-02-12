@@ -18,15 +18,15 @@ public sealed class Date : ValueObject
 
     public DateTime ToDateTime() => Value.DateTime;
 
-    public long ToUnix() => Value.ToUnixTimeMilliseconds();
+    public long ToUnixSeconds() => Value.ToUnixTimeSeconds();
 
-    public string ToUnixString() => ToUnix().ToString();
+    public long ToUnixMilliseconds() => Value.ToUnixTimeMilliseconds();
+
+    public Date AddMinutes(int minutes) => Value.AddMinutes(minutes);
 
     public Date AddDays(int days) => new(Value.AddDays(days));
 
     public Date AddMonths(int months) => new(Value.AddMonths(months));
-
-    public Date AddMinutes(int minutes) => Value.AddMinutes(minutes);
 
     public static implicit operator DateTimeOffset(Date date)
         => date.Value;

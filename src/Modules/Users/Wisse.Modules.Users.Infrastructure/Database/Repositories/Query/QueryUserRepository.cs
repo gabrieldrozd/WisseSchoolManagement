@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Wisse.Common.Domain.ValueObjects;
 using Wisse.Modules.Users.Domain.Entities.Users;
@@ -20,4 +21,7 @@ internal class QueryUserRepository : QueryBaseRepository<User, UsersDbContext>, 
 
     public Task<User> GetByEmailAsync(string email)
         => _users.Where(x => x.Email == new Email(email)).AsNoTracking().SingleOrDefaultAsync();
+
+    public Task<User> GetAsync(Expression<Func<User, bool>> predicate)
+        => _users.Where(predicate).AsNoTracking().SingleOrDefaultAsync();
 }

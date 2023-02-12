@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Wisse.Modules.Users.Domain.Entities.Users;
 using Wisse.Shared.Abstractions.Database.Repositories;
 
@@ -8,4 +9,6 @@ public interface IQueryUserRepository : IQueryBaseRepository<User>
     Task<bool> IsEmailInUseAsync(string email);
 
     Task<User> GetByEmailAsync(string email);
+
+    Task<User> GetAsync(Expression<Func<User, bool>> predicate);
 }

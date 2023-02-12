@@ -15,7 +15,7 @@ internal static class Extensions
         var options = services.GetOptions<AuthOptions>(SectionName);
         services.AddSingleton(options);
 
-        services.AddSingleton<IAuthManager, AuthManager>();
+        services.AddSingleton<ITokenProvider, TokenProvider>();
 
         services
             .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -33,6 +33,8 @@ internal static class Extensions
                         Encoding.ASCII.GetBytes(options.IssuerSigningKey)),
                 };
             });
+
+        services.AddAuthorization();
 
         return services;
     }

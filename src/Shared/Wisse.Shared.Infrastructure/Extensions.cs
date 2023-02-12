@@ -8,8 +8,10 @@ using Wisse.Shared.Infrastructure.Api;
 using Wisse.Shared.Infrastructure.Auth;
 using Wisse.Shared.Infrastructure.Caching;
 using Wisse.Shared.Infrastructure.Communication;
+using Wisse.Shared.Infrastructure.Contexts;
 using Wisse.Shared.Infrastructure.Database;
 using Wisse.Shared.Infrastructure.Messaging;
+using Wisse.Shared.Infrastructure.Middleware;
 using Wisse.Shared.Infrastructure.Modules;
 using Wisse.Shared.Infrastructure.Utilities;
 
@@ -49,6 +51,8 @@ internal static class Extensions
         //             .WithHeaders("Content-Type", "Authorization");
         //     });
         // });
+        services.AddMiddlewareRegistration();
+        services.AddContexts();
 
         services.AddSwaggerDocumentation();
         services.AddModulesConfiguration(assemblies, modules);
@@ -69,10 +73,12 @@ internal static class Extensions
 
     public static IApplicationBuilder UseInfrastructure(this WebApplication app)
     {
+        app.UseRegisteredMiddleware();
+
         app.UseSwaggerDocumentation();
-        app.UseRouting();
 
         app.UseAuthentication();
+        app.UseRouting();
         app.UseAuthorization();
 
         return app;
