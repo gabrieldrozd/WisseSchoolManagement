@@ -29,10 +29,13 @@ internal class QueryDispatcher : IQueryDispatcher
         }
 
         var cacheKey = query.BuildCacheKey();
-        var cachedResult = await _cacheService.GetAsync<TResult>(cacheKey, cancellationToken);
-        if (cachedResult.IsSuccess)
+        if (!NonCacheableKey.IsKeyCacheable(cacheKey))
         {
-            return cachedResult;
+            var cachedResult = await _cacheService.GetAsync<TResult>(cacheKey, cancellationToken);
+            if (cachedResult.IsSuccess)
+            {
+                return cachedResult;
+            }
         }
 
         using var scope = _serviceProvider.CreateScope();
@@ -42,7 +45,7 @@ internal class QueryDispatcher : IQueryDispatcher
         var response = await ((Task<Result<TResult>>) handlerType
             .GetMethod(nameof(IQueryHandler<IQuery<TResult>, TResult>.HandleAsync))
             ?.Invoke(handler, new object[] { query, cancellationToken }))!;
-        if (response.IsSuccess)
+        if (response.IsSuccess && !NonCacheableKey.IsKeyCacheable(cacheKey))
         {
             await _cacheService.SetAsync(cacheKey, response.Value, cancellationToken);
         }

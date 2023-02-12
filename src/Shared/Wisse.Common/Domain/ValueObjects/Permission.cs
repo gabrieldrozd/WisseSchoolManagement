@@ -1,8 +1,8 @@
 using Wisse.Common.Auth;
 using Wisse.Common.Domain.Primitives;
-using Wisse.Modules.Users.Domain.Exceptions.ValueObjects.User.Permission;
+using Wisse.Common.Exceptions.ValueObjects.Permission;
 
-namespace Wisse.Modules.Users.Domain.Entities.Users;
+namespace Wisse.Common.Domain.ValueObjects;
 
 public class Permission : ValueObject
 {

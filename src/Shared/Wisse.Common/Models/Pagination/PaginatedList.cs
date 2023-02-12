@@ -1,5 +1,3 @@
-using Newtonsoft.Json;
-
 namespace Wisse.Common.Models.Pagination;
 
 public class PaginatedList<T> where T : class

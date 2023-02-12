@@ -1,6 +1,4 @@
-using Wisse.Common.Exceptions;
-
-namespace Wisse.Modules.Users.Domain.Exceptions.ValueObjects.User.Permission;
+namespace Wisse.Common.Exceptions.ValueObjects.Permission;
 
 public class EmptyPermissionException : DomainException
 {

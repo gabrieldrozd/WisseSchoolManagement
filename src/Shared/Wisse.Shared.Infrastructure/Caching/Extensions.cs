@@ -13,7 +13,6 @@ internal static class Extensions
         var redisConnection = services.GetOptions<RedisOptions>(SectionName);
         services.AddStackExchangeRedisCache(config => config.Configuration = redisConnection.ConnectionString);
 
-        // services.AddDistributedMemoryCache();
         services.AddSingleton<ICacheService, CacheService>();
         return services;
     }

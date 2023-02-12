@@ -5,11 +5,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Wisse.Shared.Abstractions.Modules;
 using Wisse.Shared.Infrastructure.Api;
+using Wisse.Shared.Infrastructure.Auth;
 using Wisse.Shared.Infrastructure.Caching;
 using Wisse.Shared.Infrastructure.Communication;
+using Wisse.Shared.Infrastructure.Contexts;
 using Wisse.Shared.Infrastructure.Database;
 using Wisse.Shared.Infrastructure.Messaging;
+using Wisse.Shared.Infrastructure.Middleware;
 using Wisse.Shared.Infrastructure.Modules;
+using Wisse.Shared.Infrastructure.Utilities;
 
 [assembly: InternalsVisibleTo("Wisse.Bootstrapper")]
 
@@ -47,9 +51,14 @@ internal static class Extensions
         //             .WithHeaders("Content-Type", "Authorization");
         //     });
         // });
+        services.AddContexts();
+        services.AddMiddlewareRegistration();
 
         services.AddSwaggerDocumentation();
         services.AddModulesConfiguration(assemblies, modules);
+
+        services.AddAuthenticationAndAuthorization();
+
         services.AddCommunication(assemblies);
         services.AddMessaging(assemblies);
         services.AddCaching();
@@ -57,13 +66,20 @@ internal static class Extensions
         services.AddDatabaseAndInitializer();
         services.AddControllersConfiguration(disabledModules);
 
+        services.AddUtilities();
+
         return services;
     }
 
     public static IApplicationBuilder UseInfrastructure(this WebApplication app)
     {
+        app.UseRegisteredMiddleware();
+
         app.UseSwaggerDocumentation();
+
+        app.UseAuthentication();
         app.UseRouting();
+        app.UseAuthorization();
 
         return app;
     }
