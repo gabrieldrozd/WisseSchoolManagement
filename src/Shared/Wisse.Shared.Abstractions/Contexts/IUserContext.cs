@@ -1,4 +1,3 @@
-using System.IdentityModel.Tokens.Jwt;
 using Wisse.Common.Domain.ValueObjects;
 
 namespace Wisse.Shared.Abstractions.Contexts;
@@ -9,6 +8,4 @@ public interface IUserContext
     public Email Email { get; set; }
     public Role Role { get; set; }
     public List<Permission> Permissions { get; set; }
-
-    void Populate(JwtSecurityToken securityToken);
 }

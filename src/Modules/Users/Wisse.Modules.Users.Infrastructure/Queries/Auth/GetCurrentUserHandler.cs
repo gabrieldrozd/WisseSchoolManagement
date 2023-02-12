@@ -1,5 +1,4 @@
 using Wisse.Base.Results;
-using Wisse.Base.Results.Core;
 using Wisse.Modules.Users.Application.Features.Auth.Queries;
 using Wisse.Modules.Users.Domain.Interfaces.Repositories;
 using Wisse.Shared.Abstractions.Auth;
@@ -10,23 +9,23 @@ namespace Wisse.Modules.Users.Infrastructure.Queries.Auth;
 
 internal sealed class GetCurrentUserHandler : IQueryHandler<GetCurrentUser, AccessToken>
 {
-    private readonly IUserContext _userContext;
+    private readonly IContext _context;
     private readonly IQueryUserRepository _queryUserRepository;
     private readonly ITokenProvider _tokenProvider;
 
     public GetCurrentUserHandler(
-        IUserContext userContext,
+        IContext context,
         IQueryUserRepository queryUserRepository,
         ITokenProvider tokenProvider)
     {
-        _userContext = userContext;
+        _context = context;
         _queryUserRepository = queryUserRepository;
         _tokenProvider = tokenProvider;
     }
 
     public async Task<Result<AccessToken>> HandleAsync(GetCurrentUser query, CancellationToken cancellationToken = default)
     {
-        var user = await _queryUserRepository.GetAsync(x => x.ExternalId == _userContext.UserId);
+        var user = await _queryUserRepository.GetAsync(x => x.ExternalId == _context.User.UserId);
         if (user is null)
         {
             return Result.Unauthorized<AccessToken>();

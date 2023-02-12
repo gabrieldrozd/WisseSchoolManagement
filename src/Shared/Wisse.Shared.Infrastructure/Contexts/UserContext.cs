@@ -1,4 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Wisse.Common.Domain.ValueObjects;
 using Wisse.Shared.Abstractions.Contexts;
@@ -12,22 +14,31 @@ internal class UserContext : IUserContext
     public Role Role { get; set; }
     public List<Permission> Permissions { get; set; }
 
-    public void Populate(JwtSecurityToken securityToken)
+    public UserContext(HttpContext httpContext)
     {
-        UserId = securityToken.Claims
+        var token = httpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+        var securityToken =  new JwtSecurityTokenHandler().ReadToken(token) as JwtSecurityToken;
+        Populate(securityToken?.Claims);
+    }
+
+    private void Populate(IEnumerable<Claim> claims)
+    {
+        claims = claims.ToList();
+
+        UserId = claims
             .Where(x => x.Type == "userId")
             .Select(x => Guid.Parse(x.Value))
             .FirstOrDefault();
-        Email = securityToken.Claims
+        Email = claims
             .Where(x => x.Type == "email")
             .Select(x => new Email(x.Value))
             .FirstOrDefault();
-        Role = securityToken.Claims
+        Role = claims
             .Where(x => x.Type == "role")
             .Select(x => new Role(x.Value))
             .FirstOrDefault();
 
-        var tokenPermissions = securityToken.Claims
+        var tokenPermissions = claims
             .FirstOrDefault(x => x.Type == "permissions")!.Value;
         var permissions = JsonConvert.DeserializeObject<List<string>>(tokenPermissions)
             .Select(x => new Permission(x));
