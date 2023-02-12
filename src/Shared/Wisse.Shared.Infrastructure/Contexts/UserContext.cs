@@ -14,12 +14,18 @@ internal class UserContext : IUserContext
     public Role Role { get; set; }
     public List<Permission> Permissions { get; set; }
 
+    private UserContext()
+    {
+    }
+
     public UserContext(HttpContext httpContext)
     {
         var token = httpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
         var securityToken =  new JwtSecurityTokenHandler().ReadToken(token) as JwtSecurityToken;
         Populate(securityToken?.Claims);
     }
+
+    public static IUserContext Empty => new UserContext();
 
     private void Populate(IEnumerable<Claim> claims)
     {

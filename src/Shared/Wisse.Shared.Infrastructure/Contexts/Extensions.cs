@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Wisse.Shared.Abstractions.Contexts;
 
 namespace Wisse.Shared.Infrastructure.Contexts;
 

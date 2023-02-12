@@ -31,7 +31,7 @@ public class Envelope<T> : Envelope
         Data = default;
     }
 
-    public Envelope<T> WithCode(int code)
+    public new Envelope<T> WithCode(int code)
     {
         StatusCode = code;
         return this;

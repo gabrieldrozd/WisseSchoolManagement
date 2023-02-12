@@ -12,12 +12,12 @@ internal sealed class ContextFactory : IContextFactory
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public IContext Create()
+    public IUserContext Create()
     {
         var httpContext = _httpContextAccessor.HttpContext;
 
         return httpContext is null
-            ? Context.Empty
-            : new Context(httpContext);
+            ? UserContext.Empty
+            : new UserContext(httpContext);
     }
 }

@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace Wisse.Shared.Infrastructure.Middleware;
+namespace Wisse.Shared.Infrastructure.Middleware.Http;
 
 public class HttpRequestMiddleware : IMiddleware
 {
