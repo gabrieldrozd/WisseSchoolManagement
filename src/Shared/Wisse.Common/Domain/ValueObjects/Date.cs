@@ -18,6 +18,10 @@ public sealed class Date : ValueObject
 
     public DateTime ToDateTime() => Value.DateTime;
 
+    public long ToUnix() => Value.ToUnixTimeMilliseconds();
+
+    public string ToUnixString() => ToUnix().ToString();
+
     public Date AddDays(int days) => new(Value.AddDays(days));
 
     public Date AddMonths(int months) => new(Value.AddMonths(months));

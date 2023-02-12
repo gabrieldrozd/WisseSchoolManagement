@@ -18,7 +18,7 @@ public abstract class BaseController : ControllerBase
         var statusCode = result.GetStatusCode();
         var envelope = result.ToEnvelope();
 
-        return StatusCode(statusCode, envelope);
+        return StatusCode(statusCode, envelope.WithCode(statusCode));
     }
 
     [ProducesEmptyEnvelope(StatusCodes.Status400BadRequest)]
@@ -30,6 +30,6 @@ public abstract class BaseController : ControllerBase
         var statusCode = result.GetStatusCode();
         var envelope = result.ToEnvelope();
 
-        return StatusCode(statusCode, envelope);
+        return StatusCode(statusCode, envelope.WithCode(statusCode));
     }
 }

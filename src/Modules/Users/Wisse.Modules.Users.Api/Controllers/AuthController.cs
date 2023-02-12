@@ -4,6 +4,7 @@ using Wisse.Common.Controllers;
 using Wisse.Common.Controllers.Types;
 using Wisse.Modules.Users.Api.Controllers.Base;
 using Wisse.Modules.Users.Application.Features.Auth.Commands;
+using Wisse.Shared.Abstractions.Auth;
 using Wisse.Shared.Abstractions.Communication.Internal.Commands;
 
 namespace Wisse.Modules.Users.Api.Controllers;
@@ -24,7 +25,7 @@ internal sealed class AuthController : ModuleController
         [FromBody] LoginUser command,
         CancellationToken cancellationToken = default)
     {
-        var result = await _commandDispatcher.SendAsync(command, cancellationToken);
+        var result = await _commandDispatcher.SendAsync<LoginUser, AuthResult>(command, cancellationToken);
         return BuildEnvelope(result);
     }
 }

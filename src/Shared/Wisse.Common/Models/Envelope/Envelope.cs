@@ -4,6 +4,7 @@ namespace Wisse.Common.Models.Envelope;
 
 public class Envelope
 {
+    public int StatusCode { get; set; }
     public bool IsSuccess { get; set; }
     public bool HasErrors { get; set; }
     public Error[] Errors { get; set; }
