@@ -1,3 +1,4 @@
+using Wisse.Common.Auth;
 using Wisse.Modules.Users.Domain.Definitions;
 
 namespace Wisse.Modules.Users.Domain.Entities.Users;
@@ -12,7 +13,7 @@ public class TeacherUser : User
     }
 
     private TeacherUser(Guid userId, UserDefinition definition)
-        : base(userId, Common.Auth.UserRole.Teacher, definition)
+        : base(userId, UserRole.Teacher, definition, UserPermission.TeacherPermissions)
     {
     }
 

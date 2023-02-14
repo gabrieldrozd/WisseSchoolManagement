@@ -23,7 +23,7 @@ public abstract class User : AggregateRoot
     {
     }
 
-    protected User(Guid externalId, UserRole userRole, UserDefinition definition)
+    protected User(Guid externalId, UserRole userRole, UserDefinition definition, IEnumerable<UserPermission> permissions)
         : base(externalId)
     {
         Role = Role.Create(userRole);
@@ -36,7 +36,7 @@ public abstract class User : AggregateRoot
         SecurityStamp = Guid.NewGuid().ToString();
         ConcurrencyStamp = Guid.NewGuid().ToString();
 
-        AddPermissions(UserPermission.StudentPermissions);
+        AddPermissions(permissions);
     }
 
     public void SetPasswordHash(string passwordHash)

@@ -6,28 +6,48 @@ namespace Wisse.Common.Domain.ValueObjects;
 
 public class Role : ValueObject
 {
-    public string Value { get; }
+    public RoleKey Key { get; }
 
-    public Role(string value)
+    private Role(RoleKey key)
     {
-        if (string.IsNullOrWhiteSpace(value))
+        var role = UserRole.TryGetRole(key);
+        if (role is null)
+        {
+            throw new InvalidUserRoleException();
+        }
+
+        Key = role.Key;
+    }
+
+    private Role(string value)
+    {
+        if (string.IsNullOrEmpty(value))
         {
             throw new EmptyUserRoleException();
         }
 
-        if (UserRole.FromName(value) is null)
+        var role = UserRole.TryGetRole(value);
+        if (role is null)
         {
-            throw new InvalidUserRoleException(value);
+            throw new InvalidUserRoleException();
         }
 
-        Value = value;
+        Key = role.Key;
     }
 
     public static Role Create(UserRole userRole)
-        => new(userRole.Name);
+        => new(userRole.Key);
+
+    public static Role FromString(string role)
+        => new(role);
+
+    /// <summary>
+    /// $"{Key}"
+    /// </summary>
+    public override string ToString() => $"{Key}";
 
     protected override IEnumerable<object> GetAtomicValues()
     {
-        yield return Value;
+        yield return Key;
     }
 }

@@ -12,7 +12,7 @@ using Wisse.Modules.Users.Infrastructure.Database;
 namespace Wisse.Modules.Users.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(UsersDbContext))]
-    [Migration("20230209181758_UsersModuleInit")]
+    [Migration("20230214141823_UsersModuleInit")]
     partial class UsersModuleInit
     {
         /// <inheritdoc />

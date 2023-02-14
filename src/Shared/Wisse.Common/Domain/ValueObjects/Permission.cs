@@ -6,16 +6,26 @@ namespace Wisse.Common.Domain.ValueObjects;
 
 public class Permission : ValueObject
 {
-    public string Key { get; }
-    public string Name { get; }
+    public PermissionKey Key { get; }
 
     private Permission()
     {
     }
 
-    public Permission(string value)
+    private Permission(PermissionKey key)
     {
-        if (string.IsNullOrWhiteSpace(value))
+        var permission = UserPermission.TryGetPermission(key);
+        if (permission is null)
+        {
+            throw new InvalidPermissionException();
+        }
+
+        Key = permission.Key;
+    }
+
+    private Permission(string value)
+    {
+        if (string.IsNullOrEmpty(value))
         {
             throw new EmptyPermissionException();
         }
@@ -27,25 +37,21 @@ public class Permission : ValueObject
         }
 
         Key = permission.Key;
-        Name = permission.Name;
     }
 
     public static Permission Create(UserPermission permission)
         => new(permission.Key);
 
     public static Permission FromString(string permission)
-        => new(permission.Split("-")[0]);
+        => new(permission);
 
-    public override string ToString() => $"{Key}-{Name}";
+    /// <summary>
+    /// $"{Key}"
+    /// </summary>
+    public override string ToString() => $"{Key}";
 
     protected override IEnumerable<object> GetAtomicValues()
     {
         yield return Key;
-        yield return Name;
-    }
-
-    public int GetHashCode(Permission obj)
-    {
-        return HashCode.Combine(obj.Key, obj.Name);
     }
 }

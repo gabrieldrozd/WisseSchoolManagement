@@ -4,12 +4,12 @@ namespace Wisse.Common.Exceptions.ValueObjects.Role;
 
 internal class InvalidUserRoleException : DomainException
 {
-    public InvalidUserRoleException(string role)
+    public InvalidUserRoleException()
         : base($"""
-Invalid role '{role}'. Valid roles are:
-{UserRole.Admin.Name},
-{UserRole.Student.Name},
-{UserRole.Teacher.Name}.
+Invalid role. Valid roles are:
+{UserRole.Admin.Key},
+{UserRole.Student.Key},
+{UserRole.Teacher.Key}.
 """)
     {
     }

@@ -2,7 +2,7 @@ using Wisse.Base.Types;
 
 namespace Wisse.Common.Auth;
 
-public class UserPermission : PairEnumeration<UserPermission>
+public class UserPermission : ObjectEnumeration<UserPermission, PermissionKey>
 {
     /// <summary>
     /// Permission to create a resource.
@@ -57,7 +57,8 @@ public class UserPermission : PairEnumeration<UserPermission>
     /// Standard permissions for an Admin.
     /// <remarks></remarks>
     /// </summary>
-    public static readonly UserPermission[] AdminPermissions = { Create, Read, Update, Delete, Publish, Manage, Execute, Administer };
+    public static readonly UserPermission[] AdminPermissions =
+        { Create, Read, Update, Delete, Publish, Manage, Execute, Administer };
 
     /// <summary>
     /// Standard permissions for a Student.
@@ -71,21 +72,22 @@ public class UserPermission : PairEnumeration<UserPermission>
     /// </summary>
     public static readonly UserPermission[] TeacherPermissions = { Create, Read, Update, Delete, Publish, Execute };
 
-    private UserPermission(string key, string name) : base(key, name)
+    private UserPermission(PermissionKey key) : base(key)
     {
     }
 
     public static UserPermission TryGetPermission(string value)
     {
         UserPermission permission;
-
-        if (FromKey(value) is not null)
+        if (FromKeyString(value) is not null)
         {
-            permission = FromKey(value);
+            permission = FromKeyString(value);
         }
-        else if (FromName(value) is not null)
+
+        else if (Enum.TryParse<PermissionKey>(value, out var key) &&
+                 FromKey(key) is not null)
         {
-            permission = FromName(value);
+            permission = FromKey(key);
         }
         else
         {
@@ -95,19 +97,39 @@ public class UserPermission : PairEnumeration<UserPermission>
         return permission;
     }
 
-    private static UserPermission CreatePermission() => new("create", "CREATE");
+    public static UserPermission TryGetPermission(PermissionKey key)
+    {
+        UserPermission permission;
+        if (FromKey(key) is not null)
+        {
+            permission = FromKey(key);
+        }
+        else
+        {
+            return null;
+        }
 
-    private static UserPermission ReadPermission() => new("read", "READ");
+        return permission;
+    }
 
-    private static UserPermission UpdatePermission() => new("update", "UPDATE");
+    private static UserPermission FromKeyString(string key)
+        => Enum.TryParse<PermissionKey>(key, out var permissionKey)
+            ? FromKey(permissionKey)
+            : null;
 
-    private static UserPermission DeletePermission() => new("delete", "DELETE");
+    private static UserPermission CreatePermission() => new(PermissionKey.Create);
 
-    private static UserPermission PublishPermission() => new("publish", "PUBLISH");
+    private static UserPermission ReadPermission() => new(PermissionKey.Read);
 
-    private static UserPermission ManagePermission() => new("manage", "MANAGE");
+    private static UserPermission UpdatePermission() => new(PermissionKey.Update);
 
-    private static UserPermission ExecutePermission() => new("execute", "EXECUTE");
+    private static UserPermission DeletePermission() => new(PermissionKey.Delete);
 
-    private static UserPermission AdministerPermission() => new("administer", "ADMINISTER");
+    private static UserPermission PublishPermission() => new(PermissionKey.Publish);
+
+    private static UserPermission ManagePermission() => new(PermissionKey.Manage);
+
+    private static UserPermission ExecutePermission() => new(PermissionKey.Execute);
+
+    private static UserPermission AdministerPermission() => new(PermissionKey.Administer);
 }
