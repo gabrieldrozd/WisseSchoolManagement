@@ -1,3 +1,4 @@
+using Wisse.Common.Auth;
 using Wisse.Modules.Users.Domain.Definitions;
 
 namespace Wisse.Modules.Users.Domain.Entities.Users;
@@ -12,7 +13,7 @@ public class StudentUser : User
     }
 
     private StudentUser(Guid externalId, Guid studentExternalId, UserDefinition definition)
-        : base(externalId, Common.Auth.UserRole.Student, definition)
+        : base(externalId, UserRole.Student, definition, UserPermission.StudentPermissions)
     {
         StudentExternalId = studentExternalId;
     }

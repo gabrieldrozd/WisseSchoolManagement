@@ -37,8 +37,8 @@ internal sealed class TokenProvider : ITokenProvider
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new("userId", userId.ToString()),
             new("email", email.Value),
-            new("role", role.Value),
-            new("permissions", JsonConvert.SerializeObject(permissions.Select(x => x.Key), Formatting.None)),
+            new("role", role.Key.ToString()),
+            new("permissions", JsonConvert.SerializeObject(permissions.Select(x => x.ToString()), Formatting.None)),
         };
 
 
@@ -57,8 +57,8 @@ internal sealed class TokenProvider : ITokenProvider
             Expires = expires.ToUnixSeconds(),
             UserId = userId,
             Email = email.Value,
-            Role = role.Value,
-            Permissions = permissions.Select(x => x.Key).ToArray(),
+            Role = role.Key.ToString(),
+            Permissions = permissions.Select(x => x.ToString()).ToArray(),
         };
 
         return accessToken;

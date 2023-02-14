@@ -2,7 +2,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using Wisse.Common.Auth;
 using Wisse.Common.Domain.ValueObjects;
+using Wisse.Common.Extensions;
 using Wisse.Shared.Abstractions.Contexts;
 
 namespace Wisse.Shared.Infrastructure.Contexts;
@@ -25,6 +27,12 @@ internal class UserContext : IUserContext
         Populate(securityToken?.Claims);
     }
 
+    public bool HasPermissions(PermissionKey[] requiredPermissions)
+        => Permissions.Select(x => x.Key).HasOther(requiredPermissions);
+
+    public bool IsInRole(RoleKey[] requiredRoles)
+        => requiredRoles.HasOther(Role.Key);
+
     public static IUserContext Empty => new UserContext();
 
     private void Populate(IEnumerable<Claim> claims)
@@ -41,13 +49,13 @@ internal class UserContext : IUserContext
             .FirstOrDefault();
         Role = claims
             .Where(x => x.Type == "role")
-            .Select(x => new Role(x.Value))
+            .Select(x => Role.FromString(x.Value))
             .FirstOrDefault();
 
         var tokenPermissions = claims
             .FirstOrDefault(x => x.Type == "permissions")!.Value;
         var permissions = JsonConvert.DeserializeObject<List<string>>(tokenPermissions)
-            .Select(x => new Permission(x));
+            .Select(Permission.FromString);
         Permissions = permissions.ToList();
     }
 }

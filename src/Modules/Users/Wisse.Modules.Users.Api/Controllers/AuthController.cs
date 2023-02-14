@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Wisse.Common.Auth;
 using Wisse.Common.Controllers;
 using Wisse.Common.Controllers.Types;
 using Wisse.Modules.Users.Api.Controllers.Base;
@@ -9,6 +10,8 @@ using Wisse.Modules.Users.Application.Features.Auth.Queries;
 using Wisse.Shared.Abstractions.Auth;
 using Wisse.Shared.Abstractions.Communication.Internal.Commands;
 using Wisse.Shared.Abstractions.Communication.Internal.Queries;
+using Wisse.Shared.Infrastructure.Auth.Api.Permissions;
+using Wisse.Shared.Infrastructure.Auth.Api.Roles;
 
 namespace Wisse.Modules.Users.Api.Controllers;
 
@@ -29,6 +32,8 @@ internal sealed class AuthController : ModuleController
     [Authorize]
     [HttpGet]
     [ProducesEmptyEnvelope(StatusCodes.Status200OK)]
+    [PermissionRequirement(PermissionKey.Read, PermissionKey.Execute)]
+    [RoleRequirement(RoleKey.Admin, RoleKey.Student, RoleKey.Teacher)]
     public async Task<IActionResult> Get(CancellationToken cancellationToken = default)
     {
         var query = new GetCurrentUser();
@@ -38,7 +43,7 @@ internal sealed class AuthController : ModuleController
 
     [HttpPost]
     [ProducesEmptyEnvelope(StatusCodes.Status200OK)]
-    public async Task<IActionResult> Submit(
+    public async Task<IActionResult> Login(
         [FromBody] LoginUser command,
         CancellationToken cancellationToken = default)
     {

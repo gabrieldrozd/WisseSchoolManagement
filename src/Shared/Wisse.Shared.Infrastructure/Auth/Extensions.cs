@@ -1,13 +1,12 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Wisse.Base.Results.Core;
-using Wisse.Common.Exceptions;
-using Wisse.Common.Exceptions.Infrastructural;
-using Wisse.Common.Models.Envelope;
 using Wisse.Shared.Abstractions.Auth;
+using Wisse.Shared.Infrastructure.Auth.Api;
+using Wisse.Shared.Infrastructure.Auth.Api.Permissions;
+using Wisse.Shared.Infrastructure.Auth.Api.Roles;
 
 namespace Wisse.Shared.Infrastructure.Auth;
 
@@ -37,13 +36,12 @@ internal static class Extensions
                     IssuerSigningKey = new SymmetricSecurityKey(
                         Encoding.ASCII.GetBytes(options.IssuerSigningKey)),
                 };
-                opt.Events = new JwtBearerEvents
-                {
-                    OnAuthenticationFailed = _ => throw new AuthorizationException()
-                };
             });
 
         services.AddAuthorization();
+        services.AddSingleton<IAuthorizationHandler, RoleAuthorizationHandler>();
+        services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
+        services.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
 
         return services;
     }

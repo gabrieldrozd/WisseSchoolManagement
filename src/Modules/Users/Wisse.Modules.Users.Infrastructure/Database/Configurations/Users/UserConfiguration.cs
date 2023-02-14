@@ -20,7 +20,7 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
             .IsRequired();
 
         builder.Property(x => x.Role)
-            .HasConversion(x => x.Value, x => new Role(x))
+            .HasConversion(x => x.Key.ToString(), x => Role.FromString(x))
             .IsRequired();
 
         builder.Property(x => x.Email)
@@ -51,7 +51,7 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(x => x.Permissions)
             .HasConversion(
-                x => string.Join(';', x.Select(y => y.ToString())),
+                x => string.Join(';', x.Select(y => y.Key.ToString())),
                 x => x.Split(';', StringSplitOptions.None).Select(Permission.FromString).ToList());
 
         builder.Property(x => x.Permissions).Metadata.SetValueComparer(

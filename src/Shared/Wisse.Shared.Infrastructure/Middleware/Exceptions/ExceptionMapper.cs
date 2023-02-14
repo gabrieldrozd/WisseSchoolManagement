@@ -11,7 +11,7 @@ internal sealed class ExceptionMapper : IExceptionMapper
 {
     private static readonly ConcurrentDictionary<Type, string> Codes = new();
 
-    public Envelope Map(System.Exception exception)
+    public Envelope Map(Exception exception)
         => exception switch
         {
             DomainException ex => new Envelope(false, new Error(GetErrorCode(ex), ex.Message)).WithCode(400),
