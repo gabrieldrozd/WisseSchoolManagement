@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Wisse.Common.Auth;
 using Wisse.Common.Controllers;
 using Wisse.Common.Controllers.Types;
 using Wisse.Common.Models.Pagination;
@@ -7,6 +8,8 @@ using Wisse.Modules.Enrollments.Api.Controllers.Base;
 using Wisse.Modules.Enrollments.Application.DTO.Queries.Enrollment;
 using Wisse.Modules.Enrollments.Application.Features.Queries;
 using Wisse.Shared.Abstractions.Communication.Internal.Queries;
+using Wisse.Shared.Infrastructure.Auth.Api.Permissions;
+using Wisse.Shared.Infrastructure.Auth.Api.Roles;
 
 namespace Wisse.Modules.Enrollments.Api.Controllers.Enrollments;
 
@@ -21,6 +24,8 @@ internal sealed class EnrollmentsQueryController : ModuleController
     }
 
     [HttpGet("{enrollmentId:guid}")]
+    [RoleRequirement(RoleKey.Admin)]
+    [PermissionRequirement(PermissionKey.Read)]
     [ProducesEnvelope(typeof(EnrollmentDetailsDto), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetDetails(
         [FromRoute] Guid enrollmentId,
@@ -32,6 +37,8 @@ internal sealed class EnrollmentsQueryController : ModuleController
     }
 
     [HttpPut("browse")]
+    [RoleRequirement(RoleKey.Admin)]
+    [PermissionRequirement(PermissionKey.Read)]
     [ProducesEnvelope(typeof(PaginatedList<EnrollmentDto>), StatusCodes.Status200OK)]
     public async Task<IActionResult> Browse(
         [FromBody] PaginationRequest pagination,

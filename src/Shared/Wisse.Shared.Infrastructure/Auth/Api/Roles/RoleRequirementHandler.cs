@@ -1,22 +1,23 @@
 using Microsoft.AspNetCore.Authorization;
+using Wisse.Common.Exceptions;
 using Wisse.Shared.Abstractions.Contexts;
 
-namespace Wisse.Shared.Infrastructure.Auth.Api.Permissions;
+namespace Wisse.Shared.Infrastructure.Auth.Api.Roles;
 
-public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionRequirement>
+public class RoleRequirementHandler : AuthorizationHandler<RoleRequirement>
 {
     private readonly IUserContext _userContext;
 
-    public PermissionAuthorizationHandler(IUserContext userContext)
+    public RoleRequirementHandler(IUserContext userContext)
     {
         _userContext = userContext;
     }
 
     protected override Task HandleRequirementAsync(
         AuthorizationHandlerContext context,
-        PermissionRequirement requirement)
+        RoleRequirement requirement)
     {
-        var hasPermissions = _userContext.HasPermissions(requirement.Permissions);
+        var hasPermissions = _userContext.IsInRole(requirement.Roles);
         if (hasPermissions)
         {
             context.Succeed(requirement);
@@ -24,6 +25,7 @@ public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionReq
         else
         {
             context.Fail();
+            throw new NotAllowedException();
         }
 
         return Task.CompletedTask;

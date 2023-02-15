@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Wisse.Common.Auth;
 using Wisse.Common.Controllers;
 using Wisse.Common.Controllers.Types;
 using Wisse.Common.Models.Pagination;
@@ -7,6 +8,8 @@ using Wisse.Modules.Users.Api.Controllers.Base;
 using Wisse.Modules.Users.Application.DTO.Queries.Student;
 using Wisse.Modules.Users.Application.Features.Students.Queries;
 using Wisse.Shared.Abstractions.Communication.Internal.Queries;
+using Wisse.Shared.Infrastructure.Auth.Api.Permissions;
+using Wisse.Shared.Infrastructure.Auth.Api.Roles;
 
 namespace Wisse.Modules.Users.Api.Controllers.Students;
 
@@ -21,6 +24,8 @@ internal sealed class StudentsQueryController : ModuleController
     }
 
     [HttpGet("{studentId:guid}")]
+    [RoleRequirement(RoleKey.Teacher, RoleKey.Admin)]
+    [PermissionRequirement(PermissionKey.Read)]
     [ProducesEnvelope(typeof(StudentDetailsDto), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetDetails(
         [FromRoute] Guid studentId,
@@ -32,6 +37,8 @@ internal sealed class StudentsQueryController : ModuleController
     }
 
     [HttpPut("browse")]
+    [RoleRequirement(RoleKey.Teacher, RoleKey.Admin)]
+    [PermissionRequirement(PermissionKey.Read)]
     [ProducesEnvelope(typeof(PaginatedList<StudentDto>), StatusCodes.Status200OK)]
     public async Task<IActionResult> Browse(
         [FromBody] PaginationRequest pagination,

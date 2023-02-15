@@ -15,7 +15,8 @@ internal sealed class ExceptionMapper : IExceptionMapper
         => exception switch
         {
             DomainException ex => new Envelope(false, new Error(GetErrorCode(ex), ex.Message)).WithCode(400),
-            AuthException ex => new Envelope(false, new Error(GetErrorCode(ex), ex.Message)).WithCode(401),
+            NotAuthenticatedException ex => new Envelope(false, new Error(GetErrorCode(ex), ex.Message)).WithCode(401),
+            NotAllowedException ex => new Envelope(false, new Error(GetErrorCode(ex), ex.Message)).WithCode(403),
             NotFoundException ex => new Envelope(false, new Error(GetErrorCode(ex), ex.Message)).WithCode(404),
             _ => new Envelope(false, Error.Unexpected()).WithCode(500)
         };

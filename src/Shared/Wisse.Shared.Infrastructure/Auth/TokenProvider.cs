@@ -47,7 +47,6 @@ internal sealed class TokenProvider : ITokenProvider
             issuer: _options.Issuer,
             audience: _options.Audience,
             expires: expires.ToDateTime(),
-            notBefore: current.ToDateTime(),
             signingCredentials: _signingCredentials);
 
         var tokenValue = new JwtSecurityTokenHandler().WriteToken(token);

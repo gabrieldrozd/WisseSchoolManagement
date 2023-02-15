@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Wisse.Shared.Abstractions.Auth;
 using Wisse.Shared.Infrastructure.Auth.Api;
+using Wisse.Shared.Infrastructure.Auth.Api.Authenticated;
 using Wisse.Shared.Infrastructure.Auth.Api.Permissions;
 using Wisse.Shared.Infrastructure.Auth.Api.Roles;
 
@@ -22,7 +23,12 @@ internal static class Extensions
         services.AddSingleton<ITokenProvider, TokenProvider>();
 
         services
-            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
             .AddJwtBearer(opt =>
             {
                 opt.SaveToken = true;
@@ -31,16 +37,18 @@ internal static class Extensions
                     ValidateIssuer = true,
                     ValidateAudience = false,
                     ValidateIssuerSigningKey = true,
+                    ValidateLifetime = true,
                     ValidIssuer = options.Issuer,
                     ValidAudience = options.Audience,
                     IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.ASCII.GetBytes(options.IssuerSigningKey)),
+                        Encoding.UTF8.GetBytes(options.IssuerSigningKey)),
                 };
             });
 
         services.AddAuthorization();
-        services.AddSingleton<IAuthorizationHandler, RoleAuthorizationHandler>();
-        services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
+        services.AddSingleton<IAuthorizationHandler, AuthenticatedRequirementHandler>();
+        services.AddSingleton<IAuthorizationHandler, PermissionRequirementHandler>();
+        services.AddSingleton<IAuthorizationHandler, RoleRequirementHandler>();
         services.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
 
         return services;

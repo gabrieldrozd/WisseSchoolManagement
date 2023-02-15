@@ -11,7 +11,6 @@ using Wisse.Shared.Abstractions.Auth;
 using Wisse.Shared.Abstractions.Communication.Internal.Commands;
 using Wisse.Shared.Abstractions.Communication.Internal.Queries;
 using Wisse.Shared.Infrastructure.Auth.Api.Permissions;
-using Wisse.Shared.Infrastructure.Auth.Api.Roles;
 
 namespace Wisse.Modules.Users.Api.Controllers;
 
@@ -29,11 +28,9 @@ internal sealed class AuthController : ModuleController
         _queryDispatcher = queryDispatcher;
     }
 
-    [Authorize]
     [HttpGet]
+    [PermissionRequirement(PermissionKey.Read)]
     [ProducesEmptyEnvelope(StatusCodes.Status200OK)]
-    [PermissionRequirement(PermissionKey.Read, PermissionKey.Execute)]
-    [RoleRequirement(RoleKey.Admin, RoleKey.Student, RoleKey.Teacher)]
     public async Task<IActionResult> Get(CancellationToken cancellationToken = default)
     {
         var query = new GetCurrentUser();
@@ -42,6 +39,7 @@ internal sealed class AuthController : ModuleController
     }
 
     [HttpPost]
+    [AllowAnonymous]
     [ProducesEmptyEnvelope(StatusCodes.Status200OK)]
     public async Task<IActionResult> Login(
         [FromBody] LoginUser command,
