@@ -5,6 +5,8 @@ namespace Wisse.Shared.Abstractions.Contexts;
 
 public interface IUserContext
 {
+    public bool Authenticated { get; set; }
+    public Date Expires { get; set; }
     public Guid UserId { get; set; }
     public Email Email { get; set; }
     public Role Role { get; set; }

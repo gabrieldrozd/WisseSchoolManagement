@@ -16,6 +16,9 @@ public sealed class Date : ValueObject
         yield return Value;
     }
 
+    public static Date FromUnixSeconds(long seconds)
+        => new(DateTimeOffset.FromUnixTimeSeconds(seconds));
+
     public DateTime ToDateTime() => Value.DateTime;
 
     public long ToUnixSeconds() => Value.ToUnixTimeSeconds();

@@ -11,6 +11,8 @@ namespace Wisse.Shared.Infrastructure.Contexts;
 
 internal class UserContext : IUserContext
 {
+    public bool Authenticated { get; set; }
+    public Date Expires { get; set; }
     public Guid UserId { get; set; }
     public Email Email { get; set; }
     public Role Role { get; set; }
@@ -22,8 +24,11 @@ internal class UserContext : IUserContext
 
     public UserContext(HttpContext httpContext)
     {
+        Authenticated = httpContext.User.Identity!.IsAuthenticated;
+
         var token = httpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
         var securityToken =  new JwtSecurityTokenHandler().ReadToken(token) as JwtSecurityToken;
+
         Populate(securityToken?.Claims);
     }
 
@@ -38,6 +43,16 @@ internal class UserContext : IUserContext
     private void Populate(IEnumerable<Claim> claims)
     {
         claims = claims.ToList();
+
+        Expires = claims
+            .Where(x => x.Type == "exp")
+            .Select(x => Date.FromUnixSeconds(long.Parse(x.Value)))
+            .FirstOrDefault();
+
+        if (Expires < Date.Now)
+        {
+            Authenticated = false;
+        }
 
         UserId = claims
             .Where(x => x.Type == "userId")

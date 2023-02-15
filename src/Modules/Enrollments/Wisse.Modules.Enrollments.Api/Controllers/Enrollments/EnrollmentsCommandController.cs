@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Wisse.Common.Auth;
 using Wisse.Common.Controllers;
 using Wisse.Common.Controllers.Types;
 using Wisse.Modules.Enrollments.Api.Controllers.Base;
 using Wisse.Modules.Enrollments.Application.Features.Commands;
 using Wisse.Shared.Abstractions.Communication.Internal.Commands;
+using Wisse.Shared.Infrastructure.Auth.Api.Permissions;
+using Wisse.Shared.Infrastructure.Auth.Api.Roles;
 
 namespace Wisse.Modules.Enrollments.Api.Controllers.Enrollments;
 
@@ -34,6 +37,8 @@ internal sealed class EnrollmentsCommandController : ModuleController
     }
 
     [HttpPut("{enrollmentId:guid}/approve")]
+    [RoleRequirement(RoleKey.Admin)]
+    [PermissionRequirement(PermissionKey.Create, PermissionKey.Manage)]
     [ProducesEmptyEnvelope(StatusCodes.Status200OK)]
     public async Task<IActionResult> Approve(
         [FromRoute] Guid enrollmentId,
@@ -45,6 +50,8 @@ internal sealed class EnrollmentsCommandController : ModuleController
     }
 
     [HttpPut("{enrollmentId:guid}/reject")]
+    [RoleRequirement(RoleKey.Admin)]
+    [PermissionRequirement(PermissionKey.Update, PermissionKey.Manage)]
     [ProducesEmptyEnvelope(StatusCodes.Status200OK)]
     public async Task<IActionResult> Reject(
         [FromRoute] Guid enrollmentId,

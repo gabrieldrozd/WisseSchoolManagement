@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
+using Wisse.Shared.Infrastructure.Auth.Api.Authenticated;
 using Wisse.Shared.Infrastructure.Auth.Api.Permissions;
 using Wisse.Shared.Infrastructure.Auth.Api.Roles;
 
@@ -34,7 +35,9 @@ internal class AuthorizationPolicyProvider : DefaultAuthorizationPolicyProvider
     {
         var permissions = policyName.Replace($"{PolicyPrefix.Permissions}:", string.Empty);
         return new AuthorizationPolicyBuilder()
-            .AddRequirements(new PermissionRequirement(permissions))
+            .AddRequirements(
+                new PermissionRequirement(permissions),
+                new AuthenticatedRequirement())
             .Build();
     }
 
@@ -42,7 +45,9 @@ internal class AuthorizationPolicyProvider : DefaultAuthorizationPolicyProvider
     {
         var roles = policyName.Replace($"{PolicyPrefix.Roles}:", string.Empty);
         return new AuthorizationPolicyBuilder()
-            .AddRequirements(new RoleRequirement(roles))
+            .AddRequirements(
+                new RoleRequirement(roles),
+                new AuthenticatedRequirement())
             .Build();
     }
 }

@@ -51,13 +51,14 @@ internal static class Extensions
         //             .WithHeaders("Content-Type", "Authorization");
         //     });
         // });
+
         services.AddContexts();
         services.AddMiddlewareRegistration();
 
+        services.AddAuthenticationAndAuthorization();
+
         services.AddSwaggerDocumentation();
         services.AddModulesConfiguration(assemblies, modules);
-
-        services.AddAuthenticationAndAuthorization();
 
         services.AddCommunication(assemblies);
         services.AddMessaging(assemblies);
