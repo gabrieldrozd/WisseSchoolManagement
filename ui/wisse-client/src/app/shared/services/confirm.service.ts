@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Confirmation, ConfirmationService} from "primeng/api";
+import {ConfirmationService} from "primeng/api";
 
 export type ConfirmDialogProps = {
     title: string;
