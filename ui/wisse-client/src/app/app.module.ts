@@ -4,7 +4,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {SharedModule} from "./shared/shared.module";
+import {SharedModule} from "./_shared/shared.module";
 import {ButtonModule} from "primeng/button";
 import {RippleModule} from "primeng/ripple";
 import {ConfirmDialogModule} from "primeng/confirmdialog";

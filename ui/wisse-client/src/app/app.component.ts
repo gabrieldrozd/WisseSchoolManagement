@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PrimeNGConfig} from "primeng/api";
-import {ToastrService} from "./shared/services/toastr.service";
-import {ConfirmService} from "./shared/services/confirm.service";
+import {ToastrService} from "./_shared/services/toastr.service";
+import {ConfirmService} from "./_shared/services/confirm.service";
 
 @Component({
     selector: 'w-root',
