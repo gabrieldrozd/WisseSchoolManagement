@@ -5,10 +5,23 @@ import {ConfirmService} from "./_shared/services/confirm.service";
 
 @Component({
     selector: 'w-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+    template: `
+        <w-toast />
+        <w-confirm />
+        <w-container direction="column" maxWidth="100vw" padding="p-0">
+            <router-outlet></router-outlet>
+        </w-container>
+    `,
+    styles: [`
+        .root-container {
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            padding: 0;
+        }
+    `]
 })
-export class AppComponent implements OnInit {
+export class RootComponent implements OnInit {
     title = 'wisse-client';
 
     constructor(

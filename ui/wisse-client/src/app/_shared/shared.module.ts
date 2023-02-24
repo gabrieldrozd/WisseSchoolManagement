@@ -11,7 +11,10 @@ import {AnimateModule} from "primeng/animate";
 import {ConfirmComponent} from './components/utils/confirm.component';
 import {ButtonComponent} from './components/utils/button.component';
 import {ToastComponent} from './components/utils/toast.component';
-import {ContainerComponent} from './components/layout/container.component';
+import {ContainerComponent} from "./components/layout/container.component";
+import {NavlinkComponent} from './components/utils/navigation/navlink.component';
+import {RouterLink, RouterLinkActive} from "@angular/router";
+import { NavbarComponent } from './components/utils/navigation/navbar.component';
 
 
 @NgModule({
@@ -19,7 +22,9 @@ import {ContainerComponent} from './components/layout/container.component';
         ToastComponent,
         ConfirmComponent,
         ButtonComponent,
-        ContainerComponent
+        ContainerComponent,
+        NavlinkComponent,
+        NavbarComponent
     ],
     imports: [
         CommonModule,
@@ -28,6 +33,8 @@ import {ContainerComponent} from './components/layout/container.component';
         ConfirmPopupModule,
         RippleModule,
         AnimateModule,
+        RouterLink,
+        RouterLinkActive,
     ],
     providers: [
         MessageService,
@@ -38,7 +45,8 @@ import {ContainerComponent} from './components/layout/container.component';
         ConfirmComponent,
         ButtonComponent,
         ContainerComponent,
-        ContainerComponent
+        NavlinkComponent,
+        NavbarComponent,
     ]
 })
 export class SharedModule {

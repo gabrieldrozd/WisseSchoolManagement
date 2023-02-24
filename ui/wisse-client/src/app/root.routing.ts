@@ -2,13 +2,15 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
-    // TODO: Add routes here
-    {},
+    {
+        path: '',
+        loadChildren: () => import('./features/home/home.module').then((mod) => mod.HomeModule)
+    }
 ];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
 })
-export class AppRoutingModule {
+export class RootRouting {
 }

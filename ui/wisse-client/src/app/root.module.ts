@@ -1,29 +1,29 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
+import {RootRouting} from './root.routing';
+import {RootComponent} from './root.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {SharedModule} from "./_shared/shared.module";
+import {CoreModule} from "./_core/core.module";
+import {HomeModule} from "./features/home/home.module";
 import {ButtonModule} from "primeng/button";
-import {RippleModule} from "primeng/ripple";
-import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 @NgModule({
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        AppRoutingModule,
+        RootRouting,
+        CoreModule,
         SharedModule,
-        ButtonModule,
-        RippleModule,
-        ConfirmDialogModule
+        HomeModule,
+        ButtonModule
     ],
     declarations: [
-        AppComponent
+        RootComponent
     ],
-    bootstrap: [AppComponent],
+    bootstrap: [RootComponent],
     providers: []
 })
-export class AppModule {
+export class RootModule {
 }
