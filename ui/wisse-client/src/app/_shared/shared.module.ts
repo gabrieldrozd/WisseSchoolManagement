@@ -14,7 +14,8 @@ import {ToastComponent} from './components/utils/toast.component';
 import {ContainerComponent} from "./components/layout/container.component";
 import {NavlinkComponent} from './components/utils/navigation/navlink.component';
 import {RouterLink, RouterLinkActive} from "@angular/router";
-import { NavbarComponent } from './components/utils/navigation/navbar.component';
+import {NavbarComponent} from './components/utils/navigation/navbar.component';
+import {NavSideItemDirective} from "./components/utils/navigation/nav-side-item.directive";
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { NavbarComponent } from './components/utils/navigation/navbar.component'
         ButtonComponent,
         ContainerComponent,
         NavlinkComponent,
-        NavbarComponent
+        NavbarComponent,
+        NavSideItemDirective
     ],
     imports: [
         CommonModule,
@@ -47,6 +49,7 @@ import { NavbarComponent } from './components/utils/navigation/navbar.component'
         ContainerComponent,
         NavlinkComponent,
         NavbarComponent,
+        NavSideItemDirective
     ]
 })
 export class SharedModule {

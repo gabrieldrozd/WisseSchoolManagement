@@ -11,11 +11,6 @@ import {Component, Input} from '@angular/core';
             [ngClass]="[size, color, variant, elevation]"
             [icon]="icon ? icon : ''"
         >
-            <!-- [ngStyle]="[width: width]" -->
-            <!-- TODO: w-button should get width variable -->
-            <!-- TODO: w-button should get width variable -->
-            <!-- TODO: w-button should get width variable -->
-            <!-- TODO: w-button should get width variable -->
             <ng-content />
         </button>
     `,

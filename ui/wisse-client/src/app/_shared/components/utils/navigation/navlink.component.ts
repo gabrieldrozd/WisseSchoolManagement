@@ -5,18 +5,16 @@ import {Padding} from "../../../utilities/padding";
 @Component({
     selector: 'w-navlink',
     template: `
-        <li>
-            <a id="linkAnchor" pRipple
-               [routerLink]="routerLink"
-               [routerLinkActive]="'active'"
-               [ngClass]="[size, padding]"
-               [ngStyle]="{backgroundColor: getBgcColor, color: getColor}"
-               class="lg:px-3 lg:py-2 transition-colors transition-duration-200"
-            >
-                <i *ngIf="icon" [ngClass]="[icon ? icon : null, 'mr-3']"></i>
-                <span>{{text}}</span>
-            </a>
-        </li>
+        <a id="linkAnchor" pRipple
+           [routerLink]="link"
+           [routerLinkActive]="'active'"
+           [ngClass]="[size, padding]"
+           [ngStyle]="{backgroundColor: getBgcColor, color: getColor}"
+           class="lg:px-3 lg:py-2 transition-colors transition-duration-200"
+        >
+            <i *ngIf="icon" [ngClass]="[icon ? icon : null, 'mr-3']"></i>
+            <span>{{text}}</span>
+        </a>
     `,
     styles: [`
         #linkAnchor {
@@ -66,7 +64,7 @@ export class NavlinkComponent {
     @ViewChild('container') container!: ElementRef;
 
     @Input() text!: string;
-    @Input() routerLink: string | any[] = '/';  // TODO: make it not required
+    @Input() link: string | any[] = '/';  // TODO: make it not required
     // Sign In for example will show OverlayPanel to login user
     // There won't be different page for that
 
